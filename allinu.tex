@@ -1,6 +1,352 @@
 \title{Algèbre Linéaire Numérique}
 
+\vspace{-6em}{
+	\tiny
+	\hfill
+	prière de bien vouloir envoyer des corrections/commentaires à
+	\tt enric.meinhardt@ens-paris-saclay.fr
+}\vspace{3em}
 
-abcdéf
+\newcommand{\ds}{\displaystyle}
+
+\newcommand{\1}{\mathbf{1}}
+\newcommand{\N}{\mathbf{N}}
+\newcommand{\Z}{\mathbf{Z}}
+\newcommand{\Q}{\mathbf{Q}}
+\newcommand{\R}{\mathbf{R}}
+\newcommand{\C}{\mathbf{C}}
+\newcommand{\K}{\mathbf{K}}
+\newcommand{\T}{\mathbf{T}}
+\newcommand{\M}{\mathbf{M}}
+\newcommand{\ud}{\mathrm{d}}
+\newcommand{\x}{\mathbf{x}}
+\newcommand{\y}{\mathbf{y}}
+\newcommand{\z}{\mathbf{z}}
+\newcommand{\Sp}{\mathrm{Sp}}
+%\renewcommand{\Re}{\operatorname{Re}}
+%\renewcommand{\Im}{\operatorname{Im}}
+
+\newcommand{\parens}[1]{\left(#1\right)} % (x)
+\newcommand{\pairing}[2]{\left\langle #1,#2\right\rangle} % <x,y>
+
+% \abs{x}   ->    |x|
+% \Abs{x}   ->   ||x||
+% \ABS{x}   ->  |||x|||
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\Abs}[1]{\left\|#1\right\|}
+\newcommand{\ABS}[1]{{\left\vert\kern-0.25ex\left\vert\kern-0.25ex\left\vert #1 \right\vert\kern-0.25ex\right\vert\kern-0.25ex\right\vert}}
+
+
+
+\section{Introduction}
+
+L'objectif de ces notes est d'expliquer les méthodes principales de
+\emph{résolution d'un système linéaire} et de~\emph{calcul d'éléments
+propres} d'une matrice.  Pour la résolution de systèmes, il y a deux types de
+méthodes.  Les~\emph{méthodes directes} construisent le vecteur solution en
+faisant d'opérations arithmétiques sur les données d'entrée qui amènent à la
+solution exacte.  Les
+\emph{méthodes itératives}, trouvent une suite de vecteurs qui converge
+vers le vecteur solution.  Pour le calcul des éléments propres, toutes les
+méthodes en dimension~$\ge 5$ sont nécessairement itératives.
+
+Afin d'évaluer la performance de ces méthodes, nous introduisons les éléments
+de base de l'analyse matricielle.
+Nous proposons aussi plusieurs exemples d'application.
+
+\subsection{Références}
+
+[AK]
+G.~Allaire et S.~M.~Kaber,
+\emph{Algèbre linéaire numérique}.
+Ellipses 2002.
+
+%	[All]
+%		G.~Allaire,
+%		\emph{Analyse numérique et optimisation}.
+%		Éditions de l'École Polytechnique, 2005.
+
+[Cia]
+P.~G.~Ciarlet,
+\emph{Introduction à l'analyse numérique matricielle et à
+l'optimisation}.
+Masson, 1994.
+
+[Ser]
+D.~Serre,
+\emph{Matrices: theory and applications}.
+Springer, 2002.\\
+Théorie générale des matrices avec un langage moderne.
+
+[Stra]
+G.~Strang,
+\emph{Introduction to applied mathematics}.
+Wellesley, 1986\\
+Collection énorme et très variée de modèles linéaires.
+
+[W]
+H.~Weyl,
+\emph{The Classical Groups}.
+Princeton University Press, 1939\\
+Étude détaillée des sous-groupes du groupe linéaire général.
+
+\clearpage
+\subsection{Notations}
+
+\begin{itemize}
+	\item $\K$ est le corps~$\R$ ou~$\C$.
+	\item $\pairing{\cdot}{\cdot}$ est le produit hermitien
+		(si~$\K=\C$) ou scalaire (si~$\K=\R$) sur~$\K^n$.
+		%On a donc~$\pairing{\x}{\y}=\sum_i x_i\overline y_i$.
+	\item $\M_{p,q}(\K)$ est l'ensemble des matrices sur~$\K$
+		avec~$p$ lignes et~$q$ colonnes.
+		%Cet ensemble s'identifie de façon
+		%naturelle avec les applications linéaires~$\K^p\to\K^q$.
+	\item $\M_p(\K)$ est l'ensemble~$\M_{p,p}(\K)$ des matrices carrées.
+	\item $A^*$ est la matrice conjuguée de~$A$ (si~$\K=\C$) ou transposée
+		(si~$\K=\R$).
+		%On a donc~$\parens{A^*}_{ij}=\overline{\parens{A}_{ji}}$.
+	\item $GL_n(\K)$ est
+	%~\emph{sa majesté le groupe linéaire général},
+		l'ensemble des matrices inversibles de taille~$n$.
+	\item $O_n(\R)$ est 
+		%le~\emph{groupe orthogonal}
+		l'ensemble des matrices orthogonales ($A^\top A=I$).
+	\item $SO_n(\R)$ est
+		%le~\emph{groupe unitaire spécial}
+		l'ensemble des matrices orthogonales de déterminant~$1$.
+	\item $U_n(\C)$ est
+		%le~\emph{groupe unitaire}
+		l'ensemble des matrices unitaires ($A^*A=I$).
+	\item $SU_n(\C)$ est
+		%le~\emph{groupe unitaire spécial}
+		l'ensemble des matrices unitaires de déterminant~$1$.
+	\item $TS_n(\K)$ (resp.~$TI_n(\K)$) est l'ensemble des matrices
+		triangulaires supérieures (resp.~inférieures) de taille~$n$.
+	\item $TS^{++}_n(\K)$ (et~$TI^{++}_n(\K)$) est l'ensemble des matrices
+		triangulaires dont les éléments diagonaux sont strictement positifs.
+	\item $TS^{1}_n(\K)$ (et~$TI^{1}_n(\K)$) est l'ensemble des matrices
+		triangulaires dont les éléments diagonaux sont tous~$1$.
+	\item $S_n(\R)$ (resp.~$H_n(\C)$) est l'ensemble des matrices
+			symétriques~(resp.~hermitiennes), définies par la
+			condition~$A^\top=A$ (resp.~$A^*=A$)
+	\item $S^{++}_n(\R)$ (resp.~$H^{++}_n(\C)$) est l'ensemble des matrices
+			symétriques définies positives~(resp.~hermitiennes définies positives),
+		\item $\Sp_\C(A)=\left\{\lambda\in\C\ :\ \exists\x\in\K^n\ :\
+			A\x=\lambda\x\right\}$ est le~\emph{spectre} de
+			$A\in\M_n(\K)$.
+	\item $\Abs{\x}_p$ est la norme~$p$ de~$\x\in\K^n$.
+%	\item $\abs{\x}$
+%	\item $\Abs{A\x}$
+%	\item $\ABS{A}$
+\end{itemize}
+
+\paragraph{Interprétation géométrique}
+
+Les matrices de~$\M_{p,q}(\K)$ correspondent aux applications
+linéaires~$\K^p\to\K^q$.  Les colonnes d'une matrice~$A\in\M_{p,q}$ sont~$p$
+vecteurs de~$\K^q$, image des~$p$ vecteurs de la base canonique de~$\K^p$ par
+l'application~$\x\mapsto A\x$.
+
+Comme cas particulier, les matrices colonne~$\M_{p,1}$ correspondent aux
+vecteurs de~$\K^p$ et les matrices ligne~$\M_{1,q}$ aux formes linéaires
+sur~$\K^q$.  Le produit interne (scalaire ou hermitien) détermine une
+bijection entre l'espace et son dual.
+
+Le produit de matrices correspond à la composition des applications linéaires
+associées.  Ainsi, il est une
+application~$\cdot:\M_{p,q}\times\M_{q,r}\to\M_{p,r}$.  En coordonnées,
+si~$A\in\M_{p,q}$ et~$B\in\M_{q,r}$ alors~$AB=C\in\M_{p,r}$ avec
+\[
+	c_{ij}
+	=
+	\sum_{k=1}^q a_{ik}b_{kj}
+	\qquad
+	\textrm{pour}
+	\qquad
+	\begin{matrix}
+	1\le i\le p\\
+	1\le j\le r\\
+	\end{matrix}
+\]
+
+Si~$A\in\M_p(\K)$ est une matrice carrée, on peut l'interpréter aussi comme
+une forme quadratique~$\K^p\times\K^p\to\K$ définie par~$(\x,\y)\mapsto
+\y^*A\x$.  Le cas particulier~$A=I$ donne le produit scalaire ou hermitien.
+
+Chacun des espaces~$M_{p,q}(\K)$ est un espace vectoriel sur~$\K$ de
+dimension~$pq$.  Si~$p=q$ alors le produit de matrices est une opération
+interne, compatible avec les opérations d'espace vectoriel et~$M_p(\K)$ a
+donc la structure d'algèbre sur le corps~$\K$.  Cette algèbre est toujours
+associative mais en général non-commutative.  Si on regarde seulement
+l'opération de produit, on trouve des sous-groupes intéressants, dits les
+\emph{groupes classiques}.  Ces groupes sont toujours des sous-variétés
+de~$\M_n(\K)\approx\K^{n\times n}$ déterminées implicitement par des
+équations et inégalités polynomiales.
+
+L'ensemble~$GL_n(\K)$ est \emph{<<sa majesté>> le groupe linéaire
+général}~\footnote{[W], page~136}.
+Ses éléments sont les applications linéaires inversibles de~$\K^n$.  Elles
+satisfont~$\textrm{det}(A)\neq 0$; c'est donc un ouvert de~$\M_n$,
+l'anti-image de l'ouvert~$\K\setminus\{0\}$ par l'application
+continue~$\textrm{det}$.
+
+L'ensemble~$O_n(\R)$ est le~\emph{groupe orthogonal}.
+Ses éléments sont les isométries linéaires de~$\R^n$, déterminées par la
+condition~$A^\top A=I$.  Les colonnes d'une matrice~$A\in O_n(\R)$ forment
+une base orthonormée de~$\R^n$.  La condition~$A^\top A=I$ est un ensemble
+de~$n(n+1)/2$ équations (polynômiales de degré 2) sur les coefficients
+de~$A$, une pour chaque élément sur ou au dessus de la diagonale de~$I$.
+L'ensemble~$O_n(\R)$ est donc une variété compacte de dimension~$n(n-1)/2$.
+La condition d'isométrie se traduit par~$\pairing{A\x}{A\y}$ et
+par~$\Abs{A\x}=\Abs\x$, relations qui suivent immédiatement de~$A^\top A=I$.
+Observons que~$\textrm{det}\parens{O_n(\R)}=\left\{\pm 1\right\}$.
+L'ensemble~$O_n(\R)$ a deux composantes connexes.
+
+L'ensemble~$SO_n(\R)$ est le~\emph{groupe spécial orthogonal}.  Ses éléments
+sont les isométries linéaires de~$\R^n$ qui conservent l'orientation.  Il est
+la composante connexe de~$O_n(\R)$ qui contient l'identité.  Il a donc la
+même dimension~$n(n-1)/2$.  En particulier, pour~$n=2$ il est de
+dimension~$1$ (les rotations du plan) et pour~$n=3$ il est de dimension~$3$
+(les rotations de l'espace).
+
+L'ensemble~$TS_n(\R)\cap GL_n(\K)$ est le~\emph{subgroupe de Borel standard}.
+Ses élements sont les matrices triangulaires supérieures.
+Ce groupe a~$2^n$ composantes connexes, une pour chaque
+combinaison de signes sur la diagonale.  La composante qui contient
+l'identité est~$TS_n^{++}(\R)$.
+
+L'ensemble~$TS^1_n(\R)$ es aussi un groupe, de dimension~$n(n-1)/2$.
+Pour~$n=2$ il est le groupe des cisaillements horizontaux du plan
+(\emph{horizontal shears}, en anglais).  Pour~$n=3$ il est le~\emph{groupe de
+Heisenberg}.
+
+L'ensemble~$S_n(\R)$ des matrices symétriques n'est pas un groupe.
+
+
+
+
+
+%\subsection{Les 4 problèmes de l'algèbre linéaire}
+%
+%Les quatre problèmes fondamentaux de l'algèbre linéaire sont les suivants
+
+\subsection{Exemples de problèmes linéaires}
+
+\subsection{Analyse matricielle}
+
+- groupes de matrices
+
+- théorème spéctral
+
+- rayon spéctral
+
+- normes matricielles
+
+- normes induites
+
+- théorème de Householder
+
+- conditionnement d'une matrice: définition, propriétés, exemple du laplacien
+à 5 points
+
+
+\section{Factorisation de matrices}
+
+\subsection{Systèmes triangulaires et élimination gaussienne}
+
+\subsection{Factorisation LU}
+
+\subsection{Factorisation de Cholesky}
+
+\subsection{Factorisation QR}
+
+\subsection{Diagonalisation}
+
+\subsection{Décomposition polaire}
+
+\subsection{Décomposition SVD}
+
+\subsection{Décomposition SVD incomplète}
+
+
+\section{Méthodes itératives}
+
+\subsection{Méthodes itératives de résolution: formulation générale}
+
+\subsection{Méthodes de Jacobi et Gauss-Seidel}
+
+\subsection{Descente du gradient à pas fixe}
+
+\subsection{Descente du gradient à pas optimal}
+
+\subsection{Descente du gradient stochastique}
+
+\subsection{Méthode du gradient conjugué}
+
+\subsection{Méthode de la puissance, puissance inverse}
+
+\subsection{Méthodes de calcul de la SVD}
+
+- bidiagonalisation + méthode itérative
+
+%\subsection{Méthode QR}
+
+
+
+\section{Éléments propres et singuliers}
+
+\subsection{Exemples de problèmes de valeurs propres}
+
+- polynômes (et matrice compagnon)
+
+- acp
+
+- analyse quantitative d'une EDO
+
+- oscillations
+
+- spectre d'un corps
+
+\subsection{Valeurs singuliers}
+
+- caractérisation variationnelle des valeurs propres et valeurs singuliers
+
+\subsection{Analyse du spectre}
+
+
+%\begin{verbatim}
+%S4. Algèbre linéaire numérique : généralités
+%4.0. Les 4 problèmes de l'algèbre linéaire selon Strang (Ax=b avec
+%m=n, m<n, m>n, et Ax=lambda * x)
+%4.1. Exemples de problèmes linéaires: minimisation quadratique,
+%regression linéaire, EDO et EDP discrètes, splines
+%4.2. Analyse matricielle: rayon spéctral, normes, normes induites,
+%théorème de Householder
+%
+%S5. Algèbre linéaire numérique : méthodes de résolution
+%5.1. Systèmes triangulaires, Algorithme d'élimination gaussienne
+%5.2. Factorisation LU
+%5.3. Factorisation Cholesky
+%5.4. Méthodes iteratives : formulation générale
+%5.5. Jacobi, Gauss-Seidel
+%5.6. Gradient, gradient à pas optimal
+%5.7. Conditionnement d'une matrice : définition, propriét'es, exemple
+%pour le laplacien à 5 points
+%
+%S6. Algèbre linéaire numérique : éléments propres
+%6.1. Exemples de problèmes de valeurs propres : ACP, analyse
+%quantitative d'une EDO, oscillations, polynômes
+%6.2. Analyse du spectre: cercles de Gerschgörin, Gauss-Lucas
+%6.3. Méthode de la puissance, puissance inverse
+%6.4. Décomposition QR : existence, unicité, algorithmes
+%
+%S7. Résolution d'équations non-linéaires
+%7.1. Méthodes en dimension 1: bisection, Newton, secante
+%7.2. Racines de polynomes d'une variable
+%7.3. Cas vectoriel: optimisation vs résolution d'une équation (
+%min{F(x)} vs F'(x)=0 ), rappel des multiplicateurs de Lagrange
+%7.4. Méthode de Newton et variantes
+%\end{verbatim}
 
 % vim:set tw=77 filetype=tex spell spelllang=fr ts=2 sw=2:
