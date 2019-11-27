@@ -19,6 +19,7 @@
 \newcommand{\T}{\mathbf{T}}
 \newcommand{\M}{\mathbf{M}}
 \newcommand{\ud}{\mathrm{d}}
+\newcommand{\e}{\mathbf{e}}
 \newcommand{\x}{\mathbf{x}}
 \newcommand{\y}{\mathbf{y}}
 \newcommand{\z}{\mathbf{z}}
@@ -44,11 +45,11 @@ L'objectif de ces notes est d'expliquer les méthodes principales de
 \emph{résolution d'un système linéaire} et de~\emph{calcul d'éléments
 propres} d'une matrice.  Pour la résolution de systèmes, il y a deux types de
 méthodes.  Les~\emph{méthodes directes} construisent le vecteur solution en
-faisant d'opérations arithmétiques sur les données d'entrée qui amènent à la
-solution exacte.  Les
-\emph{méthodes itératives}, trouvent une suite de vecteurs qui converge
-vers le vecteur solution.  Pour le calcul des éléments propres, toutes les
-méthodes en dimension~$\ge 5$ sont nécessairement itératives.
+faisant un nombre fini d'opérations arithmétiques sur les données d'entrée
+qui amènent à la solution exacte.  Les \emph{méthodes itératives}, trouvent
+une suite de vecteurs qui converge vers le vecteur solution.  Pour le calcul
+des éléments propres, toutes les méthodes en dimension~$\ge 5$ sont
+nécessairement itératives.
 
 Afin d'évaluer la performance de ces méthodes, nous introduisons les éléments
 de base de l'analyse matricielle.
@@ -71,6 +72,11 @@ P.~G.~Ciarlet,
 \emph{Introduction à l'analyse numérique matricielle et à
 l'optimisation}.
 Masson, 1994.
+
+[CH]
+R.~Courant und D.~Hilbert,
+\emph{Mathematische Physik}.
+Springer 1931
 
 [Ser]
 D.~Serre,
@@ -136,9 +142,8 @@ Princeton University Press, 1939\\
 			A\x=\lambda\x\right\}$ est le~\emph{spectre} de
 			$A\in\M_n(\K)$.
 	\item $\Abs{\x}_p$ est la norme~$p$ de~$\x\in\K^n$.
-%	\item $\abs{\x}$
-%	\item $\Abs{A\x}$
-%	\item $\ABS{A}$
+%	\item On dit que une matrice~$A$ est~\emph{normale} si elle commute avec sa
+%		conjuguée:~$A^*A=AA*$
 \end{itemize}
 
 \paragraph{Interprétation géométrique}
@@ -148,30 +153,30 @@ linéaires~$\K^p\to\K^q$.  Les colonnes d'une matrice~$A\in\M_{p,q}$ sont~$p$
 vecteurs de~$\K^q$, image des~$p$ vecteurs de la base canonique de~$\K^p$ par
 l'application~$\x\mapsto A\x$.
 
-Comme cas particulier, les matrices colonne~$\M_{p,1}$ correspondent aux
-vecteurs de~$\K^p$ et les matrices ligne~$\M_{1,q}$ aux formes linéaires
-sur~$\K^q$.  Le produit interne (scalaire ou hermitien) détermine une
-bijection entre l'espace et son dual.
-
-Le produit de matrices correspond à la composition des applications linéaires
-associées.  Ainsi, il est une
-application~$\cdot:\M_{p,q}\times\M_{q,r}\to\M_{p,r}$.  En coordonnées,
-si~$A\in\M_{p,q}$ et~$B\in\M_{q,r}$ alors~$AB=C\in\M_{p,r}$ avec
-\[
-	c_{ij}
-	=
-	\sum_{k=1}^q a_{ik}b_{kj}
-	\qquad
-	\textrm{pour}
-	\qquad
-	\begin{matrix}
-	1\le i\le p\\
-	1\le j\le r\\
-	\end{matrix}
-\]
+%Comme cas particulier, les matrices colonne~$\M_{p,1}$ correspondent aux
+%vecteurs de~$\K^p$ et les matrices ligne~$\M_{1,q}$ aux formes linéaires
+%sur~$\K^q$.  Le produit interne (scalaire ou hermitien) détermine une
+%bijection entre l'espace et son dual.
+%
+%Le produit de matrices correspond à la composition des applications linéaires
+%associées.  Ainsi, il est une
+%application~$\cdot:\M_{p,q}\times\M_{q,r}\to\M_{p,r}$.  En coordonnées,
+%si~$A\in\M_{p,q}$ et~$B\in\M_{q,r}$ alors~$AB=C\in\M_{p,r}$ avec
+%\[
+%	c_{ij}
+%	=
+%	\sum_{k=1}^q a_{ik}b_{kj}
+%	\qquad
+%	\textrm{pour}
+%	\qquad
+%	\begin{matrix}
+%	1\le i\le p\\
+%	1\le j\le r\\
+%	\end{matrix}
+%\]
 
 Si~$A\in\M_p(\K)$ est une matrice carrée, on peut l'interpréter aussi comme
-une forme quadratique~$\K^p\times\K^p\to\K$ définie par~$(\x,\y)\mapsto
+une forme bilinéaire~$\K^p\times\K^p\to\K$ définie par~$(\x,\y)\mapsto
 \y^*A\x$.  Le cas particulier~$A=I$ donne le produit scalaire ou hermitien.
 
 Chacun des espaces~$M_{p,q}(\K)$ est un espace vectoriel sur~$\K$ de
@@ -188,8 +193,9 @@ L'ensemble~$GL_n(\K)$ est \emph{<<sa majesté>> le groupe linéaire
 général}~\footnote{[W], page~136}.
 Ses éléments sont les applications linéaires inversibles de~$\K^n$.  Elles
 satisfont~$\textrm{det}(A)\neq 0$; c'est donc un ouvert de~$\M_n$,
-l'anti-image de l'ouvert~$\K\setminus\{0\}$ par l'application
+image réciproque de l'ouvert~$\K\setminus\{0\}$ par l'application
 continue~$\textrm{det}$.
+Les autres groupes classiques sont des sous-groupes de~$GL_n(\K)$.
 
 L'ensemble~$O_n(\R)$ est le~\emph{groupe orthogonal}.
 Ses éléments sont les isométries linéaires de~$\R^n$, déterminées par la
@@ -210,20 +216,86 @@ même dimension~$n(n-1)/2$.  En particulier, pour~$n=2$ il est de
 dimension~$1$ (les rotations du plan) et pour~$n=3$ il est de dimension~$3$
 (les rotations de l'espace).
 
-L'ensemble~$TS_n(\R)\cap GL_n(\K)$ est le~\emph{subgroupe de Borel standard}.
-Ses élements sont les matrices triangulaires supérieures.
-Ce groupe a~$2^n$ composantes connexes, une pour chaque
-combinaison de signes sur la diagonale.  La composante qui contient
-l'identité est~$TS_n^{++}(\R)$.
+L'ensemble~$TS_n(\R)\cap GL_n(\C)$ est le~\emph{sous-groupe de Borel
+standard}.  Ses élements sont les matrices triangulaires supérieures.  Ce
+groupe a~$2^n$ composantes connexes, une pour chaque combinaison de signes
+sur la diagonale.  La composante qui contient l'identité est~$TS_n^{++}(\R)$.
 
-L'ensemble~$TS^1_n(\R)$ es aussi un groupe, de dimension~$n(n-1)/2$.
+L'ensemble~$TS^1_n(\R)$ est aussi un groupe, de dimension~$n(n-1)/2$.
 Pour~$n=2$ il est le groupe des cisaillements horizontaux du plan
-(\emph{horizontal shears}, en anglais).  Pour~$n=3$ il est le~\emph{groupe de
-Heisenberg}.
+(\emph{horizontal shears}, en anglais), isomorphe au groupe~$(\R,+)$.
+Pour~$n=3$ il est le~\emph{groupe de Heisenberg}.
 
-L'ensemble~$S_n(\R)$ des matrices symétriques n'est pas un groupe.
+\begin{exercice}
+	L'intersection de sous-groupes est toujours un sous-groupe.  Identifiez
+	les sous-groupes de~$GL_n(\R)$ suivants:
+	\begin{align*}
+		TS_n(\R) \cap O_n(\R) &= \solution{\{\pm I\} \approx \Z/2\Z}\\
+		TS_n(\C) \cap U_n(\C) &= \solution{\{e^{i\theta} I\} \approx \R/2\pi\R}\\
+		TS_n(\R) \cap SO_n(\R) &= \solution{\{I\}} \\
+		TS_n(\C) \cap SU_n(\C) &= \solution{\{I\}} \\
+		TS_n(\R) \cap TI_n(\R) &= \solution{\textrm{matrices diagonales
+		inversibles} \approx \parens{\R^*}^n}\\
+		TS^{++}_n(\R) \cap TI_n(\R) &= \solution{\textrm{diagonales strictement
+		positives} \approx \parens{\R^+}^n}\\
+		TS^1_n(\R) \cap TI_n(\R) &= \solution{\{I\}}\\
+	\end{align*}
+\end{exercice}
 
+\begin{exercice}
+	Pour chacun des groupes de matrices définis ci-dessus, considérez
+	le cas complexe~$\K=\C$, et identifiez les propriétés qui changent par
+	rapport au cas réel (notamment, la connexité).
+	\solution{En général les groupes de matrices complexes sont ``plus
+		connexes'' que les réels.  Ceci est dû au fait que l'ensemble d'unités
+	de~$\R$ n'est pas connexe mais celui de~$\C$ l'est.}
+\end{exercice}
 
+L'ensemble~$S_n(\R)$ des matrices symétriques n'est pas un groupe: le produit
+de deux matrices symétriques n'est pas en général symétrique.  La propriété
+de symétrie~$A^\top=A$ se traduit par~$\pairing{A\x}\y=\pairing\x{A\y}$.
+Autrement dit, la forme bilinéaire~$(\x,\y)=\y^\top A\x$
+associée à une matrice symétrique est symétrique.
+
+\begin{proposition}[Théorème spéctral]
+	Toute matrice symétrique réelle~$A\in S_n(\R)$ (resp. hermitienne~$A\in
+	H_n(\C)$) a des valeurs propres réels et vecteurs propres orthogonaux.
+	C'est à dire, il existe une matrice diagonale~$D$ réelle et une matrice
+	orthogonale~$V\in O_n(\R)$ (resp.  unitaire~$V\in U_n(\R)$) telles
+	que~$A=V^* D V$.
+\end{proposition}
+
+\begin{exercice}
+	Démontrez le théorème spectral pour le cas hermitien.\\
+	\emph{
+	Indications: (1)~démontrez que tout valeur propre doit être réel.
+	(2)\!~vérifiez que si~$A$ est hermitienne alors~$A-\lambda I$ l'est aussi.
+	(3)\!~vérifiez que si~$A$ est hermitienne
+	alors~$\Abs{A\x}_2=\Abs{A^*\x}_2$.
+	(4)\!~raisonnez par induction sur~$n$.  Si~$n\ge 1$ alors il
+	existent~$\lambda\in\R$ et~$\x\in\C^n$ avec~$\Abs\x_2=1$ tels
+	que~$A\x=\lambda\x$.  Trouvez une matrice unitaire~$V$ telle
+	que~$V\e^1=\x$, puis vérifiez que~$A_1=V^*AV$ est hermitienne et diagonale
+	par blocs hermitiens de taille~$1$ et~$n-1$.
+	(5)\!\!~Conclure.
+}
+\end{exercice}
+
+La démonstration du théorème spectral utilise seulement la
+propriété~$A^*A=AA^*$ des matrices hermitiennes.  Le théorème spectral reste
+vrai pour toutes les matrices qui ont cette propriété fondamentale:
+
+\begin{definition}[matrices normales]
+	Une matrice~$A$ est~\emph{normale} si~$A^*A=AA^*$.
+\end{definition}
+
+Exemples de matrices normales: les matrices symétriques,
+hermitiennes, orthogonales, unitaires, anti-symétriques, anti-hermitiennes.
+
+%Une conséquence fondamentale du théorème spectral est que les matrices
+%symétriques définies positives admettent une ``racine carrée'': Si~$A\in
+%S_n(\R)$ a tous les valeurs propres positifs alors il existe une
+%matrice~$B\in TS_n^{++}(\R)$ telle que~$A=B^\top B$.  On verra beaucoup plus
 
 
 
@@ -231,24 +303,164 @@ L'ensemble~$S_n(\R)$ des matrices symétriques n'est pas un groupe.
 %
 %Les quatre problèmes fondamentaux de l'algèbre linéaire sont les suivants
 
-\subsection{Exemples de problèmes linéaires}
+\subsection{Complexité}
 
-\subsection{Analyse matricielle}
+% complexité = nombre de multiplications
 
-- groupes de matrices
+% complexité du produit naive de deux matrices quelconque = pqr
+% complexité du produit naive de deux matrices carrées = n^3
+% une multiplication en C vaut 4 multiplications en R
+% résolution d'un système linéaire triangularire n^2/2 multiplications
+% calcul naive d'un determinant n!
+% calcul d'un determinant par élimination gaussienne n^2/2
+% inversion d'une matrice par la règle de Cramér n!
+% inversion d'une matrice par élimination Gaussienne n^3
 
-- théorème spéctral
+% note: ``those who know how to multiply know how to invert''
 
-- rayon spéctral
+% note: formule de Strassen
 
-- normes matricielles
+% note: recherche actuelle en multiplication de matrices (cf. produit Winograd)
 
-- normes induites
+% note: en réalité les multiplications sont plus rapides (!) que les additions
 
-- théorème de Householder
+% note: en réalité ce qui importe aujourd'hui n'est pas autant le nombre
+% total de calculs mais surtout la localité de l'accès à mémoire/possibilité
+% de paraléliser
 
-- conditionnement d'une matrice: définition, propriétés, exemple du laplacien
-à 5 points
+% note: matrices creuses
+
+\subsection{Étude du spectre}
+
+% définition de spectre, exemples
+
+% matrices et polynômes
+
+% domaine de gerschgorin
+
+% théorème de Gauss-Lucas
+
+
+\subsection{Normes matricielles}
+
+% def. norme matricielle
+
+\begin{definition}[norme]
+	Soit~$V$ un espace vectoriel sur~$\K$.
+	Une~\emph{norme} sur~$V$ est une application~$p:V\to\R$
+	qui satisfait les propriétés suivantes
+	\begin{enumerate}
+		\item[(i)] $p(\x) = 0\ \iff\ \x=0$
+		\item[(ii)] $p(\x)\ge 0$
+		\item[(iii)] $p(\x+\y)\le p(\x)+p(\y)$
+		\item[(iv)] $p\parens{\lambda\x}=\abs{\lambda}p(\x)$
+	\end{enumerate}
+	Si toutes les propriétés sont satisfaites sauf (i) on dit que~$p$
+	est une~\emph{seminorme}.
+\end{definition}
+
+\begin{definition}[norme matricielle]
+	Une~\emph{norme matricielle} sur les matrices carrées de dimension~$n$ est
+	une application~$p:\M_n(\K)\to\R$ telle que
+	\begin{enumerate}
+		\item[(i)] $p$ est une norme sur l'espace vectoriel~$\M_n(\K)$
+		\item[(ii)] $p(AB) \le p(A) p(B)$
+	\end{enumerate}
+\end{definition}
+
+L'espace vectoriel~$\M_n(\K)$ est de dimension donc toutes les normes sont
+équivalentes.  Ceci est très pratique : pour démontrer la convergence d'une
+suite de matrices, il suffit de le faire avec la norme pour laquelle la
+démonstration est plus facile.  Voyons quelques exemples de normes
+matricielles.
+
+\begin{definition}[norme induite]
+	Soit~$\Abs\cdot$ une norme en~$\K^n$.  La~\emph{norme induite}
+	par~$\Abs\cdot$ sur~$\M_n(\K)$ est la norme de l'opérateur
+	linéaire %~$\K^n\to\K^n$
+	associé à chaque matrice, notée~$\ABS\cdot$.  Ainsi
+	\[
+		\ABS{A}
+		=
+		\sup_{\x\neq0}\frac{\Abs{A\x}}{\Abs\x}
+		=
+		\max_{\Abs\x=1}\Abs{A\x}
+	\]
+	La norme induite par la norme~$\Abs\cdot_p$ de~$\K^n$
+	s'écrit~$\ABS\cdot_p$.
+\end{definition}
+
+\begin{exercice}
+	Démontrer que toute norme induite est une norme matricielle, et qu'elle
+	satisfait les deux propriétés suivantes
+	\begin{enumerate}
+		\item[(i)] $\Abs{A\x}\le\ABS A\cdot\Abs\x$
+		\item[(i)] $\ABS I = 1$
+	\end{enumerate}
+\end{exercice}
+
+\begin{exercice}
+	Démontrer que la~\emph{norme de Frobenius} définie par
+	\[
+		\ABS A_F
+		=
+		\sqrt{\mathrm{tr}\parens{A^*A}}
+		=
+		\sqrt{\sum_{i,j}\Abs{a_{ij}}^2}
+	\]
+\end{exercice}
+
+% def. norme induite / norme d'opérateur , lemme de composition
+
+% normes induites par la norme p=1,2,\infty
+
+% lien entre normes induites et rayon spectral
+
+% théorème de Householder
+
+% convergence de suites de matrices
+
+%% \sum A^n  est convergente (vers 0) sii rho(A) < 1 et alors I-A est inversible
+%% rho(A) = \lim |||A^n|||^(1/n)
+%% exponentielle d'une matrice
+
+\subsection{Conditionnement de matrices}
+
+% exemple de mauvais conditionnement
+
+% exemple 2 (matrice de Hilbert)
+
+% déf. nombre de condition (associé à une norme induite)
+
+% prop. exemples de cond2 à partir des rayons spectraux
+
+% perturbation de x selon la perturbation de b (lors de la solution de Ax=b)
+
+% perturbation de x selon la perturbation de A (lors de la solution de Ax=b)
+
+% observation que les inégalités sont ``pessimistes''
+
+% exemple de la dérivée seconde discrète
+
+
+%\subsection{Exemples de problèmes linéaires}
+%
+%\subsection{Analyse matricielle}
+%
+%- groupes de matrices
+%
+%- théorème spéctral
+%
+%- rayon spéctral
+%
+%- normes matricielles
+%
+%- normes induites
+%
+%- théorème de Householder
+%
+%- conditionnement d'une matrice: définition, propriétés, exemple du laplacien
+%à 5 points
 
 
 \section{Factorisation de matrices}
@@ -260,6 +472,8 @@ L'ensemble~$S_n(\R)$ des matrices symétriques n'est pas un groupe.
 \subsection{Factorisation de Cholesky}
 
 \subsection{Factorisation QR}
+
+%\section{Décomposition de matrices}
 
 \subsection{Diagonalisation}
 
@@ -276,11 +490,11 @@ L'ensemble~$S_n(\R)$ des matrices symétriques n'est pas un groupe.
 
 \subsection{Méthodes de Jacobi et Gauss-Seidel}
 
-\subsection{Descente du gradient à pas fixe}
+\subsection{Descente de gradient à pas fixe}
 
-\subsection{Descente du gradient à pas optimal}
+\subsection{Descente de gradient à pas optimal}
 
-\subsection{Descente du gradient stochastique}
+\subsection{Descente de gradient stochastique}
 
 \subsection{Méthode du gradient conjugué}
 
