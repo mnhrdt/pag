@@ -26,6 +26,7 @@
 \newcommand{\Sp}{\mathrm{Sp}}
 %\renewcommand{\Re}{\operatorname{Re}}
 %\renewcommand{\Im}{\operatorname{Im}}
+\newcommand{\OO}{\mathcal{O}}
 
 \newcommand{\parens}[1]{\left(#1\right)} % (x)
 \newcommand{\pairing}[2]{\left\langle #1,#2\right\rangle} % <x,y>
@@ -54,6 +55,9 @@ nécessairement itératives.
 Afin d'évaluer la performance de ces méthodes, nous introduisons les éléments
 de base de l'analyse matricielle.
 Nous proposons aussi plusieurs exemples d'application.
+
+{\small\sl Ces notes sont basés partiellement sur un poly antérieur de Lionel
+Magnis.}
 
 \subsection{Références}
 
@@ -84,11 +88,11 @@ D.~Serre,
 Springer, 2002.\\
 Théorie générale des matrices avec un langage moderne.
 
-[Stra]
-G.~Strang,
-\emph{Introduction to applied mathematics}.
-Wellesley, 1986\\
-Collection énorme et très variée de modèles linéaires.
+%[Stra]
+%G.~Strang,
+%\emph{Introduction to applied mathematics}.
+%Wellesley, 1986\\
+%Collection énorme et très variée de modèles linéaires.
 
 [W]
 H.~Weyl,
@@ -283,7 +287,8 @@ associée à une matrice symétrique est symétrique.
 
 La démonstration du théorème spectral utilise seulement la
 propriété~$A^*A=AA^*$ des matrices hermitiennes.  Le théorème spectral reste
-vrai pour toutes les matrices qui ont cette propriété fondamentale:
+vrai, avec la même démonstration, pour toutes les matrices qui ont cette
+propriété fondamentale:
 
 \begin{definition}[matrices normales]
 	Une matrice~$A$ est~\emph{normale} si~$A^*A=AA^*$.
@@ -333,8 +338,12 @@ hermitiennes, orthogonales, unitaires, anti-symétriques, anti-hermitiennes.
 \subsection{Étude du spectre}
 
 % définition de spectre, exemples
+On suppose connues la définition de valeurs et vecteurs propres d'une matrice
+carrée.
 
 % matrices et polynômes
+
+% caractérisation variationnelle du spectre
 
 % domaine de gerschgorin
 
@@ -350,7 +359,7 @@ hermitiennes, orthogonales, unitaires, anti-symétriques, anti-hermitiennes.
 	Une~\emph{norme} sur~$V$ est une application~$p:V\to\R$
 	qui satisfait les propriétés suivantes
 	\begin{enumerate}
-		\item[(i)] $p(\x) = 0\ \iff\ \x=0$
+		\item[(i)] $p(\x) = 0\ \implies\ \x=0$
 		\item[(ii)] $p(\x)\ge 0$
 		\item[(iii)] $p(\x+\y)\le p(\x)+p(\y)$
 		\item[(iv)] $p\parens{\lambda\x}=\abs{\lambda}p(\x)$
@@ -368,11 +377,13 @@ hermitiennes, orthogonales, unitaires, anti-symétriques, anti-hermitiennes.
 	\end{enumerate}
 \end{definition}
 
-L'espace vectoriel~$\M_n(\K)$ est de dimension donc toutes les normes sont
-équivalentes.  Ceci est très pratique : pour démontrer la convergence d'une
-suite de matrices, il suffit de le faire avec la norme pour laquelle la
+L'espace vectoriel~$\M_n(\K)$ est de dimension finie donc toutes les normes
+sont équivalentes.  Ceci est très pratique : pour démontrer la convergence
+d'une suite de matrices, il suffit de le faire avec la norme pour laquelle la
 démonstration est plus facile.  Voyons quelques exemples de normes
 matricielles.
+
+% def. norme induite / norme d'opérateur , lemme de composition
 
 \begin{definition}[norme induite]
 	Soit~$\Abs\cdot$ une norme en~$\K^n$.  La~\emph{norme induite}
@@ -391,16 +402,16 @@ matricielles.
 \end{definition}
 
 \begin{exercice}
-	Démontrer que toute norme induite est une norme matricielle, et qu'elle
+	Démontrez que toute norme induite est une norme matricielle, et qu'elle
 	satisfait les deux propriétés suivantes
 	\begin{enumerate}
 		\item[(i)] $\Abs{A\x}\le\ABS A\cdot\Abs\x$
-		\item[(i)] $\ABS I = 1$
+		\item[(ii)] $\ABS I = 1$
 	\end{enumerate}
 \end{exercice}
 
 \begin{exercice}
-	Démontrer que la~\emph{norme de Frobenius} définie par
+	Démontrez que la~\emph{norme de Frobenius} définie par
 	\[
 		\ABS A_F
 		=
@@ -408,23 +419,232 @@ matricielles.
 		=
 		\sqrt{\sum_{i,j}\Abs{a_{ij}}^2}
 	\]
+	est une norme matricielle mais n'est pas une norme induite.
 \end{exercice}
-
-% def. norme induite / norme d'opérateur , lemme de composition
 
 % normes induites par la norme p=1,2,\infty
 
+\begin{exercice}
+	Vérifiez les caractérisations suivantes des normes induites classiques:
+	\[
+		\ABS A_1      = \max_j\sum_i\abs{a_{ij}}
+		\qquad
+		\ABS A_\infty = \max_i\sum_j\abs{a_{ij}} = \ABS{A^*}_1
+		\qquad
+		\ABS A_2      = \sqrt{\rho\parens{A^*A}} = \ABS{A^*}_2
+	\]
+\end{exercice}
+
 % lien entre normes induites et rayon spectral
+
+\begin{exercice}[Lien entre normes induites et rayon spectral]
+	Démontrez que %les affirmations suivantes:
+	\begin{enumerate}
+		\item Pour toute matrice~$A\in\M_n(\K)$ on
+			a~$\rho\parens{A^m}=\rho\parens{A}^m$ et~$\rho\parens{\lambda
+			A}=\abs\lambda\rho\parens{A}$
+		\item Si~$A$ est diagonale alors~$\ABS A_p=\rho(A)$
+			pour~$1\le p\le\infty$.
+		\item Si~$A$ est normale alors~$\ABS A_2=\rho(A)$.
+		\item Si~$n>1$ alors le rayon spectral~$\rho$ n'est pas une norme
+			sur~$\M_n(\K)$.
+		\item Si~$\ABS\cdot$ est une norme induite sur~$\M_n(\C)$ alors
+			\begin{equation}\label{eq:rholessthanABS}
+				\rho(A)\le\ABS A
+			\end{equation}
+		\item${}^*$ L'équation~(\ref{eq:rholessthanABS}) est encore vraie pour
+			une norme matricielle quelconque sur~$\M_n(\C)$, ou même
+			sur~$\M_n(\R)$.
+	\end{enumerate}
+\end{exercice}
 
 % théorème de Householder
 
-% convergence de suites de matrices
+L'inégalité~\ref{eq:rholessthanABS} dit que~$\rho(A)$ minore
+l'ensemble~$\left\{\ABS A\ :\ \ABS\cdot\ \textrm{norme induite}\right\}$.  Le
+théorème de Householder montre que c'est en fait la borne inférieure
 
+\begin{theorem}[Householder]
+	Pour toute matrice~$A\in\M_n(\C)$ et tout~$\epsilon>0$ il existe une norme
+	induite~$\ABS\cdot_{A,\epsilon}$ telle que
+	\begin{equation}\label{eq:rholessthanABS}
+		\ABS A_{A,\epsilon}\le\rho(A)+\epsilon
+	\end{equation}
+\end{theorem}
+
+\begin{exercice}[Démonstration du théorème de Householder]$ $
+	\begin{enumerate}
+		\item Soit~$\Abs\cdot_\alpha$ une norme en~$\K^n$ et~$P\in GL_n(\K)$.
+			Démontrez que~$N(\x)=\Abs{P\x}_\alpha$ est une norme en~$\K^n$ et que
+			sa norme induite est~$N(A)=\ABS{PAP^{-1}}_\alpha$.
+		\item Soit~$A\in\M_n(\C)$ et~$\mu>0$, démontrez qu'il existe~$Q\in
+			GL_n(\C)$ et~$D$ diagonale telles que~$Q^{-1}AQ=D+\OO(\mu)$
+		\item Démontrez le théorème de Householder.
+	\end{enumerate}
+\end{exercice}
+
+
+% convergence de suites de matrices
 %% \sum A^n  est convergente (vers 0) sii rho(A) < 1 et alors I-A est inversible
 %% rho(A) = \lim |||A^n|||^(1/n)
 %% exponentielle d'une matrice
 
+\begin{exercice}[Convergence de suites de matrices]
+	Démontrez les propositions suivantes:
+	\begin{enumerate}
+		\item Pour une norme induite, la condition~$\ABS A<1$ implique que~$I-A$
+			est inversible, et l'inverse est la somme de la série
+			normalement convergente~$\ds\sum_{k\ge0}A^k$.
+		\item Pour toute matrice~$A\in\M_n(\K)$, la
+			série~$\ds\sum_{k\ge0}\tfrac1{k!}A^k$ est normalement convergente.
+			Sa limite~$e^A$ est une matrice inversible.
+		\item $*$ Pour toute norme induite, on a
+			toujours~$\ds\rho(A)=\lim_{k\to\infty}\ABS{A^k}^{\frac1k}$
+	\end{enumerate}
+\end{exercice}
+
+
 \subsection{Conditionnement de matrices}
+
+Beaucoup de problèmes de modélisation se réduisent à la solution de
+l'équation~$Ax=b$.  L'opérateur~$A$ représente un système physique agissant
+sur un état~$x$ que l'on veut connaître, et~$b$ est l'observation faite.
+Dû à des erreurs de mesure, le vecteur~$b$ est souvent perturbé par le bruit,
+ce qui donnera une valeur~$x$ inexacte.
+
+{\bf Exemple.} (issu de [AK], section 5.3)
+\begin{displaymath}
+A = \left(\begin{array}{cccc}
+8 & 6 & 4 & 1 \\
+1 & 4 & 5 & 1 \\
+8 & 4 & 1 & 1 \\
+1 & 4 & 3 & 6
+\end{array}\right), \quad b =  \begin{pmatrix}8 \\ 10 \\ 2 \\ 6\end{pmatrix} \quad
+\Rightarrow \quad
+x = \begin{pmatrix}0 \\ 0 \\ 2 \\ 0\end{pmatrix}
+\end{displaymath}
+En modifiant légèrement~$b$, on obtient une solution très différente
+\begin{displaymath}
+A = \left(\begin{array}{cccc}
+8 & 6 & 4 & 1 \\
+1 & 4 & 5 & 1 \\
+8 & 4 & 1 & 1 \\
+1 & 4 & 3 & 6
+\end{array}\right), \quad b = \begin{pmatrix}8.05 \\ 10 \\ 2 \\ 6\end{pmatrix} \quad
+\Rightarrow \quad x = \begin{pmatrix}2 \\ -5.225 \\ 5.5 \\ 1.4\end{pmatrix}
+\end{displaymath}
+
+Le~\emph{conditionnement} d'une matrice sert à étudier cet effet.
+
+\begin{definition}[conditionnement d'une matrice]
+	Soit~$A$ une matrice inversible et~$\ABS\cdot_\alpha$ une norme induite.  Le
+	\emph{conditionnement} de~$A$ relatif à cette norme est
+	\[
+		\mathrm{cond}_\alpha(A) = \ABS A\ABS{A^{-1}}
+	\]
+\end{definition}
+
+\begin{proposition}[conditionnement euclidien] Pour toute matrice
+	inversible~$A$:
+\begin{displaymath}
+\mathrm{cond}_2(A) = \sqrt{\frac{\lambda_{\max}(A^*A)}{\lambda_{\min}(A^*A)}}
+\end{displaymath}
+Si $A$ est normale
+\begin{displaymath}
+\mathrm{cond}_2(A) = \frac{\abs{\lambda_{\max}(A)}}{\abs{\lambda_{\min}(A)}}
+\end{displaymath}
+Si $O \in U_n(\K)$ alors
+\begin{displaymath}
+\mathrm{cond}_2(O) = 1, \quad \mathrm{cond}_2(AO) = \mathrm{cond}_2(OA) = \mathrm{cond}_2(A)
+\end{displaymath}
+\end{proposition}
+
+%Les deux exercices suivants montrent que, lorsqu'on résout un problème de la
+%forme~$Ax=b$, le conditionnement de~$A$ sert à majorer l'erreur de la
+%solution à partir du bruit sur~$b$ ou même sur~$A$:
+\clearpage
+Lorsqu'on résout un problème de la forme~$Ax=b$, le conditionnement de~$A$
+sert à majorer l'erreur relatif de la solution~$x$.  On présente deux
+versions de cette majoration, selon si on a des petites erreurs d'observation
+(sur~$b$) ou de modélisation (sur~$A$):
+
+\begin{exercice}[effet des erreurs d'observation]
+	Soit~$\delta b$ une perturbation du second membre et~$\delta x$ l'erreur
+	induit sur la solution, de sorte que~$A(x+\delta x)=b+\delta b$.  Démontrez
+	que l'erreur relatif augmente d'un facteur au plus~$\mathrm{cond}(A)$:
+	\[
+		\frac{\Abs{\delta x}}{\Abs{x}}
+		\le
+		\mathrm{cond}(A)
+		\frac{\Abs{\delta b}}{\Abs{b}}
+	\]
+	Démontrez que cette inégalité est optimale: il existe~$b$ et~$\delta
+	b$ tels que l'égalité a lieu.
+\end{exercice}
+
+
+\begin{exercice}[effet des erreurs de modélisation]
+	Soit~$\delta A$ une perturbation de la matrice et~$\delta x$ l'erreur
+	induit sur la solution, de sorte que~$(A+\delta A)(x+\delta x)=b$.  Démontrez
+	que l'erreur relatif augmente d'un facteur au plus~$\mathrm{cond}(A)$:
+	\[
+		\frac{\Abs{\delta x}}{\Abs{x+\delta x}}
+		\le
+		\mathrm{cond}(A)
+		\frac{\ABS{\delta A}}{\ABS{A}}
+	\]
+	Démontrez que cette inégalité est optimale: il existe~$b$ et~$\delta
+	A$ tels que l'égalité a lieu.
+\end{exercice}
+
+\begin{remark}
+	D'après ces exercices, il est préférable que le conditionnement de $A$ soit
+	proche de 1. Ceci est d'autant plus vrai pour les méthodes itératives où
+	les erreurs sont propagées et amplifiées à chaque itération. La technique
+	du \emph{préconditionnement} consiste à considérer un système linéaire
+	équivalent
+	\[
+		PAx = Pb
+	\]
+	où la matrice~$P$, dite le~\emph{préconditionneur} a été choisie de façon
+	que $\mathrm{cond} (PA) < \mathrm{cond}(A)$. Il existe plusieurs méthodes
+	pour bien choisir $P$, par exemple si~$A$ est à diagonale dominante on peut
+	choisir~$P=\mathrm{diag}(A)^{-1}$.
+	On pourra consulter à ce sujet [AK, Chapitre 5].
+\end{remark}
+
+\begin{remark}
+\label{rm:cond}
+Les inégalités ci-dessus sont certes optimales, mais elles sont en général
+très pessimistes (on dit aussi \emph{conservatives}). Ainsi dans
+l'Exemple on a
+\begin{displaymath}
+\frac{\Abs{\delta x}_{2}}{\Abs{x}{2}} \simeq 964 \frac{\Abs{\delta
+b}_{2}}{\Abs{b}_{2}}
+\end{displaymath}
+ce qui fait déjà beaucoup, mais $\mathrm{cond}_2(A) \simeq 3199$.
+\end{remark}
+
+%\begin{exercice}
+%On va analyser la matrice $A$ du Laplacien discrétisé à la lumière de cette
+%remarque.
+%\begin{enumerate}
+%\item Montrer que 
+%\begin{displaymath}
+%	\mathrm{cond}_2(A) \underset{n \rightarrow \infty}{\sim} \frac{4n^2}{\pi^2}
+%\end{displaymath}
+%de sorte que, quand $n$ est grand, la matrice est très mal conditionnée.
+%\item En notant $x = U_{\textrm{approx}}$, montrer que
+%\begin{displaymath}
+%\lim_{n \rightarrow \infty } \frac{1}{n} \n{\xx}{2}^2 = \int_0^1 u^2(x)dx, \quad \lim_{n \rightarrow \infty } \frac{1}{n} \n{b}{2}^2 = \int_0^1 f^2(x)dx
+%\end{displaymath}
+%\item Montrer enfin qu'il existe une constante $c > 0$ indépendante de $n$ telle que
+%\begin{displaymath}
+%\frac{\n{\delta x}{2}}{\n{\xx}{2}} \leq c \frac{\n{\delta b}{2}}{\n{b}{2}}
+%\end{displaymath}
+%\end{enumerate}
+%\end{exercice}
+
 
 % exemple de mauvais conditionnement
 
@@ -463,6 +683,7 @@ matricielles.
 %à 5 points
 
 
+\clearpage
 \section{Factorisation de matrices}
 
 \subsection{Systèmes triangulaires et élimination gaussienne}
