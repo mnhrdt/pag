@@ -338,10 +338,110 @@ hermitiennes, orthogonales, unitaires, anti-symétriques, anti-hermitiennes.
 \subsection{Étude du spectre}
 
 % définition de spectre, exemples
-On suppose connues la définition de valeurs et vecteurs propres d'une matrice
-carrée.
+Nous supposons connues la définition et les propriétés basiques des éléments
+propres d'une matrice carrée; ci-dessous, un rappel rapide.  Observons
+que~$\M_n(\R)\subset \M_n(\C)$ donc tout ce qui est dit pour les matrices
+complexes reste vrai pour les matrices réelles.
+
+\begin{definition}[éléments propres]
+	Soit~$A\in\M_n(\C)$.  Un~\emph{vecteur propre} de~$A$ est un vecteur non
+	nul~$x\in\C^n$ tel que~$A\x=\lambda\x$ pour un certain~$\lambda\in\C$, qui
+	est le~\emph{valeur propre} de~$A$ associé à~$\x$.
+	L'ensemble~$\mathrm{sp}_\C(A)$ des valeurs propres de~$A$ est
+	son~\emph{spectre}.  Le~\emph{rayon spectral} de~$A$
+	est~$\ds\rho(A)=\max_{\lambda\in\mathrm{sp}(A)}\abs\lambda$.
+\end{definition}
+
+\begin{exercice}
+	\label{ex:eigs2x2}
+	Calculez les éléments propres des matrices suivantes
+	\[
+		A_1\!=\!\begin{pmatrix}1&a\\0&1\end{pmatrix}
+		\quad
+		A_2\!=\!\begin{pmatrix}1&a\\0&2\end{pmatrix}
+		\quad
+		A_3\!=\!\begin{pmatrix}\cos\theta&-\sin\theta\\\sin\theta&\cos\theta\end{pmatrix}
+		\quad
+		A_4\!=\!\begin{pmatrix}a&b\\b&c\end{pmatrix}
+		\quad
+		A_5\!=\!\begin{pmatrix}0&a\\0&0\end{pmatrix}
+	\]
+\end{exercice}
+
+\begin{proposition}[caractérisation algébrique des éléments propres]
+	L'ensemble de valeurs propres de~$A$ coïncide avec l'ensemble de racines de
+	son polynôme caractéristique~$P_A(\lambda)=\mathrm{det}\parens{A-\lambda
+	I}$.  Toute matrice~$A\in\M_n(\K)$ a donc~$n$ valeurs propres (comptés avec
+	multiplicité).  Les vecteurs propres correspondants à valeurs propres
+	différents sont orthogonaux.
+\end{proposition}
+
+\begin{exercice}
+	Soient~$\lambda_1,\ldots,\lambda_n$ les valeurs propres d'une matrice~$A$.
+	Démontrez que les valeurs propres de~$(A+\beta I)$
+	sont~$\left\{\lambda_i+\beta\right\}_{i=1,\ldots,n}$ et que les valeurs
+	propres de~$A^2$ sont~$\left\{\lambda_i^2\right\}_{i=1,\ldots,n}$.
+\end{exercice}
+
+Plus en général on a
+\begin{proposition}
+	Si~$P\in\K[X]$ alors les valeurs propres de~$P(A)$
+	sont~$\left\{P(\lambda_i)\right\}_{i=1,\ldots,n}$.
+\end{proposition}
+
+On dit que une matrice~$A\in\M_n(\C)$ est~\emph{diagonalisable} s'il existe
+une matrice~$P\in U_n(\C)$ telle que~$P^{-1}AP$ est diagonale.
+
+\begin{exercice}
+	Diagonalisez les matrices de l'exercice~\ref{ex:eigs2x2} qui soient
+	diagonalisables.
+\end{exercice}
+
+\begin{proposition}[caractérisation géométrique]
+	Toutes les matrices de~$\M_n(\C)$ sont diagonalisables sauf un
+	sous-ensemble de mesure nulle.  L'action d'une matrice diagonalisable
+	sur~$\C^n$ consiste à appliquer une dilatation au long de chaque direction
+	d'une base orthonormée de~$\C^n$.  Les facteurs de dilatation sont les
+	valeurs propres et les directions de la base orthonormée sont les vecteurs
+	propres.  Les matrices non-diagonalisables sont, dans un sous-espace
+	de~$\K^n$, soit des applications nilpotentes (i.e., projection puis
+	rotation par un angle droit), soit des cisaillements/transvections
+	(i.e., translations au long de directions parallèles à un hyperplan, d'un
+	montant proportionnel à la distance à cet hyperplan).
+\end{proposition}
+
+Il y a aussi des matrices réelles qui sont diagonalisables sur les complexes
+mais pas sur les réels, par exemple les matrices de rotation autour d'un axe
+réel.
+
+Si on connait le spectre~$\{\lambda_1,\ldots,\lambda_n\}$ d'une matrice~$A$,
+alors on peut calculer les vecteur propres en résolvant chacun des systèmes
+linéaires singuliers~$(A-\lambda_i I)\x=0$.  Pour cela il faut trouver,
+généralement par essai-erreur, une dimension~$k$ sur laquelle~$x_k\neq0$.
+
+Récemment il a été découverte une formule, similaire à la règle de Cramer,
+pour récupérer les vecteurs propres directement à partir des valeurs propres
+d'une matrice hermitienne:
+
+\begin{theorem}[Denton--Parke--Tao--Zhang, 2019]
+	Soit~$A$ une matrice hermitienne avec valeurs
+	propres~$\lambda_i$, et vecteurs propres~$x_{i,j}$.  Alors
+	\[
+		\abs{x_{i,j}}^2
+		=
+		\frac
+		{\prod_k\parens{\lambda_i-\lambda_k\parens{A_j}}}
+		{\prod_{k\neq i}\parens{\lambda_i-\lambda_k}}
+	\]
+	On indique par~$\lambda_k(X)$ le~$k$-ième valeur propre d'une matrice~$X$,
+	et~$A_j$ est la sous-matrice de~$A$ obtenue en enlevant la ligne et la
+	colonne~$j$-ièmes de~$A$.\\
+	Une formule un peu plus compliqué permet de retrouver les signes (les
+	phases) des composantes~$x_{i,j}$
+\end{theorem}
 
 % matrices et polynômes
+On a vu que calculer l
 
 % caractérisation variationnelle du spectre
 
