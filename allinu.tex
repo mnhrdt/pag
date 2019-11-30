@@ -56,7 +56,7 @@ Afin d'évaluer la performance de ces méthodes, nous introduisons les élément
 de base de l'analyse matricielle.
 Nous proposons aussi plusieurs exemples d'application.
 
-{\small\sl Ces notes sont basés partiellement sur un poly antérieur de Lionel
+{\small\sl Ces notes sont basées partiellement sur un poly antérieur de Lionel
 Magnis.}
 
 \subsection{Références}
@@ -237,12 +237,12 @@ Pour~$n=3$ il est le~\emph{groupe de Heisenberg}.
 		TS_n(\R) \cap O_n(\R) &= \solution{\{\pm I\} \approx \Z/2\Z}\\
 		TS_n(\C) \cap U_n(\C) &= \solution{\{e^{i\theta} I\} \approx \R/2\pi\R}\\
 		TS_n(\R) \cap SO_n(\R) &= \solution{\{I\}} \\
-		TS_n(\C) \cap SU_n(\C) &= \solution{\{I\}} \\
+%		TS_n(\C) \cap SU_n(\C) &= \solution{\{I\}} \\
 		TS_n(\R) \cap TI_n(\R) &= \solution{\textrm{matrices diagonales
 		inversibles} \approx \parens{\R^*}^n}\\
 		TS^{++}_n(\R) \cap TI_n(\R) &= \solution{\textrm{diagonales strictement
 		positives} \approx \parens{\R^+}^n}\\
-		TS^1_n(\R) \cap TI_n(\R) &= \solution{\{I\}}\\
+%		TS^1_n(\R) \cap TI_n(\R) &= \solution{\{I\}}
 	\end{align*}
 \end{exercice}
 
@@ -263,7 +263,7 @@ associée à une matrice symétrique est symétrique.
 
 \begin{proposition}[Théorème spéctral]
 	Toute matrice symétrique réelle~$A\in S_n(\R)$ (resp. hermitienne~$A\in
-	H_n(\C)$) a des valeurs propres réels et vecteurs propres orthogonaux.
+	H_n(\C)$) a des valeurs propres réelles et vecteurs propres orthogonaux.
 	C'est à dire, il existe une matrice diagonale~$D$ réelle et une matrice
 	orthogonale~$V\in O_n(\R)$ (resp.  unitaire~$V\in U_n(\R)$) telles
 	que~$A=V^* D V$.
@@ -272,7 +272,7 @@ associée à une matrice symétrique est symétrique.
 \begin{exercice}
 	Démontrez le théorème spectral pour le cas hermitien.\\
 	\emph{
-	Indications: (1)~démontrez que tout valeur propre doit être réel.
+	Indications: (1)~démontrez que toute valeur propre doit être réele.
 	(2)\!~vérifiez que si~$A$ est hermitienne alors~$A-\lambda I$ l'est aussi.
 	(3)\!~vérifiez que si~$A$ est hermitienne
 	alors~$\Abs{A\x}_2=\Abs{A^*\x}_2$.
@@ -308,7 +308,7 @@ hermitiennes, orthogonales, unitaires, anti-symétriques, anti-hermitiennes.
 %
 %Les quatre problèmes fondamentaux de l'algèbre linéaire sont les suivants
 
-\subsection{Complexité}
+%\subsection{Complexité}
 
 % complexité = nombre de multiplications
 
@@ -342,11 +342,13 @@ Nous supposons connues la définition et les propriétés basiques des élément
 propres d'une matrice carrée; ci-dessous, un rappel rapide.  Observons
 que~$\M_n(\R)\subset \M_n(\C)$ donc tout ce qui est dit pour les matrices
 complexes reste vrai pour les matrices réelles.
+On donnera des interprétations algébriques, géométriques et variationnelles
+du spectre.
 
 \begin{definition}[éléments propres]
 	Soit~$A\in\M_n(\C)$.  Un~\emph{vecteur propre} de~$A$ est un vecteur non
 	nul~$x\in\C^n$ tel que~$A\x=\lambda\x$ pour un certain~$\lambda\in\C$, qui
-	est le~\emph{valeur propre} de~$A$ associé à~$\x$.
+	est la~\emph{valeur propre} de~$A$ associé à~$\x$.
 	L'ensemble~$\mathrm{sp}_\C(A)$ des valeurs propres de~$A$ est
 	son~\emph{spectre}.  Le~\emph{rayon spectral} de~$A$
 	est~$\ds\rho(A)=\max_{\lambda\in\mathrm{sp}(A)}\abs\lambda$.
@@ -356,9 +358,9 @@ complexes reste vrai pour les matrices réelles.
 	\label{ex:eigs2x2}
 	Calculez les éléments propres des matrices suivantes
 	\[
-		A_1\!=\!\begin{pmatrix}1&a\\0&1\end{pmatrix}
+		A_1\!=\!\begin{pmatrix}1&a\\0&2\end{pmatrix}
 		\quad
-		A_2\!=\!\begin{pmatrix}1&a\\0&2\end{pmatrix}
+		A_2\!=\!\begin{pmatrix}1&a\\0&1\end{pmatrix}
 		\quad
 		A_3\!=\!\begin{pmatrix}\cos\theta&-\sin\theta\\\sin\theta&\cos\theta\end{pmatrix}
 		\quad
@@ -369,11 +371,12 @@ complexes reste vrai pour les matrices réelles.
 \end{exercice}
 
 \begin{proposition}[caractérisation algébrique des éléments propres]
+	\label{prp:eigenalgebra}
 	L'ensemble de valeurs propres de~$A$ coïncide avec l'ensemble de racines de
 	son polynôme caractéristique~$P_A(\lambda)=\mathrm{det}\parens{A-\lambda
-	I}$.  Toute matrice~$A\in\M_n(\K)$ a donc~$n$ valeurs propres (comptés avec
+	I}$.  Toute matrice~$A\in\M_n(\K)$ a donc~$n$ valeurs propres (comptées avec
 	multiplicité).  Les vecteurs propres correspondants à valeurs propres
-	différents sont orthogonaux.
+	différentes sont orthogonaux.
 \end{proposition}
 
 \begin{exercice}
@@ -389,7 +392,7 @@ Plus en général on a
 	sont~$\left\{P(\lambda_i)\right\}_{i=1,\ldots,n}$.
 \end{proposition}
 
-On dit que une matrice~$A\in\M_n(\C)$ est~\emph{diagonalisable} s'il existe
+On dit qu'une matrice~$A\in\M_n(\C)$ est~\emph{diagonalisable} s'il existe
 une matrice~$P\in U_n(\C)$ telle que~$P^{-1}AP$ est diagonale.
 
 \begin{exercice}
@@ -415,7 +418,7 @@ mais pas sur les réels, par exemple les matrices de rotation autour d'un axe
 réel.
 
 Si on connait le spectre~$\{\lambda_1,\ldots,\lambda_n\}$ d'une matrice~$A$,
-alors on peut calculer les vecteur propres en résolvant chacun des systèmes
+alors on peut calculer les vecteurs propres en résolvant chacun des systèmes
 linéaires singuliers~$(A-\lambda_i I)\x=0$.  Pour cela il faut trouver,
 généralement par essai-erreur, une dimension~$k$ sur laquelle~$x_k\neq0$.
 
@@ -436,18 +439,256 @@ d'une matrice hermitienne:
 	On indique par~$\lambda_k(X)$ le~$k$-ième valeur propre d'une matrice~$X$,
 	et~$A_j$ est la sous-matrice de~$A$ obtenue en enlevant la ligne et la
 	colonne~$j$-ièmes de~$A$.\\
-	Une formule un peu plus compliqué permet de retrouver les signes (les
+	Une formule plus compliquée permet de retrouver les signes (les
 	phases) des composantes~$x_{i,j}$
 \end{theorem}
 
+Cette formule n'est évidemment pas pratique pour calculer les vecteurs
+propres.  Peut être vous en trouvez une de meilleure!
+
 % matrices et polynômes
-On a vu que calculer l
+{\bf Matrices et polynômes.}
+Selon la caractérisation algébrique (\ref{prp:eigenalgebra}) si l'on sait
+calculer les racines d'un polynôme alors on sait calculer les valeurs propres
+d'une matrice.
+Inversement, les racines d'un polynôme quelconque~$\ds p(X)=\sum_{k=0}^n
+c_kX^k$ sont les valeurs propres de la matrice ``compagnon'' de~$p$:
+\[
+	\mathcal{C}(p)=
+	\left(\begin{array}{cccc}
+			0 & \dots & 0 & -c_0 \\
+			1& \ddots &\vdots  & \vdots \\
+			& \ddots & 0 & \vdots \\
+			&  & 1 & -c_{{n-1}}
+	\end{array}\right) \in\M_n(\K)
+\]
+Ainsi, il est illusoire de chercher une méthode qui construit les vecteurs
+propres d'une matrice quelconque: il donnerait une méthode pour calculer
+les racines d'un polynôme quelconque.
+
+
+%Or, ce méthode de calcul n'est pas vraiment efficace car il requiert deux
+%opérations non-triviales: (1) le calcul du polynôme caractéristique et (2) le
+%calcul de toutes les racines d'un polynôme.  Pour dimensions élevées, aucune
+%de ces opérations n'est facile.  Il vaut mieux faire à l'inverse: pour
+%calculer les racines d'un polynôme~$p(X)$, on peut utiliser une matrice qui
+%a~$p(X)$ comme polynôme caractéristique.
 
 % caractérisation variationnelle du spectre
+{\bf Caractérisation variationnelle du spectre.}
+Les éléments propres d'une matrice apparaissent comme solution de plusieurs
+problèmes d'optimisation.  Cette observation a une grande importance
+pratique: puisqu'il existe des méthodes d'optimisation très performantes,
+on a des méthodes effectives de calcul d'éléments propres.
 
-% domaine de gerschgorin
+Par simplicité, on va se restreindre au cas hermitien, mais une bonne partie
+de ce que l'on dit est valable pour des matrices normales ou même pour des
+matrices générales (avec quelques modifications).
 
+\begin{definition}[quotient de Rayleigh]
+	Soit~$A$ une matrice hermitienne.  Le quotient de Rayleigh est la
+	fonction~$R_A:\C^n\setminus\{0\}\to\C$ définie par
+	\[
+		R_A(\x)=\frac{\x^*A\x}{\x^*\x}
+	\]
+	Note: sur la sphère unité~$\Abs\x=1$, c'est
+	simplement la forme quadratique~$\x^*A\x$.
+\end{definition}
+
+Il se trouve que les vecteurs propres de~$A$ sont les points ou~$R_A$
+atteint leurs extréma (avec certaines contraintes), les valeurs propres sont
+les valeurs correspondants de~$R_A$.  Soient~$\lambda_1\le\ldots\le\lambda_n$
+les valeurs propres ordonnés de~$A$ et~$\x_1,\ldots,\x_n$ des vecteurs
+propres correspondants.
+
+\begin{proposition}[caractérisation variationnelle des éléments propres]
+	La sphère unité de~$\C^n$ est un ensemble compact ou toute fonction
+	continue atteint ses extréma.  Le maximum et le minimum de~$R_A$ sont
+	respectivement~$\lambda_n$ et~$\lambda_1$, qui sont atteints sur~$\x_n$
+	et~$\x_1$.  L'intersection de l'espace perpendiculaire à~$\x_n$ avec la
+	sphère unité est encore un compact, et le maximum de~$R_A$ sur ce compact
+	est~$\lambda_{n-1}$, atteint sur le point~$\x_{n-1}$, etc.
+\end{proposition}
+
+Ainsi, on peut retrouver les éléments propres en résolvant une suite de
+problèmes d'optimisation (à partir de~$\lambda_1$ ou de ~$\lambda_n$).
+Pour retrouver~$\lambda_k$ on doit résoudre donc~$\min(k,n-k+1)$ problèmes
+d'optimisation.  Le théorème de min-max permet de retrouver~$\lambda_k$
+directement
+
+\begin{proposition}[principe du min-max, CH, I.4]
+	Soit~$A$ une matrice hermitienne avec valeurs
+	propres~$\lambda_1\le\ldots\le\lambda_n$, alors
+	\[
+		\lambda_k = \min_U\left\{ \max_{\x\in U\setminus\{0\}} R_A(x) \ |\ \mathrm{dim}(U)=k\right\}
+	\]
+	et
+	\[
+		\lambda_k = \max_U\left\{ \min_{\x\in
+		U\setminus\{0\}}R_A(x) \ |\ \mathrm{dim}(U)=n-k+1\right\}
+	\]
+	où~$U$ parcourt les sous-espaces vectoriels de~$\C^n$ de la dimension
+	indiquée.
+\end{proposition}
+
+\begin{exercice}
+	Démontrez le théorème du min-max.\\
+	\emph{
+	Indications: (1)~prenez une base orthonormée formée par des vecteurs propres
+	de~$A$ associés à~$\lambda_1,\ldots\lambda_n$.  (2)~Si~$\mathrm{dim}(U)=k$
+	alors l'intersection de~$U$ avec l'espace~$\mathrm{vect}(\x_k,\ldots,\x_n)$
+	n'est pas zéro, et contient un vecteur~$\y$. (3)~Vérifiez
+	que~$R(\y)\ge\lambda_k$ et conclure que~$\min\max\ge\lambda_k$. (4)~Pour
+	l'autre inégalité, prenez~$U=\mathrm{vect}(\x_1,\ldots,\x_k)$.
+}
+\end{exercice}
+
+
+
+% domaine de gershgorin
+%\subsubsection{Disques de Gershgorin.}
+{\bf Disques de Gershgorin.}
+Si on connait la position sur le plan complexe
+de tous les valeurs propres d'une matrice on sait essentiellement \emph{tout}
+sur elle.  Notamment, s'ils sont tous différents de zéro alors la matrice est
+inversible.  Il se trouve que, seulement en regardant les coefficients de la
+matrice on peut souvent borner une région de~$\C$ que contient tout le
+spectre.  Ces bornes fournissent des critères effectifs de vérification que
+une matrice est inversible (beaucoup plus pratiques que passer par le
+déterminant).
+
+\begin{definition}[domaine de Gershgorin]
+	Soit~$A=(a_{ij})$ une matrice de~$\M_n(\C)$.
+Pour $1\leq i\leq n$ on note $D_i$ le disque fermé de centre $a_{ii}$ et de
+rayon $\sum_{j\neq i} |a_{ij}|$. On appelle \emph{domaine de Gershgorin} de
+$A$ l'union de tous ces disques:
+\begin{displaymath}
+\mathcal G(A) = \bigcup_{i=1}^n D_i
+\end{displaymath}
+\end{definition}
+\begin{proposition}[Théorème de Gershgorin]
+	\label{prop:gersh}
+	Le spectre de $A$ est inclus dans son domaine de Gershgorin.
+\end{proposition}
+
+\begin{exercice}$ $
+\begin{enumerate}
+\item Démontrez la Proposition~\ref{prop:gersh}.
+\item Démontrez qu'une matrice à diagonale strictement dominante est inversible.
+\item Démontrez aussi que $\mathrm{sp}(A) \subseteq \mathcal G(A) \cap \mathcal
+		G(A*)$.
+\end{enumerate}
+\end{exercice}
+
+%\begin{ex} \label{ex:disques} \end{ex}
+\begin{minipage}{0.45\columnwidth}
+On a représenté sur la figure ci-contre le domaine de Gershgorin (disques
+noirs) ainsi que les valeurs propres (points bleus) de la matrice
+\begin{displaymath}
+A = \left(\begin{array}{cccc}
+0.5 & 0.1 & 0 & 0\\
+0.2 & 1 & 0.1 & 0\\
+0 & 0.1& 2 & -0.4 \\
+0 & 0 & 0.4 & 2.5
+\end{array}\right)
+\end{displaymath}
+\end{minipage}
+\hspace{0.05 \columnwidth}
+\begin{minipage}{0.45\columnwidth}
+\includegraphics[width = \columnwidth]{gersh.pdf}
+\end{minipage}
+
+Sur cet exemple, les seuls disques qui contiennent deux valeurs propres sont
+ceux qui s'intersectent. Les autres en contiennent une et une seule. Ce
+phénomène, qui n'est pas anodin, est l'objet de l'exercice suivant.
+
+\begin{exercice}
+\label{ex:gersh} On note $\mathcal E$ une composante connexe de $\mathcal G(A)$ et $p$ le nombre de disques $D_i$ inclus dans $\mathcal E$. Ainsi, dans l'Exemple, $\mathcal G(A)$ a 3 composantes connexes
+\begin{displaymath}
+D_1 \ (p = 1),\quad D_2 \ (p = 1), \quad D_3 \cup D_4 \ (p= 2)
+\end{displaymath}
+Le but de l'exercice est de montrer que $\mathcal E$ contient exactement $p$
+valeurs propres de $A$ (comptées avec leur ordre de multiplicité algébrique). 
+
+A cet effet, on note $D$ la diagonale de $A$ et, pour tout $0 \leq r \leq 1$
+\begin{displaymath}
+A_r = rA + (1-r)D
+\end{displaymath}
+On note enfin $m(r)$ le nombre de valeurs propres de $A_r$ dans $\mathcal E$.
+On cherche donc à montrer : $m(1) = p$.
+\begin{enumerate}
+\item Démontrez que $m(0) = p$.
+\item Démontrez que $\mathcal G(A_r) \subset \mathcal G(A)$.
+\item {Supposez qu'il existe} $\gamma$ une arc simple $\mathcal C^1$ par
+	morceaux orienté positivement séparant $\mathcal E$ (à l'intérieur) de
+	$\mathcal G(A) \setminus \mathcal E$ (à l'extérieur). Démontrez que
+\begin{displaymath}
+m(r) = \int_{\gamma} \frac{\chi'_{r}(z)}{\chi_{r}(z)}dz
+\end{displaymath}
+où $\chi_{r}$ est le polynôme caractéristique de $A_r$.
+\item Déduisez que que $m$ est continue et concluez.
+%\item \textbf{Application.} On suppose que les disques $D_i$ sont deux-à-deux disjoints. Montrer que $A$ est diagonalisable.
+%{\item Proposer une configuration où un tel arc $\gamma$ n'existe pas. Comment peut-on conclure dans ce cas ?}
+\end{enumerate}
+\end{exercice}
+
+Ce résultat donne des critères puissants:
+
+\begin{corollary}
+	Si les disques de Gershgorin d'une matrice sont deux-à-deux disjoints alors
+	la matrice est diagonalisable.
+\end{corollary}
+
+\begin{corollary}
+	Soit~$A$ une matrice irréductible et fortement diagonale dominante
+	($\ \abs{a_{ii}}\ge\sum_{i\neq j}\abs{a_{ij}}$ avec au moins une inégalité
+	stricte).  Alors~$A$ est inversible.
+\end{corollary}
+
+%Citons pour finir un résultat de  \cite{serre2001} sur le domaine de
+%Gershgorin d'une matrice $A$ \emph{irréductible} : si une valeur propre est
+%sur la frontière de $\mathcal G(A)$, c'est un point d'intersection de tous
+%les cercles.
+Citons enfin le
 % théorème de Gauss-Lucas
+\begin{exercice}[Théorème de Gauss-Lucas]
+	Les racines d'un polynôme dérivé~$P'$ sont dans l'enveloppe convexe des
+	racines de~$P$.
+\end{exercice}
+
+\paragraph{Éléments singuliers}
+Les éléments propres sont définis seulement pour les matrices carrées.
+Encore, les théorèmes les plus intéressants sur les éléments propres portent
+seulement sur les matrices hermitiennes.  On peut résoudre tout à coup ces
+deux contraintes en considérant la matrice~$A^*A$ associée à toute matrice
+rectangulaire~$A\in\M_{p,q}(\K)$.  Observons que~$A^*A$ est carrée et
+hermitienne, et par le théorème spectral elle diagonalise avec des valeurs
+propres réels~$\ge 0$.
+
+\begin{definition}
+	Les \emph{valeurs singulières} d'une matrice~$A\in\M_{p,q}(\K)$ sont les
+	valeurs propres de la matrice~$A^*A$.  On les
+	écrit~$\sigma_i(A)=\lambda_i(A^*A)$ pour~$i=1,\ldots q$,
+	typiquement par ordre décroissant~$\sigma_1\ge\cdots\ge\sigma_q$.
+\end{definition}
+
+\begin{proposition}
+	\label{prp:singular}
+	Les valeurs singulières d'une matrice sont toujours des nombres réels
+	non-négatifs.  Le nombre de valeurs singulières différentes coïncide avec
+	le rang de la matrice.  Pour une matrice hermitienne, les valeurs
+	singulières sont ses valeurs propres en valeur absolue.
+\end{proposition}
+
+\begin{exercice}
+	Démontrer la proposition~\ref{prp:singular}.
+\end{exercice}
+
+Plus tard, on verra que toute matrice~$A\in\M_{p,q}$ admet
+une~\emph{décomposition en valeurs singulières} (SVD) de la forme~$A=U\Sigma V$,
+où~$\Sigma\in\M_{p,q}(\R)$ est diagonale avec valeurs singulières de~$A$
+sur sa diagonale, et les matrices~$U,V$ sont unitaires de taille~$p$ et~$q$
+respectivement.
 
 
 \subsection{Normes matricielles}
@@ -662,7 +903,7 @@ Si $O \in U_n(\K)$ alors
 %Les deux exercices suivants montrent que, lorsqu'on résout un problème de la
 %forme~$Ax=b$, le conditionnement de~$A$ sert à majorer l'erreur de la
 %solution à partir du bruit sur~$b$ ou même sur~$A$:
-\clearpage
+%\clearpage
 Lorsqu'on résout un problème de la forme~$Ax=b$, le conditionnement de~$A$
 sert à majorer l'erreur relatif de la solution~$x$.  On présente deux
 versions de cette majoration, selon si on a des petites erreurs d'observation
@@ -725,6 +966,68 @@ b}_{2}}{\Abs{b}_{2}}
 ce qui fait déjà beaucoup, mais $\mathrm{cond}_2(A) \simeq 3199$.
 \end{remark}
 
+{\bf Exemple avec le laplacien 1D.}
+
+On définit la matrice symétrique suivante, dite le <<laplacien discret 1D>>:
+%(discrétisation par différences finies de la dérivée seconde):
+\begin{equation}
+\label{eq:A}
+A = n^2 \left(\begin{array}{cccc}
+2 & -1 & &  \\
+-1 & \ddots & \ddots & \\
+  & \ddots & \ddots & -1 \\
+ & & -1 & 2
+\end{array}\right) \in M_{n-1}(\R)
+\end{equation}
+Cette matrice apparait de manière naturelle quand on discrétise l'équation de
+Laplace en dimension~$1$ (avec conditions de Dirichlet):
+\begin{equation*}
+	\begin{cases}
+		u''(x)  = -f(x) & 0 < x < 1 \\
+		u(x) = 0 & x\in\{0,1\}
+\end{cases}
+\end{equation*}
+On fixe~$n\ge 1$ et on note
+\begin{displaymath}
+	x_i = \frac{i}{n}, \quad 0 \leq i \leq n, \quad U = \begin{pmatrix}u(x_1)
+		\\ \vdots \\ u(x_{n-1})\end{pmatrix} \in \R^{n-1}, \quad  b =
+		\begin{pmatrix}f(x_1) \\ \vdots \\ f(x_{n-1})\end{pmatrix} \in \R^{n-1}
+\end{displaymath}
+Le problème discret est donc~$Ax=b$, avec une solution qui devrait
+s'approcher de~$U$ (pour cela on va supposer que~$f$ est suffisamment
+régulière).
+
+
+\begin{exercice}[étude du Laplacien 1D]$ $
+	\begin{enumerate}
+		\item Démontrez que~$AU=b+\mathcal{O}\parens{\frac1{n^2}}$
+		\item Démontrez que les valeurs propres de~$A$ sont $$\lambda_k = 4n^2
+			\sin^2 \frac{\alpha_k}{2}, \quad \alpha_k =  \frac{k \pi}{n}, \quad
+			1\leq k \leq n-1$$ avec pour vecteur propre associé $v_k = (\sin j
+			\alpha_k)_{1 \leq j \leq n-1}$.\\
+			Pouvait-on voir autrement que $A \in S_{n-1}^{++}(\R)$ ?
+		\item Soit~$U_{\mathrm{approx}}$ la solution du système linéaire~$Ax=b$.
+			Démontrez
+			que $\Abs{U-U_{\mathrm{approx}}}_2=\mathcal{O}\parens{\frac1{n^2}}$
+\item Démontrez que
+\begin{displaymath}
+	\mathrm{cond}_2(A) \underset{n \rightarrow \infty}{\sim} \frac{4n^2}{\pi^2}
+\end{displaymath}
+de sorte que, quand $n$ est grand, la matrice est très mal conditionnée.
+\item En notant $\x = U_{\mathrm{approx}}$, montrer que
+\begin{displaymath}
+\lim_{n \rightarrow \infty } \frac{1}{n} \Abs{\x}^2 = \int_0^1 u^2(x)dx,
+\quad \lim_{n \rightarrow \infty } \frac{1}{n} \Abs{b}^2 = \int_0^1 f^2(x)dx
+\end{displaymath}
+	\end{enumerate}
+\item Montrer enfin qu'il existe une constante $c > 0$ indépendante de $n$ telle que
+\begin{displaymath}
+\frac{\Abs{\delta\x}}{\Abs{\x}} \leq c \frac{\Abs{\delta b}}{\Abs{b}}
+\end{displaymath}
+de sorte que, même si la matrice est très mal conditionné, le problème est
+très bien posé pour les conditions d'utilisation typiques.
+\end{exercice}
+
 %\begin{exercice}
 %On va analyser la matrice $A$ du Laplacien discrétisé à la lumière de cette
 %remarque.
@@ -783,6 +1086,7 @@ ce qui fait déjà beaucoup, mais $\mathrm{cond}_2(A) \simeq 3199$.
 %à 5 points
 
 
+\end{document}
 \clearpage
 \section{Factorisation de matrices}
 
@@ -872,7 +1176,7 @@ ce qui fait déjà beaucoup, mais $\mathrm{cond}_2(A) \simeq 3199$.
 %S6. Algèbre linéaire numérique : éléments propres
 %6.1. Exemples de problèmes de valeurs propres : ACP, analyse
 %quantitative d'une EDO, oscillations, polynômes
-%6.2. Analyse du spectre: cercles de Gerschgörin, Gauss-Lucas
+%6.2. Analyse du spectre: cercles de Gershgorin, Gauss-Lucas
 %6.3. Méthode de la puissance, puissance inverse
 %6.4. Décomposition QR : existence, unicité, algorithmes
 %
@@ -885,3 +1189,4 @@ ce qui fait déjà beaucoup, mais $\mathrm{cond}_2(A) \simeq 3199$.
 %\end{verbatim}
 
 % vim:set tw=77 filetype=tex spell spelllang=fr ts=2 sw=2:
+
