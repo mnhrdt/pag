@@ -1093,7 +1093,74 @@ $n^2/2$, ou encore en~$n^2$ (le terme constant est ignoré).}
 
 Une construction classique~[Ser, 8.1.2] montre que les algorithmes
 d'inversion d'une matrice peuvent être aussi rapides que ceux du produit de
-matrices.
+matrices «\emph{Those who know how to multiply know also how to invert}».
+Pourtant, la complexité du produit de matrices (i.e., le coût de l'algorithme
+optimal) n'est pas connue, on a seulement de bornes supérieures.
+
+Pour illustrer comment on pourrait faire moins que~$n^3$ opérations, montrons
+la formule de Winograd pour calculer le produit de deux
+matrices~$2\times 2$ avec~$7$ multiplications au lieu de~$8$:
+\[
+	\begin{pmatrix}
+		a & b \\ c & d
+	\end{pmatrix}
+	\begin{pmatrix}
+		A & C \\ B & D
+	\end{pmatrix}
+	=
+	\begin{pmatrix}
+		aA+bB & w+v+(a+b-c-d)D \\
+		w+u+d(B+C-A-D) & w+u+v
+	\end{pmatrix}
+\]
+avec~$u=(c-a)(C-D)$, $v=(c+d)(C-A)$ et~$w=aA+(c+d-a)(A+D-C)$.  Ce calcul
+entraîne~$7$ multiplications et~$15$ additions.
+
+\begin{exercice}
+	Décrivez un algorithme avec~$O(n^{\log_2 7})\approx O(n^{2.8074})$ opérations
+	pour multiplier deux matrices de taille~$n$.\\
+	\emph{Indication: supposez que~$n=2^k$ et utilisez la
+		multiplication par blocs récursivement pour arriver à une méthode
+		avec~$7^k$ multiplications et~$5(7^k-4^k)$ additions.
+	}
+\end{exercice}
+
+Les algorithmes de multiplication ``rapide'' de matrices sont un sujet de
+recherche actuelle en informatique théorique.  Le record actuel est un
+algorithme avec $n^{2.3728639}$ opérations [Le Gall, 2014].  En pratique, ces
+algorithmes ne sont jamais utilisés parce que, même pour de matrices très
+grandes, ils sont beaucoup plus lents que la méthode naïve.
+
+Quelques commentaires au sujet de la complexité:
+
+\begin{itemize}
+	\item La tradition d'utiliser le nombre de multiplications pour évaluer la
+		performance d'un algorithme n'a pas vraiment raison d'être: avec les
+		processeurs d'aujourd'hui, les additions et multiplications en virgule
+		flottante prennent essentiellement le même temps.
+	\item Même le nombre total d'opérations n'est pas ce qui va déterminer la
+		performance réelle d'un algorithme.  Pour les algorithmes implémentés en
+		CPU, ce qui limite la performance n'est pas les calculs de la CPU, mais
+		la communication entre la CPU et la mémoire vive.  Ainsi, les algorithmes
+		les plus rapides sont ceux qui parcourent les données par ordre, en
+		profitant toutes les couches de mémoire~\emph{cache} entre la RAM et la
+		CPU.
+	\item Pour les algorithmes en GPU, il est essentiel aussi d'avoir un
+		algorithme~\emph{parallélisable}, qui fait exactement le même calcul en
+		divisant les données d'entré en parties indépendantes.
+	\item Du point de vue numérique on ne s'intéresse pas à la solution exacte
+		théorique, mais à des solutions approchés avec une erreur~$\epsilon>0$.
+		Ainsi, plutôt que le coût total de la méthode ce qui intéresse est
+		le~\emph{taux d'approximation} des méthodes itératives: à quelle vitesse
+		décroit l'erreur d'une méthode si on itère à partir d'une approximation
+		grossière de la solution.
+	\item Finalement, on travaille très rarement avec des matrices pleines très
+		grandes.  Assez souvent (e.g., en EDP discrétisées), on a des
+		matrices~\emph{creuses} ou tous les éléments de la matrice
+		sont~$0$ sauf une quantité proportionnelle à~$n$ (au lieu de~$n^2$).
+		Les structures de données et les algorithmes pour travailler avec
+		matrices creuses sont toujours à la pointe de la recherche actuelle.
+\end{itemize}
 
 % complexité du produit naive de deux matrices quelconque = pqr
 % complexité du produit naive de deux matrices carrées = n^3
@@ -1138,6 +1205,121 @@ matrices.
 %
 %- conditionnement d'une matrice: définition, propriétés, exemple du laplacien
 %à 5 points
+
+\subsection{Décomposition polaire}
+
+Rappelons que~$U_n$ est le groupe des matrices unitaires ($A^*A=I$)
+et~$H_n^{++}$ est l'ensemble des matrices hermitiennes ($A^*=A$) définies
+positives~($\x^*A\x\ge 0$).  Pour~$n=1$ l'ensemble~$U_1$ sont les nombres
+complexes de la forme~$e^{in\theta}$ et l'ensemble~$H_1^{++}$ sont les réels
+positifs.  Tout élément~$z$ de~$\C\setminus\{0\}=GL_1(\C)$ peut s'écrire de
+forme unique comme~$z=re^{i\theta}$ avec~$r>0$.  Cette~\emph{décomposition
+polaire} a un analogue direct avec les matrices.
+
+\begin{theorem}[décomposition polaire]
+	\label{thm:polaire}
+	Toute matrice inversible~$A\in GL_n(\C)$ admet une décomposition
+	unique~$A=HQ$ avec~$H\in H_n^{++}$ et~$Q\in U_n$.
+	L'application~$A\mapsto(H,Q)$ est un homéomorphisme entre~$GL_n(\C)$
+	et~$H_n^{++}\times U_n$.
+	Si~$A$ est réelle, alors~$H$ et~$Q$ le sont
+	aussi.
+\end{theorem}
+
+\begin{exercice}
+	Démontrez le théorème \ref{thm:polaire}.
+\end{exercice}
+\vspace{-1em}
+Indications:
+\begin{enumerate}
+	\item Pour l'unicité, rappelez que le spectre d'une matrice
+		unitaire sont des nombres complexes du cercle unité.
+	\item Pour l'existence, diagonalisez la matrice hermitienne~$AA^*$ et
+		utilisez le théorème spectral.
+	\item Pour la continuité, observez que~$(H,Q)\mapsto HQ$ est une
+		application continue (elle est un polynôme).  Il suffit de démontrer
+		que l'inverse est séquentiellement continue, ce qui suit du fait
+		que~$U_n$ est compact et de l'unicité de la décomposition.
+	\item Pour le cas réel, la démonstration est parallèle au cas complexe.
+\end{enumerate}
+
+La matrice~$H$ de la décomposition polaire s'appelle la~\emph{racine carrée}
+de la matrice hermitienne~$AA^*$.  D'après cette démonstration, on a vu que
+toute matrice hermitienne définie positive~$H$ admet une racine carrée~$h$
+telle que~$h^2=H$.  On écrit parfois~$h=\sqrt H$.
+
+La décomposition polaire représente toute transformation linéaire comme une
+rotation~$Q$ suivie d'une application hermitienne~$H$ qui, par le théorème
+spectral, est un~\emph{stretch} dans des directions orthogonales.  La
+décomposition polaire n'est donc pas un résultat évident, que se passe-t-il
+pour des matrices non-symétriques?
+
+\begin{exercice}[difficile]
+	Calculez la décomposition polaire de la
+	matrice~$A=\parens{\begin{smallmatrix}1&1\\0&1\end{smallmatrix}}$.
+\end{exercice}
+
+\subsection{Décomposition en valeurs singulières}
+
+Si~$A$ est une matrice inversible, elle a une décomposition
+polaire~$A=HQ$ avec~$H$ hermitienne et~$Q$ unitaire.  Les valeurs propres
+de~$H$ sont des réels positifs, dits les~\emph{valeurs singulières} de~$A$.
+Par la preuve du théorème~\ref{thm:polaire}, les valeurs singulières sont les
+racines carrées des valeurs propres de la matrice hermitienne~$A^*A$.
+
+En fait, on peut définir les valeurs singulières d'une matrice~$A$
+quelconque, pas forcément inversible, et même d'une matrice rectangulaire,
+car~$A^*A$ et~$AA^*$ ont toujours les mêmes valeurs propres avec la même
+multiplicité (sauf pour la multiplicité de 0 si~$A$ est rectangulaire).
+
+\begin{theorem}[décomposition en valeurs singulières, SVD]
+	Soit~$A\in M_{p,q}(\C)$.  Alors il existent deux matrices unitaires~$U\in
+	U_p(\C)$, $V\in U_q(\C)$ et une matrice quasi-diagonale~$\Sigma\in
+	M_{p,q}(\C)$
+	\[
+		\Sigma = \begin{pmatrix}
+			\sigma_1 & & & & \\
+			 & \ddots & & & \\
+			 & & \sigma_r & & \\
+			 & & & 0 & \\
+			 & & & & \ddots
+		\end{pmatrix}
+	\]
+	telles que~\fbox{$A=U\/\Sigma V^*$}.  Les nombres réels
+	positifs~$\sigma_i$ sont les valeurs singulières non nuls de~$A$.  En
+	particulier,~$r$ est le rang de~$A$. \\
+	Si~$A$ est réelle alors on peut choisir~$U$ et~$V$ réelles orthogonales.
+\end{theorem}
+
+\begin{remark}
+	Même pour les matrices carrées, la décomposition~$A=U\/\Sigma V$ ne dit pas
+	que~$A$ soit diagonalisable sur une base de vecteurs orthogonaux: les
+	rotations~$U$ et~$V$ sont complètement différentes l'une de l'autre!
+\end{remark}
+
+\begin{remark}
+	La décomposition SVD n'est pas du tout unique: même quand les
+	les~$\sigma_i$ sont ordonnées et différents, et la matrice est carrée, on
+	peut multiplier les lignes et les colonnes de~$U$ et~$V$ par unités
+	arbitraires.
+\end{remark}
+
+On trouvera la preuve de la décomposition SVD dans tout livre moderne d'algèbre
+linéaire, par exemple [AK] ou [Serr].  Ici on s'intéresse surtout aux
+applications de cette décomposition, qui est essentielle en calcul
+scientifique.  Notamment, pour l'analyse en composantes principales et la
+pseudo-inverse.
+
+
+\subsection{Pseudo-inverse de Moore-Penrose}
+
+\section{Méthodes directes}
+
+\subsection{Factorisation LU}
+
+\subsection{Factorisation de Cholesky}
+
+\subsection{Factorisation QR}
 
 
 \end{document}
