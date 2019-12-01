@@ -1042,6 +1042,8 @@ très bien posé pour les conditions d'utilisation typiques.
 
 % exemple de la dérivée seconde discrète
 
+\clearpage
+
 \subsection{Complexité}
 
 % complexité = nombre de multiplications
@@ -1261,6 +1263,9 @@ pour des matrices non-symétriques?
 
 \subsection{Décomposition en valeurs singulières}
 
+\emph{\small Every matrix is diagonal, provided one uses the proper bases for
+the domain and range spaces.\\ \hfill---Gilbert Strang}
+
 Si~$A$ est une matrice inversible, elle a une décomposition
 polaire~$A=HQ$ avec~$H$ hermitienne et~$Q$ unitaire.  Les valeurs propres
 de~$H$ sont des réels positifs, dits les~\emph{valeurs singulières} de~$A$.
@@ -1270,7 +1275,7 @@ racines carrées des valeurs propres de la matrice hermitienne~$A^*A$.
 En fait, on peut définir les valeurs singulières d'une matrice~$A$
 quelconque, pas forcément inversible, et même d'une matrice rectangulaire,
 car~$A^*A$ et~$AA^*$ ont toujours les mêmes valeurs propres avec la même
-multiplicité (sauf pour la multiplicité de 0 si~$A$ est rectangulaire).
+multiplicité (sauf pour la multiplicité de $0$ si~$A$ est rectangulaire).
 
 \begin{theorem}[décomposition en valeurs singulières, SVD]
 	Soit~$A\in M_{p,q}(\C)$.  Alors il existent deux matrices unitaires~$U\in
@@ -1299,7 +1304,7 @@ multiplicité (sauf pour la multiplicité de 0 si~$A$ est rectangulaire).
 
 \begin{remark}
 	La décomposition SVD n'est pas du tout unique: même quand les
-	les~$\sigma_i$ sont ordonnées et différents, et la matrice est carrée, on
+	les~$\sigma_i$ sont ordonnées et différentes, et la matrice est carrée, on
 	peut multiplier les lignes et les colonnes de~$U$ et~$V$ par unités
 	arbitraires.
 \end{remark}
@@ -1309,6 +1314,10 @@ linéaire, par exemple [AK] ou [Serr].  Ici on s'intéresse surtout aux
 applications de cette décomposition, qui est essentielle en calcul
 scientifique.  Notamment, pour l'analyse en composantes principales et la
 pseudo-inverse.
+
+{\bf SVD et décomposition polaire.}
+
+{\bf SVD et éléments propres.}
 
 
 \subsection{Pseudo-inverse de Moore-Penrose}
