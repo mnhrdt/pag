@@ -308,33 +308,6 @@ hermitiennes, orthogonales, unitaires, anti-symétriques, anti-hermitiennes.
 %
 %Les quatre problèmes fondamentaux de l'algèbre linéaire sont les suivants
 
-%\subsection{Complexité}
-
-% complexité = nombre de multiplications
-
-% complexité du produit naive de deux matrices quelconque = pqr
-% complexité du produit naive de deux matrices carrées = n^3
-% une multiplication en C vaut 4 multiplications en R
-% résolution d'un système linéaire triangularire n^2/2 multiplications
-% calcul naive d'un determinant n!
-% calcul d'un determinant par élimination gaussienne n^2/2
-% inversion d'une matrice par la règle de Cramér n!
-% inversion d'une matrice par élimination Gaussienne n^3
-
-% note: ``those who know how to multiply know how to invert''
-
-% note: formule de Strassen
-
-% note: recherche actuelle en multiplication de matrices (cf. produit Winograd)
-
-% note: en réalité les multiplications sont plus rapides (!) que les additions
-
-% note: en réalité ce qui importe aujourd'hui n'est pas autant le nombre
-% total de calculs mais surtout la localité de l'accès à mémoire/possibilité
-% de paraléliser
-
-% note: matrices creuses
-
 \subsection{Étude du spectre}
 
 % définition de spectre, exemples
@@ -374,21 +347,21 @@ du spectre.
 	\label{prp:eigenalgebra}
 	L'ensemble de valeurs propres de~$A$ coïncide avec l'ensemble de racines de
 	son polynôme caractéristique~$P_A(\lambda)=\mathrm{det}\parens{A-\lambda
-	I}$.  Toute matrice~$A\in\M_n(\K)$ a donc~$n$ valeurs propres (comptées avec
-	multiplicité).  Les vecteurs propres correspondants à valeurs propres
-	différentes sont orthogonaux.
+	I}$.  Toute matrice~$A\in\M_n(\K)$ a donc~$n$ valeurs propres (comptées
+	avec multiplicité).  Si~$A$ est hermitienne, alors les vecteurs propres
+	correspondants à valeurs propres différentes sont orthogonaux.
 \end{proposition}
 
 \begin{exercice}
-	Soient~$\lambda_1,\ldots,\lambda_n$ les valeurs propres d'une matrice~$A$.
-	Démontrez que les valeurs propres de~$(A+\beta I)$
+	Soient~$\lambda_1,\ldots,\lambda_n$ les valeurs propres d'une
+	matrice~$A\in\M_n(\C)$.  Démontrez que les valeurs propres de~$(A+\beta I)$
 	sont~$\left\{\lambda_i+\beta\right\}_{i=1,\ldots,n}$ et que les valeurs
 	propres de~$A^2$ sont~$\left\{\lambda_i^2\right\}_{i=1,\ldots,n}$.
 \end{exercice}
 
 Plus en général on a
 \begin{proposition}
-	Si~$P\in\K[X]$ alors les valeurs propres de~$P(A)$
+	Si~$P\in\C[X]$ alors les valeurs propres de~$P(A)$
 	sont~$\left\{P(\lambda_i)\right\}_{i=1,\ldots,n}$.
 \end{proposition}
 
@@ -450,9 +423,9 @@ propres.  Peut être vous en trouvez une de meilleure!
 {\bf Matrices et polynômes.}
 Selon la caractérisation algébrique (\ref{prp:eigenalgebra}) si l'on sait
 calculer les racines d'un polynôme alors on sait calculer les valeurs propres
-d'une matrice.
-Inversement, les racines d'un polynôme quelconque~$\ds p(X)=\sum_{k=0}^n
-c_kX^k$ sont les valeurs propres de la matrice ``compagnon'' de~$p$:
+d'une matrice.  Inversement, les racines d'un polynôme unitaire~$\ds
+p(X)=X^n+\sum_{k=0}^{n-1} c_kX^k$ sont les valeurs propres de la matrice
+``compagnon'' de~$p$:
 \[
 	\mathcal{C}(p)=
 	\left(\begin{array}{cccc}
@@ -492,7 +465,7 @@ matrices générales (avec quelques modifications).
 		R_A(\x)=\frac{\x^*A\x}{\x^*\x}
 	\]
 	Note: sur la sphère unité~$\Abs\x=1$, c'est
-	simplement la forme quadratique~$\x^*A\x$.
+	simplement la forme quadratique~$\x\mapsto\x^*A\x$.
 \end{definition}
 
 Il se trouve que les vecteurs propres de~$A$ sont les points ou~$R_A$
@@ -514,7 +487,7 @@ Ainsi, on peut retrouver les éléments propres en résolvant une suite de
 problèmes d'optimisation (à partir de~$\lambda_1$ ou de ~$\lambda_n$).
 Pour retrouver~$\lambda_k$ on doit résoudre donc~$\min(k,n-k+1)$ problèmes
 d'optimisation.  Le théorème de min-max permet de retrouver~$\lambda_k$
-directement
+directement, au moins de façon téorique
 
 \begin{proposition}[principe du min-max, CH, I.4]
 	Soit~$A$ une matrice hermitienne avec valeurs
@@ -534,12 +507,14 @@ directement
 \begin{exercice}
 	Démontrez le théorème du min-max.\\
 	\emph{
-	Indications: (1)~prenez une base orthonormée formée par des vecteurs propres
-	de~$A$ associés à~$\lambda_1,\ldots\lambda_n$.  (2)~Si~$\mathrm{dim}(U)=k$
-	alors l'intersection de~$U$ avec l'espace~$\mathrm{vect}(\x_k,\ldots,\x_n)$
-	n'est pas zéro, et contient un vecteur~$\y$. (3)~Vérifiez
-	que~$R(\y)\ge\lambda_k$ et conclure que~$\min\max\ge\lambda_k$. (4)~Pour
-	l'autre inégalité, prenez~$U=\mathrm{vect}(\x_1,\ldots,\x_k)$.
+		Indications: Pour le cas min-max, (1)~prenez une base
+		orthonormée~$\x_1,\ldots,\x_n$ formée par des vecteurs propres de~$A$
+		associés à~$\lambda_1,\ldots\lambda_n$.  (2)~Si~$\mathrm{dim}(U)=k$ alors
+		l'intersection de~$U$ avec l'espace~$\mathrm{vect}(\x_k,\ldots,\x_n)$
+		n'est pas zéro, et contient un vecteur~$\y\neq0$. (3)~Vérifiez
+		que~$R(\y)\ge\lambda_k$ et conclure que~$\min\max\ge\lambda_k$. (4)~Pour
+		l'autre inégalité, prenez~$U=\mathrm{vect}(\x_1,\ldots,\x_k)$.  Le cas
+		max-min suit par un argument similaire.
 }
 \end{exercice}
 
@@ -639,11 +614,13 @@ Ce résultat donne des critères puissants:
 	la matrice est diagonalisable.
 \end{corollary}
 
-\begin{corollary}
+\begin{proposition}
 	Soit~$A$ une matrice irréductible et fortement diagonale dominante
 	($\ \abs{a_{ii}}\ge\sum_{i\neq j}\abs{a_{ij}}$ avec au moins une inégalité
-	stricte).  Alors~$A$ est inversible.
-\end{corollary}
+	stricte).  Alors~$A$ est inversible.  Si~$A$ est réductible en~$k$ blocs,
+	une condition suffisante d'inversibilité est qu'il y ait~$k$ inégalités
+	strictes, une dans chaque bloc.
+\end{proposition}
 
 %Citons pour finir un résultat de  \cite{serre2001} sur le domaine de
 %Gershgorin d'une matrice $A$ \emph{irréductible} : si une valeur propre est
@@ -669,7 +646,7 @@ propres réels~$\ge 0$.
 	Les \emph{valeurs singulières} d'une matrice~$A\in\M_{p,q}(\K)$ sont les
 	valeurs propres de la matrice~$A^*A$.  On les
 	écrit~$\sigma_i(A)=\lambda_i(A^*A)$ pour~$i=1,\ldots q$,
-	typiquement par ordre décroissant~$\sigma_1\ge\cdots\ge\sigma_q$.
+	typiquement par ordre décroissant~$\sigma_1\ge\cdots\ge\sigma_q\ge0$.
 \end{definition}
 
 \begin{proposition}
@@ -1064,6 +1041,83 @@ très bien posé pour les conditions d'utilisation typiques.
 % observation que les inégalités sont ``pessimistes''
 
 % exemple de la dérivée seconde discrète
+
+\subsection{Complexité}
+
+% complexité = nombre de multiplications
+La complexité d'un calcul est le nombre d'opérations élémentaires (additions,
+soustractions,  produits et divisions) qu'il met en œuvre.  Une
+simplification habituelle consiste à compter seulement le nombre de
+multiplications.
+
+{\bf Exemple.}
+Un système linéaire triangulaire inversible
+\[
+\begin{array}{ccccc}
+a_{1,1}x_1  & + \ldots +  & a_{1,n}x_n & = & b_1 \\
+& \ddots & \vdots && \vdots \\
+&& a_{n,n}x_n & =&  b_n
+\end{array}
+\]
+est résolu avec l'algorithme suivant:
+\begin{align*}
+x_n & = \frac{1}{a_{n,n}}b_n \\
+x_{n-i} & = \frac{1}{a_{n-i,n-i}}\left(
+b_i - \sum_{j=n-i+1}^{n} a_{i,j}x_j
+\right), \qquad 1 \leq i \leq n-1
+\end{align*}
+qui demande $\frac{n(n-1)}{2}$ additions, autant de multiplications et $n$
+divisions. Sa complexité est donc ${n^2}/{2} + n/2$. En général, on considère
+que $n$ est grand et on ne gardera que le terme dominant du développement
+asymptotique.
+\emph{On dit ainsi que la résolution d'un système triangulaire est en
+$n^2/2$, ou encore en~$n^2$ (le terme constant est ignoré).}
+
+\begin{exercice}Étudier la complexité des calculs suivants
+	\begin{enumerate}
+		\item La multiplication d'une matrice~$A\in M_n(\K)$ par un
+			vecteur~$x\in\K^b$
+		\item La multiplication (naïve) de deux matrices de~$M_n(\K)$
+		\item Le produit scalaire de deux vecteurs de~$\K^n$
+		\item La projection d'un vecteur de~$\K^n$ sur une droite
+		\item Le déterminant d'une matrice par la formule de
+			Leibniz~$|A|=\sum_\sigma(-1)^\sigma\prod_i a_{i,\sigma(i)}$
+		\item Le déterminant, récursivement par la formule de
+			Laplace~$\abs{A}=\sum_ia_{i,1}\abs{\mathrm{mineur}_{i,1}(A)}$
+		\item La résolution d'un système linéaire par la règle de Cramer
+		\item La résolution d'un système linéaire par élimination Gaussienne
+		\item Calcul de l'inverse d'une matrice par élimination Gaussienne
+		\item Le déterminant, après triangulation Gaussienne
+	\end{enumerate}
+\end{exercice}
+
+Une construction classique~[Ser, 8.1.2] montre que les algorithmes
+d'inversion d'une matrice peuvent être aussi rapides que ceux du produit de
+matrices.
+
+% complexité du produit naive de deux matrices quelconque = pqr
+% complexité du produit naive de deux matrices carrées = n^3
+% une multiplication en C vaut 4 multiplications en R
+% résolution d'un système linéaire triangularire n^2/2 multiplications
+% calcul naive d'un determinant n!
+% calcul d'un determinant par élimination gaussienne n^2/2
+% inversion d'une matrice par la règle de Cramér n!
+% inversion d'une matrice par élimination Gaussienne n^3
+
+% note: ``those who know how to multiply know how to invert''
+
+% note: formule de Strassen
+
+% note: recherche actuelle en multiplication de matrices (cf. produit Winograd)
+
+% note: en réalité les multiplications sont plus rapides (!) que les additions
+
+% note: en réalité ce qui importe aujourd'hui n'est pas autant le nombre
+% total de calculs mais surtout la localité de l'accès à mémoire/possibilité
+% de paraléliser
+
+% note: matrices creuses
+
 
 
 %\subsection{Exemples de problèmes linéaires}
