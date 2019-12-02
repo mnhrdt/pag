@@ -22,6 +22,8 @@
 \newcommand{\x}{\mathbf{x}}
 \newcommand{\y}{\mathbf{y}}
 \newcommand{\z}{\mathbf{z}}
+\newcommand{\uu}{\mathbf{u}}
+\newcommand{\vv}{\mathbf{v}}
 \newcommand{\Sp}{\mathrm{Sp}}
 %\renewcommand{\Re}{\operatorname{Re}}
 %\renewcommand{\Im}{\operatorname{Im}}
@@ -1290,6 +1292,7 @@ car~$A^*A$ et~$AA^*$ ont toujours les mêmes valeurs propres avec la même
 multiplicité (sauf pour la multiplicité de $0$ si~$A$ est rectangulaire).
 
 \begin{theorem}[décomposition en valeurs singulières, SVD]
+	\label{thm:svd}
 	Soit~$A\in\M_{p,q}(\C)$.  Alors il existent deux matrices unitaires~$U\in
 	\UU_p(\C)$, $V\in\UU_q(\C)$ et une matrice quasi-diagonale~$\Sigma\in
 	\M_{p,q}(\C)$
@@ -1322,10 +1325,46 @@ multiplicité (sauf pour la multiplicité de $0$ si~$A$ est rectangulaire).
 \end{remark}
 
 On trouvera la preuve complète de l'existence d'une décomposition SVD dans
-tout livre moderne d'algèbre linéaire, par exemple [AK] ou [Serr].  Ici on
-s'intéresse surtout aux applications de cette décomposition, qui est
-essentielle en calcul scientifique.  Notamment, pour l'analyse en composantes
-principales et la pseudo-inverse.
+tout livre moderne d'algèbre linéaire, par exemple [AK] ou [Serr].
+Attention: les preuves paraissent souvent plus compliqués qu'elles ne le
+sont.  Il est conseillé de commencer par le cas carré~$p=q$ inversible, puis
+non inversible, puis le cas général.
+%Ici on s'intéresse surtout aux applications de cette décomposition, qui est
+%essentielle en calcul scientifique.
+
+{\bf Schéma de la preuve du théorème~\ref{thm:svd}.}
+Soit~$A$ une matrice~$p\times q$ de rang~$r$.
+\begin{enumerate}
+	\item La matrice~$A^*A$ est hermitienne et semi-définie positive, donc elle
+		décompose comme
+		\[
+		A^*A=V\Lambda V^*
+		=\sum_i\lambda_i\vv_i\vv_i^*
+		=\sum_i(\sigma_i)^2\vv_i\vv_i^*
+		\]
+	Les colonnes orthogonales de~$\vv_i$ de~$V$ sont les vecteurs propres
+	\item On a~$A^*A\vv_i=(\sigma_i)^2\vv_i$
+	\item Si tous les~$\sigma_i$ sont positifs, posons
+		$\uu_i=\tfrac1{\sigma_i}A\vv_i$.
+	\item On vérifie que~$\uu_i$ est un vecteur propre unitaire de~$AA^*$.
+	\item Soit~$\Sigma=\mathrm{diag}(\sigma_i)$.  On a alors
+		\begin{align*}
+			U & =A V\Sigma^{-1} \\
+			U\/\Sigma & =A V \\
+			A & =U\/A V^* \\
+		\end{align*}
+		ce qui conclut la preuve dans le cas non-singulier.
+	\item Si les derniers~$\sigma_i=0$, on pet compléter la définition des
+		colonnes de~$U$ en complétant une base orthonormée de~$\K^p$, puis on
+		rajoute des lignes de~$0$ à~$\Sigma$.
+\end{enumerate}
+
+\bigskip
+
+La SVD est la factorisation matricielle la plus importante, et la plus
+utilisée en traitement du signal et en modélisation.  Notamment, pour
+l'analyse en composantes principales et pour la définition la pseudo-inverse
+(qui généralise le critère de moindres carrés).
 
 {\bf SVD et décomposition polaire.}
 %Le lien entre SVD et décomposition polaire
@@ -1339,10 +1378,91 @@ voit que la décomposition polaire est possible pour matrices quelconque, pas
 forcément inversibles ou même carrées.
 
 {\bf SVD et éléments propres.}
+Les valeurs singulières d'une matrice~$A$ sont les valeurs propres de~$A^*A$
+ou de~$AA^*$.  Il est donc naturel qu'il y ait plein de relations entre
+la SVD de~$A=U\/\Sigma V^*$ et ses éléments propres.  On les voit en re-écrivant
+les matrices~$A^*A$ et~$AA^*$ à partir de la SVD:
+\begin{align*}
+	A^*A & = V\Sigma^*U^* U\Sigma V^* = V(\Sigma^*\Sigma)V^* \\
+	AA^* & = U\Sigma V^* V\Sigma^* U^* = U(\Sigma\Sigma^*)U^*
+\end{align*}
+
+ainsi, les colonnes de~$V$ (vecteurs singuliers à droite) sont vecteurs
+propres de~$A^*A$, et les colonnes de~$U$ (vecteurs singuliers à gauche) sont
+vecteurs propres de~$AA^*$.
+Quand~$A$ est hermitienne semi-définie positive, alors sa
+diagonalisation~$A=UDU^*$ est une SVD.
 
 
 \subsection{Pseudo-inverse de Moore-Penrose}
 
+Si~$Ax=b$ est un système linéaire avec~$A$ carrée et inversible la solution
+du système est donnée par~$x=A^{-1}b$.  La notion de pseudo-inverse (de
+Moore-Penrose) permet de traiter le cas général, avec une matrice peut-être
+rectangulaire, peut-être de rang incomplet.
+
+\begin{definition}[pseudo-inverse]
+	\label{def:pseudoinv}
+	Soit~$A\in\M_{p,q}(\C)$ et~$A=U\/\Sigma V^*$ sa SVD
+	avec~$U\in\UU(p)$, ~$V\in\UU(q)$
+	et~$\Sigma=\parens{\begin{smallmatrix}D&0\\0&0\end{smallmatrix}}$.
+	La~\emph{pseudo-inverse} de~$A$ est la matrice~$A\in\M_{q,p}(\C)$ définie
+	par
+	\[
+		A^+=V\Sigma^+ U^*
+		\qquad
+		\textrm{avec}
+		\qquad
+		\Sigma^+=\begin{pmatrix}D^{-1}&0\\0&0\end{pmatrix}
+	\]
+\end{definition}
+
+\begin{exercice}
+	\label{ex:pseudoinv}
+	Soit~$A\in\M_{p,q}(\C)$ et~$A^+\in\M_{q,p}(\C)$ sa pseudo-inverse.  Alors
+	\begin{align*}
+		& AA^+A=A \\
+		& A^+AA^+=A^+ \\
+		& (AA^+)*=AA^+ \\
+		& (A^+A)*=A^+A
+	\end{align*}
+	De plus quand~$A$ est réelle alors~$A^+$ l'est aussi.
+\end{exercice}
+
+La pseudo-inverse permet de donner une solution ``canonique'' au problème
+général~$Ax=b$ par~$x=A^+b$.  Notons que cette solution est consistante avec
+les constructions typiques:
+
+\begin{exercice}
+	Si~$A\in\GL_n(\C)$ alors~$A^+=A^{-1}$.
+	Si~$A\in\M_{p,q}(\K)$ de rang~$q\le p$ alors la solution de monidres carrés
+	de~$\|Ax-b\|^2_2$ est donnée par~$x=A^+b$.
+\end{exercice}
+
+Le résultat suivant dit que la pseudo-inverse n'est pas une généralisation
+arbitraire de~$A^{-1}$.
+
+\begin{theorem}[Penrose 1955]
+	Soit~$A^+$ une matrice qui satisfait les quatre propriétés de
+	l'exercice~\ref{ex:pseudoinv}.  Alors~$A^+$ est la pseudo-inverse de~$A$
+	selon la définition~\ref{def:pseudoinv}.
+\end{theorem}
+
+\begin{exercice}
+	Calculez la pseudo-inverse des matrices suivantes
+	\begin{itemize}
+		\item Un scalaire~$a\in\K=\M_{1,1}(\K)$.
+		\item Un vecteur~$\x\in\K^n=\M_{n,1}(\K)$.
+		\item La matrice
+			nilpotente~$A_1=\parens{\begin{smallmatrix}0&1\\0&0\end{smallmatrix}}$
+		\item La matrice
+			singulière~$A_2=\parens{\begin{smallmatrix}1&1\\1&1\end{smallmatrix}}$
+		\item La matrice singulière~$\x\x^*\in\M_{n,n}(\K)$ avec~$x\in\K^n$.
+	\end{itemize}
+\end{exercice}
+
+
+\clearpage
 \section{Méthodes directes}
 
 %Nous présentons trois méthodes directes de résolution de systèmes linéaires:
@@ -1438,16 +1558,16 @@ Les notations $L$ et $U$ se rapportent aux termes anglais \emph{lower} et
 \begin{exercice}
 On va prouver le Théorème~\ref{th:lu}. On reprend la méthode d'élimination de
 Gauss.
-\end{exercice}
 \begin{enumerate}
-\item (\emph{Unicité}). Sous réserve d'existence, montrer que la
+\item (\emph{Unicité}). Sous réserve d'existence, montrez que la
 	décomposition $LU$ est unique.
 \item (\emph{Existence}) On suppose qu'il existe $k$ tel que
-	$q_1,\dots,q_{k-1} \neq 0$ et $q_k = 0$. Montrer que le $k-$ième mineur
+	$q_1,\dots,q_{k-1} \neq 0$ et $q_k = 0$. Montrez que le $k-$ième mineur
 	principal de $A$ est nul. Conclure.
 \item Réciproquement, on suppose que $A$ admet une telle décomposition.
-	Montrer que les mineurs principaux de $A$ sont tous non-nuls.
+	Montrez que les mineurs principaux de $A$ sont tous non-nuls.
 \end{enumerate}
+\end{exercice}
 
 {\bf Algorithmique.} On pourrait croire que la factorisation $LU$ est plus
 coûteuse que la méthode de Gauss puisqu'elle demande de calculer en outre la
@@ -1533,8 +1653,8 @@ A = B B^*
 \begin{exercice}
 On va prouver le Théorème~\ref{th:cholesky}.
 \begin{enumerate}
-\item Sous réserve d'existence, montrer l'unicité.
-\item Justifier que $A$ admet une décomposition $LU$ et que les $u_{k,k}$ sont strictement positifs.
+\item Sous réserve d'existence, montrez l'unicité.
+\item Justifiez que $A$ admet une décomposition $LU$ et que les $u_{k,k}$ sont strictement positifs.
 \item On note 
 \[
 D = \left(\begin{array}{ccc}
@@ -1543,7 +1663,7 @@ D = \left(\begin{array}{ccc}
 & & \sqrt{u_{n,n}}
 \end{array}\right)
 \]
-Montrer que $B = LD$ convient.
+Montrez que $B = LD$ convient.
 \end{enumerate}
 \end{exercice}
 
@@ -1571,20 +1691,175 @@ ce qui est le cas dans beaucoup d'applications
 Notons que cette factorisation permet un calcul du déterminant dans
 $\HH^{++}_n(\C)$ en $n^3/6$.
 
-\begin{exercice}
-On revient sur le problème aux moindres carrés (Section~\ref{sec:moindres
-carrés}). On suppose $n \geq m$ et $A$ de rang $m$. Donner le coût de la
-résolution du problème à l'aide de l'équation normale.
+\begin{exercice}(moindres carrés et équation normale)
+%On revient sur le problème aux moindres carrés (Section~\ref{sec:moindres
+%carrés}).
+On veut résoudre~$Ax=b$ avec~$A\in M_{p,q}(\K)$, $p\ge q$ et~$A$ de rang
+complet~$q$ (problème sur-déterminé, en général sans solution).  Pour cela,
+on cherche le~$x$ qui minimise l'erreur~$E(x)=\Abs{Ax-b}^2_2$.
+\begin{enumerate}
+	\item Vérifiez que~$E(x)$ est une fonction convexe et un polynôme de
+		degré~$2$
+	\item Démontrez que le minimum de~$E(x)$ est déterminé par l'équation
+		normale~$A^*Ax=A^*b$.
+	\item Donnez le coût de la résolution du problème à l'aide de la
+		décomposition de Cholesky.
+\end{enumerate}
+%On suppose $n \ge m$ et $A$ de rang $m$. Donner le coût de la
+%résolution du problème à l'aide de l'équation normale.
 \end{exercice}
 
 \begin{remark}
 Il y a d'autres méthodes que l'équation normale pour résoudre un problème aux
 moindres carrés. On pourra consulter à ce sujet~[AK,~chap.~7].
-7]{allairekaber2002}.
 \end{remark}
+
+La décomposition de Cholesky n'a pas une interprétation géométrique directe.
+Son intérêt principal est qu'elle fournit des méthodes de solution de
+systèmes linéaires très effectifs.  Même pour des systèmes non-symétriques,
+on considère souvent leur équation normale pour pouvoir utiliser la
+décomposition de Cholesky.  D'ailleurs, l'implémentation de la méthode est
+des plus simples possibles (beaucoup plus simple que l'élimination Gausienne
+avec des pivots).  Voici une implementation complète en langage~$C$:
+
+
+\begin{Verbatim}[fontsize=\scriptsize]
+        // compute a lower triangular matrix B such that B*B'=A
+        void cholesky(int n, double B[n][n], double A[n][n])
+        {
+                // initialize matrix to 0
+                for (int i = 0; i < n; i++)
+                for (int j = 0; j < n; j++)
+                        B[i][j] = 0;
+
+                // standard Cholesky-Crout algorithm
+                for (int i = 0; i < n; i++)
+                for (int j = 0; j <= i; j++)
+                {
+                        double r = 0;
+                        for (int k = 0; k < j; k++)
+                                r += B[i][k] * B[j][k];
+                        if (i == j)
+                                B[i][j] = sqrt(A[i][j] - r);
+                        else
+                                B[i][j] = ( A[i][j] - r ) / B[j][j];
+                }
+        }
+\end{Verbatim}
+
+cette implémentation est simplement une copie des formules
+\begin{align*}
+	b_{ij} \ :=\  & \ds\frac{\ds a_{ij}-\sum_{k=1}^{j-1}b_{ik}b_{jk}}{b_{jj}} 
+	\qquad j=1,\ldots, i-1
+	\\
+	& \\
+	b_{ii} \ :=\  & \ds\sqrt{a_{ii}-\sum_{k=1}^{i-1}b^2_{ik}}
+\end{align*}
+qui remplissent la matrice~$B$ ligne par ligne.
+
+
 
 
 \subsection{Factorisation QR}
+
+\begin{theorem}
+\label{thm:factorisation QR}
+Soit $A \in\GL_n(\K)$. Il existe un unique couple de matrices $(Q,R)$ avec $Q
+\in \UU(n)$ et $R \in \TS^{++}_n(\K)$ telles que
+\begin{displaymath}
+A = QR
+\end{displaymath}
+Ceci définit un homéomorphisme de $\GL_n(\K)$ sur $\UU(n)\times\TS^{++}(\K)$.
+\end{theorem}
+
+\begin{exercice}
+On va prouver le Théorème~\ref{thm:factorisation QR}.
+\begin{enumerate}
+\item Sous réserve d'existence, montrez l'unicité
+\item Montrez l'existence. \emph{On pourra par exemple s'intéresser à la matrice $A^*A$}.
+\item Montrez que la factorisation $QR$ définit bien un homéomorphisme.
+\end{enumerate}
+\end{exercice}
+
+La méthode d'orthogonalisation de Gram-Schmidt, appliquée aux colonnes
+de~$A$, fournit un algorithme pour calculer la décomposition~$A=QR$ (et
+aussi, une preuve d'existence!).  Cependant, cette méthode est numériquement
+très instable, et d'autres algorithmes sont utilisés en pratique pour obtenir
+cette décomposition.  Les deux méthodes plus importantes sont
+les~\emph{réflexions de Householder} et les~\emph{rotations de Givens}.
+
+La décomposition~$QR$ est un outil essentiel pour la~\emph{méthode QR} pour
+approcher itérativement tous les éléments propres d'une matrice.
+
+
+%\begin{rem}
+%C'est une version matricielle du procédé d'orthonormalisation de Gram-Schmidt appliqué aux colonnes de $A$.
+%\end{rem}
+
+
+\subsection{Exemples de factorisations}
+
+Les factorisations suivantes sont très utilisées en~\emph{computer graphics}
+et traitement d'images.  Vous pouvez démontrer leur existence et unicité
+comme conséquences directes des factorisations antérieures.
+
+\begin{proposition}[décomposition canonique d'une affinité]
+	Toute application linéaire de déterminant positif~$A:\R^2\to\R^2$ qui n'est
+	pas une similarité admet une décomposition unique
+	\[
+		A = H_\lambda R(\psi)T_tR(\phi)
+		= \lambda
+		\begin{pmatrix}\cos\psi & -\sin\psi\\\sin\psi & \cos\psi\end{pmatrix}
+		\begin{pmatrix}t & 0 \\0 & 1\end{pmatrix}
+		\begin{pmatrix}\cos\phi & -\sin\phi\\\sin\phi & \cos\phi\end{pmatrix}
+	\]
+	où~$\lambda>0$, ~$\lambda^2t$ est le déterminant de~$A$, les~$R$ sont
+	matrices de rotation,~$\psi\in[0,\pi[$ et~$T_t$ est un~\emph{tilt}.
+\end{proposition}
+
+La décomposition existe aussi si~$A$ est une similarité, mais dans ce
+cas~$t=1$ et les angles ne sont pas uniques.
+Cette décomposition modèle la transformation subie par un élément de surface
+quand il est observé d'un point de vue oblique.
+
+\bigskip
+
+\begin{proposition}[rotation de Yaroslavski]
+	Toute rotation admet une décomposition comme produit de trois~\emph{shears}
+	\[
+		\begin{pmatrix}\cos\theta & -\sin\theta\\\sin\theta & \cos\theta\end{pmatrix}
+		=
+		\begin{pmatrix}1&c\\0&1\end{pmatrix}
+		\begin{pmatrix}1&0\\b&1\end{pmatrix}
+		\begin{pmatrix}1&a\\0&1\end{pmatrix}
+	\]
+\end{proposition}
+
+\begin{exercice}
+	Exprimez~$a,b,c$ en fonction de l'angle~$\theta$.
+\end{exercice}
+
+\begin{center}
+	\includegraphics[width=0.2\linewidth]{affinedec.png}
+\end{center}
+
+Cette décomposition donne une méthode pour appliquer rotations sur les images
+qui n'a pas de flou (contrairement à re-intérpoler l'image sur une grille
+tournée).  L'idée est que le~\emph{shear} est essentiellement une opération
+unidimensionnelle sur les lignes de l'image, et on peut appliquer des
+translations très précises indépendamment sur chaque ligne.
+
+\bigskip
+
+Finalement, ce résultat classique en traitement de signal peut s'interpréter,
+par exemple, en termes de la SVD:
+
+\begin{proposition}
+	Toute matrice circulante~\footnote{circulante = la colonne~$i$-ème est la
+	permutation cyclique d'ordre~$i$ de la première colonne, de sorte que
+toutes les diagonales sont constantes} diagonalise dans la base de la
+transformée de Fourier discrète.
+\end{proposition}
 
 
 \end{document}
