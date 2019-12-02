@@ -17,7 +17,6 @@
 \newcommand{\C}{\mathbf{C}}
 \newcommand{\K}{\mathbf{K}}
 \newcommand{\T}{\mathbf{T}}
-\newcommand{\M}{\mathbf{M}}
 \newcommand{\ud}{\mathrm{d}}
 \newcommand{\e}{\mathbf{e}}
 \newcommand{\x}{\mathbf{x}}
@@ -26,7 +25,19 @@
 \newcommand{\Sp}{\mathrm{Sp}}
 %\renewcommand{\Re}{\operatorname{Re}}
 %\renewcommand{\Im}{\operatorname{Im}}
-\newcommand{\OO}{\mathcal{O}}
+
+% matrix groups and sets
+\newcommand{\M}{\mathrm{M}}
+\newcommand{\GL}{\mathrm{GL}}
+\newcommand{\TS}{\mathrm{TS}}
+\newcommand{\TI}{\mathrm{TI}}
+\newcommand{\UU}{\mathrm{U}}
+\newcommand{\OO}{\mathrm{O}}
+\newcommand{\SO}{\mathrm{SO}}
+\newcommand{\SU}{\mathrm{SU}}
+\newcommand{\SL}{\mathrm{SL}}
+\newcommand{\SSS}{\mathrm{S}}
+\newcommand{\HH}{\mathrm{H}}
 
 \newcommand{\parens}[1]{\left(#1\right)} % (x)
 \newcommand{\pairing}[2]{\left\langle #1,#2\right\rangle} % <x,y>
@@ -116,31 +127,31 @@ Princeton University Press, 1939\\
 	\item $A^*$ est la matrice conjuguée de~$A$ (si~$\K=\C$) ou transposée
 		(si~$\K=\R$).
 		%On a donc~$\parens{A^*}_{ij}=\overline{\parens{A}_{ji}}$.
-	\item $GL_n(\K)$ est
+	\item $\GL_n(\K)$ est
 	%~\emph{sa majesté le groupe linéaire général},
 		l'ensemble des matrices inversibles de taille~$n$.
-	\item $O_n(\R)$ est 
+	\item $\OO_n(\R)$ est 
 		%le~\emph{groupe orthogonal}
 		l'ensemble des matrices orthogonales ($A^\top A=I$).
-	\item $SO_n(\R)$ est
+	\item $\SO_n(\R)$ est
 		%le~\emph{groupe unitaire spécial}
 		l'ensemble des matrices orthogonales de déterminant~$1$.
-	\item $U_n(\C)$ est
+	\item $\UU_n(\C)$ est
 		%le~\emph{groupe unitaire}
 		l'ensemble des matrices unitaires ($A^*A=I$).
-	\item $SU_n(\C)$ est
+	\item $\SU_n(\C)$ est
 		%le~\emph{groupe unitaire spécial}
 		l'ensemble des matrices unitaires de déterminant~$1$.
-	\item $TS_n(\K)$ (resp.~$TI_n(\K)$) est l'ensemble des matrices
+	\item $\TS_n(\K)$ (resp.~$\TI_n(\K)$) est l'ensemble des matrices
 		triangulaires supérieures (resp.~inférieures) de taille~$n$.
-	\item $TS^{++}_n(\K)$ (et~$TI^{++}_n(\K)$) est l'ensemble des matrices
+	\item $\TS^{++}_n(\K)$ (et~$\TI^{++}_n(\K)$) est l'ensemble des matrices
 		triangulaires dont les éléments diagonaux sont strictement positifs.
-	\item $TS^{1}_n(\K)$ (et~$TI^{1}_n(\K)$) est l'ensemble des matrices
+	\item $\TS^{1}_n(\K)$ (et~$\TI^{1}_n(\K)$) est l'ensemble des matrices
 		triangulaires dont les éléments diagonaux sont tous~$1$.
-	\item $S_n(\R)$ (resp.~$H_n(\C)$) est l'ensemble des matrices
+	\item $\SSS_n(\R)$ (resp.~$\HH_n(\C)$) est l'ensemble des matrices
 			symétriques~(resp.~hermitiennes), définies par la
 			condition~$A^\top=A$ (resp.~$A^*=A$)
-	\item $S^{++}_n(\R)$ (resp.~$H^{++}_n(\C)$) est l'ensemble des matrices
+	\item $\SSS^{++}_n(\R)$ (resp.~$\HH^{++}_n(\C)$) est l'ensemble des matrices
 			symétriques définies positives~(resp.~hermitiennes définies positives),
 		\item $\Sp_\C(A)=\left\{\lambda\in\C\ :\ \exists\x\in\K^n\ :\
 			A\x=\lambda\x\right\}$ est le~\emph{spectre} de
@@ -183,9 +194,9 @@ Si~$A\in\M_p(\K)$ est une matrice carrée, on peut l'interpréter aussi comme
 une forme bilinéaire~$\K^p\times\K^p\to\K$ définie par~$(\x,\y)\mapsto
 \y^*A\x$.  Le cas particulier~$A=I$ donne le produit scalaire ou hermitien.
 
-Chacun des espaces~$M_{p,q}(\K)$ est un espace vectoriel sur~$\K$ de
+Chacun des espaces~$\M_{p,q}(\K)$ est un espace vectoriel sur~$\K$ de
 dimension~$pq$.  Si~$p=q$ alors le produit de matrices est une opération
-interne, compatible avec les opérations d'espace vectoriel et~$M_p(\K)$ a
+interne, compatible avec les opérations d'espace vectoriel et~$\M_p(\K)$ a
 donc la structure d'algèbre sur le corps~$\K$.  Cette algèbre est toujours
 associative mais en général non-commutative.  Si on regarde seulement
 l'opération de produit, on trouve des sous-groupes intéressants, dits les
@@ -193,54 +204,54 @@ l'opération de produit, on trouve des sous-groupes intéressants, dits les
 de~$\M_n(\K)\approx\K^{n\times n}$ déterminées implicitement par des
 équations et inégalités polynomiales.
 
-L'ensemble~$GL_n(\K)$ est \emph{<<sa majesté>> le groupe linéaire
+L'ensemble~$\GL_n(\K)$ est \emph{<<sa majesté>> le groupe linéaire
 général}~\footnote{[W], page~136}.
 Ses éléments sont les applications linéaires inversibles de~$\K^n$.  Elles
 satisfont~$\textrm{det}(A)\neq 0$; c'est donc un ouvert de~$\M_n$,
 image réciproque de l'ouvert~$\K\setminus\{0\}$ par l'application
 continue~$\textrm{det}$.
-Les autres groupes classiques sont des sous-groupes de~$GL_n(\K)$.
+Les autres groupes classiques sont des sous-groupes de~$\GL_n(\K)$.
 
-L'ensemble~$O_n(\R)$ est le~\emph{groupe orthogonal}.
+L'ensemble~$\OO_n(\R)$ est le~\emph{groupe orthogonal}.
 Ses éléments sont les isométries linéaires de~$\R^n$, déterminées par la
-condition~$A^\top A=I$.  Les colonnes d'une matrice~$A\in O_n(\R)$ forment
+condition~$A^\top A=I$.  Les colonnes d'une matrice~$A\in\OO_n(\R)$ forment
 une base orthonormée de~$\R^n$.  La condition~$A^\top A=I$ est un ensemble
 de~$n(n+1)/2$ équations (polynômiales de degré 2) sur les coefficients
 de~$A$, une pour chaque élément sur ou au dessus de la diagonale de~$I$.
-L'ensemble~$O_n(\R)$ est donc une variété compacte de dimension~$n(n-1)/2$.
+L'ensemble~$\OO_n(\R)$ est donc une variété compacte de dimension~$n(n-1)/2$.
 La condition d'isométrie se traduit par~$\pairing{A\x}{A\y}$ et
 par~$\Abs{A\x}=\Abs\x$, relations qui suivent immédiatement de~$A^\top A=I$.
 Observons que~$\textrm{det}\parens{O_n(\R)}=\left\{\pm 1\right\}$.
-L'ensemble~$O_n(\R)$ a deux composantes connexes.
+L'ensemble~$\OO_n(\R)$ a deux composantes connexes.
 
-L'ensemble~$SO_n(\R)$ est le~\emph{groupe spécial orthogonal}.  Ses éléments
+L'ensemble~$\SO_n(\R)$ est le~\emph{groupe spécial orthogonal}.  Ses éléments
 sont les isométries linéaires de~$\R^n$ qui conservent l'orientation.  Il est
-la composante connexe de~$O_n(\R)$ qui contient l'identité.  Il a donc la
+la composante connexe de~$\OO_n(\R)$ qui contient l'identité.  Il a donc la
 même dimension~$n(n-1)/2$.  En particulier, pour~$n=2$ il est de
 dimension~$1$ (les rotations du plan) et pour~$n=3$ il est de dimension~$3$
 (les rotations de l'espace).
 
-L'ensemble~$TS_n(\R)\cap GL_n(\C)$ est le~\emph{sous-groupe de Borel
+L'ensemble~$\TS_n(\R)\cap\GL_n(\C)$ est le~\emph{sous-groupe de Borel
 standard}.  Ses élements sont les matrices triangulaires supérieures.  Ce
 groupe a~$2^n$ composantes connexes, une pour chaque combinaison de signes
-sur la diagonale.  La composante qui contient l'identité est~$TS_n^{++}(\R)$.
+sur la diagonale.  La composante qui contient l'identité est~$\TS_n^{++}(\R)$.
 
-L'ensemble~$TS^1_n(\R)$ est aussi un groupe, de dimension~$n(n-1)/2$.
+L'ensemble~$\TS^1_n(\R)$ est aussi un groupe, de dimension~$n(n-1)/2$.
 Pour~$n=2$ il est le groupe des cisaillements horizontaux du plan
 (\emph{horizontal shears}, en anglais), isomorphe au groupe~$(\R,+)$.
 Pour~$n=3$ il est le~\emph{groupe de Heisenberg}.
 
 \begin{exercice}
 	L'intersection de sous-groupes est toujours un sous-groupe.  Identifiez
-	les sous-groupes de~$GL_n(\R)$ suivants:
+	les sous-groupes de~$\GL_n(\R)$ suivants:
 	\begin{align*}
-		TS_n(\R) \cap O_n(\R) &= \solution{\{\pm I\} \approx \Z/2\Z}\\
-		TS_n(\C) \cap U_n(\C) &= \solution{\{e^{i\theta} I\} \approx \R/2\pi\R}\\
-		TS_n(\R) \cap SO_n(\R) &= \solution{\{I\}} \\
+		\TS_n(\R) \cap \OO_n(\R) &= \solution{\{\pm I\} \approx \Z/2\Z}\\
+		\TS_n(\C) \cap \UU_n(\C) &= \solution{\{e^{i\theta} I\} \approx \R/2\pi\R}\\
+		\TS_n(\R) \cap \SO_n(\R) &= \solution{\{I\}} \\
 %		TS_n(\C) \cap SU_n(\C) &= \solution{\{I\}} \\
-		TS_n(\R) \cap TI_n(\R) &= \solution{\textrm{matrices diagonales
+		\TS_n(\R) \cap \TI_n(\R) &= \solution{\textrm{matrices diagonales
 		inversibles} \approx \parens{\R^*}^n}\\
-		TS^{++}_n(\R) \cap TI_n(\R) &= \solution{\textrm{diagonales strictement
+		\TS^{++}_n(\R) \cap \TI_n(\R) &= \solution{\textrm{diagonales strictement
 		positives} \approx \parens{\R^+}^n}\\
 %		TS^1_n(\R) \cap TI_n(\R) &= \solution{\{I\}}
 	\end{align*}
@@ -255,17 +266,17 @@ Pour~$n=3$ il est le~\emph{groupe de Heisenberg}.
 	de~$\R$ n'est pas connexe mais celui de~$\C$ l'est.}
 \end{exercice}
 
-L'ensemble~$S_n(\R)$ des matrices symétriques n'est pas un groupe: le produit
+L'ensemble~$\SSS_n(\R)$ des matrices symétriques n'est pas un groupe: le produit
 de deux matrices symétriques n'est pas en général symétrique.  La propriété
 de symétrie~$A^\top=A$ se traduit par~$\pairing{A\x}\y=\pairing\x{A\y}$.
 Autrement dit, la forme bilinéaire~$(\x,\y)=\y^\top A\x$
 associée à une matrice symétrique est symétrique.
 
 \begin{proposition}[Théorème spéctral]
-	Toute matrice symétrique réelle~$A\in S_n(\R)$ (resp. hermitienne~$A\in
-	H_n(\C)$) a des valeurs propres réelles et vecteurs propres orthogonaux.
+	Toute matrice symétrique réelle~$A\in\SSS_n(\R)$ (resp. hermitienne~$A\in
+	\HH_n(\C)$) a des valeurs propres réelles et vecteurs propres orthogonaux.
 	C'est à dire, il existe une matrice diagonale~$D$ réelle et une matrice
-	orthogonale~$V\in O_n(\R)$ (resp.  unitaire~$V\in U_n(\R)$) telles
+	orthogonale~$V\in\OO_n(\R)$ (resp.  unitaire~$V\in\UU_n(\C)$) telles
 	que~$A=V^* D V$.
 \end{proposition}
 
@@ -537,9 +548,9 @@ déterminant).
 Pour $1\leq i\leq n$ on note $D_i$ le disque fermé de centre $a_{ii}$ et de
 rayon $\sum_{j\neq i} |a_{ij}|$. On appelle \emph{domaine de Gershgorin} de
 $A$ l'union de tous ces disques:
-\begin{displaymath}
+\[
 \mathcal G(A) = \bigcup_{i=1}^n D_i
-\end{displaymath}
+\]
 \end{definition}
 \begin{proposition}[Théorème de Gershgorin]
 	\label{prop:gersh}
@@ -559,14 +570,14 @@ $A$ l'union de tous ces disques:
 \begin{minipage}{0.45\columnwidth}
 On a représenté sur la figure ci-contre le domaine de Gershgorin (disques
 noirs) ainsi que les valeurs propres (points bleus) de la matrice
-\begin{displaymath}
+\[
 A = \left(\begin{array}{cccc}
 0.5 & 0.1 & 0 & 0\\
 0.2 & 1 & 0.1 & 0\\
 0 & 0.1& 2 & -0.4 \\
 0 & 0 & 0.4 & 2.5
 \end{array}\right)
-\end{displaymath}
+\]
 \end{minipage}
 \hspace{0.05 \columnwidth}
 \begin{minipage}{0.45\columnwidth}
@@ -579,16 +590,16 @@ phénomène, qui n'est pas anodin, est l'objet de l'exercice suivant.
 
 \begin{exercice}
 \label{ex:gersh} On note $\mathcal E$ une composante connexe de $\mathcal G(A)$ et $p$ le nombre de disques $D_i$ inclus dans $\mathcal E$. Ainsi, dans l'Exemple, $\mathcal G(A)$ a 3 composantes connexes
-\begin{displaymath}
+\[
 D_1 \ (p = 1),\quad D_2 \ (p = 1), \quad D_3 \cup D_4 \ (p= 2)
-\end{displaymath}
+\]
 Le but de l'exercice est de montrer que $\mathcal E$ contient exactement $p$
 valeurs propres de $A$ (comptées avec leur ordre de multiplicité algébrique). 
 
 A cet effet, on note $D$ la diagonale de $A$ et, pour tout $0 \leq r \leq 1$
-\begin{displaymath}
+\[
 A_r = rA + (1-r)D
-\end{displaymath}
+\]
 On note enfin $m(r)$ le nombre de valeurs propres de $A_r$ dans $\mathcal E$.
 On cherche donc à montrer : $m(1) = p$.
 \begin{enumerate}
@@ -597,9 +608,9 @@ On cherche donc à montrer : $m(1) = p$.
 \item {Supposez qu'il existe} $\gamma$ une arc simple $\mathcal C^1$ par
 	morceaux orienté positivement séparant $\mathcal E$ (à l'intérieur) de
 	$\mathcal G(A) \setminus \mathcal E$ (à l'extérieur). Démontrez que
-\begin{displaymath}
+\[
 m(r) = \int_{\gamma} \frac{\chi'_{r}(z)}{\chi_{r}(z)}dz
-\end{displaymath}
+\]
 où $\chi_{r}$ est le polynôme caractéristique de $A_r$.
 \item Déduisez que que $m$ est continue et concluez.
 %\item \textbf{Application.} On suppose que les disques $D_i$ sont deux-à-deux disjoints. Montrer que $A$ est diagonalisable.
@@ -796,7 +807,7 @@ théorème de Householder montre que c'est en fait la borne inférieure
 			Démontrez que~$N(\x)=\Abs{P\x}_\alpha$ est une norme en~$\K^n$ et que
 			sa norme induite est~$N(A)=\ABS{PAP^{-1}}_\alpha$.
 		\item Soit~$A\in\M_n(\C)$ et~$\mu>0$, démontrez qu'il existe~$Q\in
-			GL_n(\C)$ et~$D$ diagonale telles que~$Q^{-1}AQ=D+\OO(\mu)$
+			GL_n(\C)$ et~$D$ diagonale telles que~$Q^{-1}AQ=D+\mathrm{O}(\mu)$
 		\item Démontrez le théorème de Householder.
 	\end{enumerate}
 \end{exercice}
@@ -831,7 +842,7 @@ Dû à des erreurs de mesure, le vecteur~$b$ est souvent perturbé par le bruit,
 ce qui donnera une valeur~$x$ inexacte.
 
 {\bf Exemple.} (issu de [AK], section 5.3)
-\begin{displaymath}
+\[
 A = \left(\begin{array}{cccc}
 8 & 6 & 4 & 1 \\
 1 & 4 & 5 & 1 \\
@@ -840,9 +851,9 @@ A = \left(\begin{array}{cccc}
 \end{array}\right), \quad b =  \begin{pmatrix}8 \\ 10 \\ 2 \\ 6\end{pmatrix} \quad
 \Rightarrow \quad
 x = \begin{pmatrix}0 \\ 0 \\ 2 \\ 0\end{pmatrix}
-\end{displaymath}
+\]
 En modifiant légèrement~$b$, on obtient une solution très différente
-\begin{displaymath}
+\[
 A = \left(\begin{array}{cccc}
 8 & 6 & 4 & 1 \\
 1 & 4 & 5 & 1 \\
@@ -850,7 +861,7 @@ A = \left(\begin{array}{cccc}
 1 & 4 & 3 & 6
 \end{array}\right), \quad b = \begin{pmatrix}8.05 \\ 10 \\ 2 \\ 6\end{pmatrix} \quad
 \Rightarrow \quad x = \begin{pmatrix}2 \\ -5.225 \\ 5.5 \\ 1.4\end{pmatrix}
-\end{displaymath}
+\]
 
 Le~\emph{conditionnement} d'une matrice sert à étudier cet effet.
 
@@ -864,17 +875,17 @@ Le~\emph{conditionnement} d'une matrice sert à étudier cet effet.
 
 \begin{proposition}[conditionnement euclidien] Pour toute matrice
 	inversible~$A$:
-\begin{displaymath}
+\[
 \mathrm{cond}_2(A) = \sqrt{\frac{\lambda_{\max}(A^*A)}{\lambda_{\min}(A^*A)}}
-\end{displaymath}
+\]
 Si $A$ est normale
-\begin{displaymath}
+\[
 \mathrm{cond}_2(A) = \frac{\abs{\lambda_{\max}(A)}}{\abs{\lambda_{\min}(A)}}
-\end{displaymath}
+\]
 Si $O \in U_n(\K)$ alors
-\begin{displaymath}
+\[
 \mathrm{cond}_2(O) = 1, \quad \mathrm{cond}_2(AO) = \mathrm{cond}_2(OA) = \mathrm{cond}_2(A)
-\end{displaymath}
+\]
 \end{proposition}
 
 %Les deux exercices suivants montrent que, lorsqu'on résout un problème de la
@@ -936,10 +947,10 @@ versions de cette majoration, selon si on a des petites erreurs d'observation
 Les inégalités ci-dessus sont certes optimales, mais elles sont en général
 très pessimistes (on dit aussi \emph{conservatives}). Ainsi dans
 l'Exemple on a
-\begin{displaymath}
+\[
 \frac{\Abs{\delta x}_{2}}{\Abs{x}{2}} \simeq 964 \frac{\Abs{\delta
 b}_{2}}{\Abs{b}_{2}}
-\end{displaymath}
+\]
 ce qui fait déjà beaucoup, mais $\mathrm{cond}_2(A) \simeq 3199$.
 \end{remark}
 
@@ -965,11 +976,11 @@ Laplace en dimension~$1$ (avec conditions de Dirichlet):
 \end{cases}
 \end{equation*}
 On fixe~$n\ge 1$ et on note
-\begin{displaymath}
+\[
 	x_i = \frac{i}{n}, \quad 0 \leq i \leq n, \quad U = \begin{pmatrix}u(x_1)
 		\\ \vdots \\ u(x_{n-1})\end{pmatrix} \in \R^{n-1}, \quad  b =
 		\begin{pmatrix}f(x_1) \\ \vdots \\ f(x_{n-1})\end{pmatrix} \in \R^{n-1}
-\end{displaymath}
+\]
 Le problème discret est donc~$Ax=b$, avec une solution qui devrait
 s'approcher de~$U$ (pour cela on va supposer que~$f$ est suffisamment
 régulière).
@@ -987,20 +998,20 @@ régulière).
 			Démontrez
 			que $\Abs{U-U_{\mathrm{approx}}}_2=\mathcal{O}\parens{\frac1{n^2}}$
 \item Démontrez que
-\begin{displaymath}
+\[
 	\mathrm{cond}_2(A) \underset{n \rightarrow \infty}{\sim} \frac{4n^2}{\pi^2}
-\end{displaymath}
+\]
 de sorte que, quand $n$ est grand, la matrice est très mal conditionnée.
 \item En notant $\x = U_{\mathrm{approx}}$, montrer que
-\begin{displaymath}
+\[
 \lim_{n \rightarrow \infty } \frac{1}{n} \Abs{\x}^2 = \int_0^1 u^2(x)dx,
 \quad \lim_{n \rightarrow \infty } \frac{1}{n} \Abs{b}^2 = \int_0^1 f^2(x)dx
-\end{displaymath}
+\]
 	\end{enumerate}
 \item Montrer enfin qu'il existe une constante $c > 0$ indépendante de $n$ telle que
-\begin{displaymath}
+\[
 \frac{\Abs{\delta\x}}{\Abs{\x}} \leq c \frac{\Abs{\delta b}}{\Abs{b}}
-\end{displaymath}
+\]
 de sorte que, même si la matrice est très mal conditionné, le problème est
 très bien posé pour les conditions d'utilisation typiques.
 \end{exercice}
@@ -1010,18 +1021,18 @@ très bien posé pour les conditions d'utilisation typiques.
 %remarque.
 %\begin{enumerate}
 %\item Montrer que 
-%\begin{displaymath}
+%\[
 %	\mathrm{cond}_2(A) \underset{n \rightarrow \infty}{\sim} \frac{4n^2}{\pi^2}
-%\end{displaymath}
+%\]
 %de sorte que, quand $n$ est grand, la matrice est très mal conditionnée.
 %\item En notant $x = U_{\textrm{approx}}$, montrer que
-%\begin{displaymath}
+%\[
 %\lim_{n \rightarrow \infty } \frac{1}{n} \n{\xx}{2}^2 = \int_0^1 u^2(x)dx, \quad \lim_{n \rightarrow \infty } \frac{1}{n} \n{b}{2}^2 = \int_0^1 f^2(x)dx
-%\end{displaymath}
+%\]
 %\item Montrer enfin qu'il existe une constante $c > 0$ indépendante de $n$ telle que
-%\begin{displaymath}
+%\[
 %\frac{\n{\delta x}{2}}{\n{\xx}{2}} \leq c \frac{\n{\delta b}{2}}{\n{b}{2}}
-%\end{displaymath}
+%\]
 %\end{enumerate}
 %\end{exercice}
 
@@ -1210,22 +1221,23 @@ Quelques commentaires au sujet de la complexité:
 
 \subsection{Décomposition polaire}
 
-Rappelons que~$U_n$ est le groupe des matrices unitaires ($A^*A=I$)
-et~$H_n^{++}$ est l'ensemble des matrices hermitiennes ($A^*=A$) définies
-positives~($\x^*A\x\ge 0$).  Pour~$n=1$ l'ensemble~$U_1$ sont les nombres
-complexes de la forme~$e^{in\theta}$ et l'ensemble~$H_1^{++}$ sont les réels
-positifs.  Tout élément~$z$ de~$\C\setminus\{0\}=GL_1(\C)$ peut s'écrire de
+Rappelons que~$\UU_n$ est le groupe des matrices unitaires ($A^*A=I$)
+et~$\HH_n^{++}$ est l'ensemble des matrices hermitiennes ($A^*=A$) définies
+positives~($\x^*A\x\ge 0$).  Pour~$n=1$ l'ensemble~$\UU_1$ sont les nombres
+complexes de la forme~$e^{in\theta}$ et l'ensemble~$\HH_1^{++}$ sont les réels
+positifs.  Tout élément~$z$ de~$\C\setminus\{0\}=\GL_1(\C)$ peut s'écrire de
 forme unique comme~$z=re^{i\theta}$ avec~$r>0$.  Cette~\emph{décomposition
 polaire} a un analogue direct avec les matrices.
 
 \begin{theorem}[décomposition polaire]
 	\label{thm:polaire}
-	Toute matrice inversible~$A\in GL_n(\C)$ admet une décomposition
-	unique~$A=HQ$ avec~$H\in H_n^{++}$ et~$Q\in U_n$.
-	L'application~$A\mapsto(H,Q)$ est un homéomorphisme entre~$GL_n(\C)$
-	et~$H_n^{++}\times U_n$.
+	Toute matrice inversible~$A\in\GL_n(\C)$ admet une\emph{décomposition
+	polaire}
+	unique~$A=HQ$ avec~$H\in\HH_n^{++}(\C)$ et~$Q\in\UU_n(\C)$.
+	L'application~$A\mapsto(H,Q)$ est un homéomorphisme entre~$\GL_n(\C)$
+	et~$\HH_n^{++}(\C)\times\UU_n(\C)$.\\
 	Si~$A$ est réelle, alors~$H$ et~$Q$ le sont
-	aussi.
+	aussi (et donc~$H\in\SSS^{++}_n(\R)$ et~$Q\in\OO_n(\R)$).
 \end{theorem}
 
 \begin{exercice}
@@ -1278,9 +1290,9 @@ car~$A^*A$ et~$AA^*$ ont toujours les mêmes valeurs propres avec la même
 multiplicité (sauf pour la multiplicité de $0$ si~$A$ est rectangulaire).
 
 \begin{theorem}[décomposition en valeurs singulières, SVD]
-	Soit~$A\in M_{p,q}(\C)$.  Alors il existent deux matrices unitaires~$U\in
-	U_p(\C)$, $V\in U_q(\C)$ et une matrice quasi-diagonale~$\Sigma\in
-	M_{p,q}(\C)$
+	Soit~$A\in\M_{p,q}(\C)$.  Alors il existent deux matrices unitaires~$U\in
+	\UU_p(\C)$, $V\in\UU_q(\C)$ et une matrice quasi-diagonale~$\Sigma\in
+	\M_{p,q}(\C)$
 	\[
 		\Sigma = \begin{pmatrix}
 			\sigma_1 & & & & \\
@@ -1299,7 +1311,7 @@ multiplicité (sauf pour la multiplicité de $0$ si~$A$ est rectangulaire).
 \begin{remark}
 	Même pour les matrices carrées, la décomposition~$A=U\/\Sigma V$ ne dit pas
 	que~$A$ soit diagonalisable sur une base de vecteurs orthogonaux: les
-	rotations~$U$ et~$V$ sont complètement différentes l'une de l'autre!
+	rotations~$U$ et~$V$ sont a priori complètement différentes l'une de l'autre!
 \end{remark}
 
 \begin{remark}
@@ -1309,13 +1321,22 @@ multiplicité (sauf pour la multiplicité de $0$ si~$A$ est rectangulaire).
 	arbitraires.
 \end{remark}
 
-On trouvera la preuve de la décomposition SVD dans tout livre moderne d'algèbre
-linéaire, par exemple [AK] ou [Serr].  Ici on s'intéresse surtout aux
-applications de cette décomposition, qui est essentielle en calcul
-scientifique.  Notamment, pour l'analyse en composantes principales et la
-pseudo-inverse.
+On trouvera la preuve complète de l'existence d'une décomposition SVD dans
+tout livre moderne d'algèbre linéaire, par exemple [AK] ou [Serr].  Ici on
+s'intéresse surtout aux applications de cette décomposition, qui est
+essentielle en calcul scientifique.  Notamment, pour l'analyse en composantes
+principales et la pseudo-inverse.
 
 {\bf SVD et décomposition polaire.}
+%Le lien entre SVD et décomposition polaire
+Soit~$A\in\GL_n(\C)$ et~$A=HQ$ sa décomposition polaire.  Par le théorème
+spectral, la matrice~$H$ diagonalise dans une base orthogonale de vecteurs
+propres~$H=PDP^*$ avec~$P\in\UU_n$ et~$D$ diagonale positive.  On a
+donc~$A=PD(P^*Q)$, qui est une SVD.
+Réciproquement, si~$A=U\/\Sigma V^*$ est une~SVD de~$A$,
+alors~$A=(U\/\Sigma U^*)(UV^*)$ est la décomposition polaire de~$A$.  Ici on
+voit que la décomposition polaire est possible pour matrices quelconque, pas
+forcément inversibles ou même carrées.
 
 {\bf SVD et éléments propres.}
 
@@ -1324,9 +1345,244 @@ pseudo-inverse.
 
 \section{Méthodes directes}
 
+%Nous présentons trois méthodes directes de résolution de systèmes linéaires:
+%la factorisation LU (qui est la version matricielle de l'élimination
+%Gaussienne), la factorisation de Cholesky (valable pour matrices symétriques)
+
+\subsection{Méthode d'élimination de Gauss}
+
+Le principe est de transformer~$Ax=b$ en un système
+triangulaire équivalent. La méthode s'appuie sur le résultat suivant.
+
+\begin{proposition}
+Il existe $G \in\GL_n(\K)$ telle que $U = GA$ soit triangulaire supérieure.
+\end{proposition}
+Il ne reste alors plus qu'à résoudre le système triangulaire $Ux = Gb$
+
+{\bf Algorithmique.}
+On peut construire $G$ comme le produit d'au plus $n-1$ matrices triangulaires inférieures $T_1,\dots T_{n-1}$ et éventuellement de matrices de transposition s'il y a besoin de changer de \emph{pivot}. En pratique, le terme $Gb$ est mis à jour à chaque étape. On ne calcule pas explicitement $G$.
+
+\begin{exercice}
+Appliquez la méthode d'élimination de Gauss à
+\[
+A = \left(\begin{array}{ccc}
+0 & 2 & 3 \\
+1 & 4 & 1  \\
+2 & 1 & -1
+\end{array}\right), \quad b = \begin{pmatrix}1 \\ 8 \\5\end{pmatrix}
+\]
+Notez à chaque étape $k$ : le $k-$ième élément diagonal $q_k$, la matrice de
+transposition $P_k$, le pivot $p_k$ (si $q_k \neq 0$, $P_k = I$ et $p_k =
+q_k$), la matrice $T_k$.
+\end{exercice}
+
+{\bf Algorithmique.}
+%On retiendra que
+La méthode d'élimination de Gauss est en~$\displaystyle {n^3}/{3}$.
+
+\begin{remark}
+Les éléments diagonaux $u_{k,k}$ de $U$ sont les pivots $p_k$.
+\end{remark}
+
+\begin{remark}
+Si $A$ est n'est pas inversible, la méthode d'élimination permet de rendre
+$A$ triangulaire, mais $U$ n'est pas inversible. Aussi, $Ux = Gb$ n'a pas
+nécessairement de solution.
+\end{remark}
+
+\begin{exercice}
+Montrez que
+\[
+\det A = (-1)^p \prod_{k=1}^n u_{k,k}
+\]
+où $p$ est le nombre de matrices de transposition utilisées. La méthode
+d'élimination de Gauss permet ainsi un calcul de déterminant en
+$\displaystyle {n^3}/{3}$.
+\end{exercice}
+
+{\bf Algorithmique.}
+Pour des raisons de stabilité numérique, il peut être utile de changer de
+pivot lorsque $q_k$ est non nul mais petit. On peut prendre par exemple le
+plus grand (en module) dans la sous-colonne $[k:n,k]$ (\emph{pivot partiel})
+ou bien encore le plus grand dans la sous-matrice $[k:n,k:n]$ (\emph{pivot
+total}). Un exemple concret est donné dans~[Cia,~p.78--79].
+
+%\begin{remark}
+%La méthode de Gauss permet aussi d'échelonner des systèmes linéaires
+%non-carrés. On trouve une bonne présentation des systèmes échelonnés
+%dans~\cite[Chapitre 4]{escofier2006}.
+%\end{remark}
+
 \subsection{Factorisation LU}
 
+Si $q_k$ n'est jamais nul, il n'y a pas de matrice de transposition donc $G =
+T_{n-1}\dots T_1 \in \TI$ et en notant $$L = G^{-1} = T_1^{-1} \dots
+T_{n-1}^{-1} \in \TI$$ on a
+\[
+A = LU
+\]
+La \emph{décomposition} $LU$ de $A$ n'est donc rien d'autre que la mise en
+\oe uvre de la méthode de Gauss dans ce cas. Comme on va le voir, le fait que
+$q_k$ n'est jamais nul se lit sur les mineurs principaux de $A$.
+
+\begin{theorem}
+\label{th:lu}
+On suppose que les mineurs principaux de $A$ sont tous non nuls. Il existe
+alors un unique couple de matrices $(L,U)$ avec $L \in \TI^1_n(\K)$ et $U \in
+\TS_n(\K)$ inversible telles que $A = LU$.
+\end{theorem}
+\begin{remark}
+Les notations $L$ et $U$ se rapportent aux termes anglais \emph{lower} et
+\emph{upper}.
+\end{remark}
+\begin{exercice}
+On va prouver le Théorème~\ref{th:lu}. On reprend la méthode d'élimination de
+Gauss.
+\end{exercice}
+\begin{enumerate}
+\item (\emph{Unicité}). Sous réserve d'existence, montrer que la
+	décomposition $LU$ est unique.
+\item (\emph{Existence}) On suppose qu'il existe $k$ tel que
+	$q_1,\dots,q_{k-1} \neq 0$ et $q_k = 0$. Montrer que le $k-$ième mineur
+	principal de $A$ est nul. Conclure.
+\item Réciproquement, on suppose que $A$ admet une telle décomposition.
+	Montrer que les mineurs principaux de $A$ sont tous non-nuls.
+\end{enumerate}
+
+{\bf Algorithmique.} On pourrait croire que la factorisation $LU$ est plus
+coûteuse que la méthode de Gauss puisqu'elle demande de calculer en outre la
+matrice $L$. Il n'en est rien. La forme particulièrement simple des matrices
+$T_i$ permet leur inversion par simple changement de signe de sa sous-colonne
+non nulle. On obtient alors $L$ par concaténation de ces sous-colonnes (voir
+[Cia.~p.83]).
+%{Pour s'en convaincre, on pourra chercher à
+%	calculer
+%\[
+%\left(\begin{array}{ccc}
+%1 & 0 & 0 \\
+%-2 & 1 & 0 \\
+%-3 & 0 & 1
+%\end{array}\right)^{-1} \quad \textrm{et} \quad \left(\begin{array}{ccc}
+%1 & 0 & 0 \\
+%2 & 1 & 0 \\
+%3 & 0 & 1
+%\end{array}\right)
+%\left(\begin{array}{ccc}
+%1 & 0 & 0 \\
+%0 & 1 & 0 \\
+%0 & 4 & 1
+%\end{array}\right)
+%\]
+%}
+Ainsi, la factorisation $LU$ est aussi en $n^3/3$.
+
+On peut aussi calculer par récurrence les sous-matrices $[1:k,1:k]$ de $L$ et
+$U$, cf.~[Serre,~chap.8]. Notons les $L_k,U_k$.
+On cherche \emph{a priori} $L_{k+1},U_{k+1}$ sous la forme
+\[
+L_{k+1} = \left(\begin{array}{cc}
+L_k & 0 \\
+l^* & 1
+\end{array}\right), \quad U_{k+1} = \left(\begin{array}{cc}
+U_k & u \\
+0 & z
+\end{array}\right)
+\]
+avec $u,l \in \K^k$, $z \in \K$. On trouve $l$ et $u$ en résolvant deux
+systèmes triangulaires de taille $k$, pour un coût en $k^2$. On a encore une
+complexité en $n^3/3$.
+
+\begin{remark}
+Cette décomposition est utile lorsqu'on veut résoudre le système
+\[
+Ax = b
+\]
+pour plusieurs valeurs $b$. On résout alors deux systèmes triangulaires en cascade
+\[
+Ly = b, \quad Ux = y
+\]
+pour un coût en $n^2$. C'est le cas par exemple pour la résolution approchée
+d'EDP %(Section~\ref{sec:edp})
+ou bien du calcul de $A^{-1}$ présenté dans l'exercice qui suit.
+\end{remark}
+
+\begin{exercice}
+On suppose que les mineurs principaux de $A$ sont tous non-nuls. Proposer une
+méthode de calcul de $A^{-1}$ en $\displaystyle {4n^3}/{3}$. (\emph{En fait,
+on peut réduire la complexité à $n^3$}).
+\end{exercice}
+
+%\begin{remark}
+%\cite{serre2001} présente un algorithme astucieux de multiplication et d'inversion de matrice en $\mathcal O(n^{\log 7 / \log 2})$.
+%\end{remark}
+
 \subsection{Factorisation de Cholesky}
+
+C'est une sorte de décomposition $LU$ pour les matrices hermitiennes définies
+positives.
+
+\begin{theorem}
+\label{th:cholesky}
+On suppose $A \in \HH^{++}_n(\C)$. Il existe une unique $B \in \TI^{++}_n(\C)$
+telle que
+\[
+A = B B^*
+\]
+\end{theorem}
+
+\begin{exercice}
+On va prouver le Théorème~\ref{th:cholesky}.
+\begin{enumerate}
+\item Sous réserve d'existence, montrer l'unicité.
+\item Justifier que $A$ admet une décomposition $LU$ et que les $u_{k,k}$ sont strictement positifs.
+\item On note 
+\[
+D = \left(\begin{array}{ccc}
+\sqrt{u_{1,1}} & & \\
+& \ddots & \\
+& & \sqrt{u_{n,n}}
+\end{array}\right)
+\]
+Montrer que $B = LD$ convient.
+\end{enumerate}
+\end{exercice}
+
+{\bf Exemple.}
+Établir la factorisation de Cholesky de la matrice
+\[
+A = \left(\begin{array}{ccc}
+1 & 2 & 1 \\
+2 & 13 & 2 \\
+ 1 & 2 & 2
+\end{array}\right)
+\]
+
+{\bf Algorithmique.}
+On retiendra que Cholesky est deux fois plus rapide que $LU$ (donc en
+$n^3/6$) tout en offrant le même avantage de ramener à une cascade de deux
+systèmes triangulaires
+\[
+By = b, \quad B^*x = y
+\]
+Aussi, on la préférera toujours à la décomposition $LU$ lorsque $A \in \HH^{++}_n(\C)$,
+ce qui est le cas dans beaucoup d'applications
+%(Cf. Section~\ref{sec:motiv linéaire}).
+
+Notons que cette factorisation permet un calcul du déterminant dans
+$\HH^{++}_n(\C)$ en $n^3/6$.
+
+\begin{exercice}
+On revient sur le problème aux moindres carrés (Section~\ref{sec:moindres
+carrés}). On suppose $n \geq m$ et $A$ de rang $m$. Donner le coût de la
+résolution du problème à l'aide de l'équation normale.
+\end{exercice}
+
+\begin{remark}
+Il y a d'autres méthodes que l'équation normale pour résoudre un problème aux
+moindres carrés. On pourra consulter à ce sujet~[AK,~chap.~7].
+7]{allairekaber2002}.
+\end{remark}
+
 
 \subsection{Factorisation QR}
 
