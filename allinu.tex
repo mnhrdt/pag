@@ -1822,6 +1822,11 @@ cas~$t=1$ et les angles ne sont pas uniques.
 Cette décomposition modèle la transformation subie par un élément de surface
 quand il est observé d'un point de vue oblique.
 
+\begin{center}
+	\includegraphics[width=0.2\linewidth]{affinedec.png}
+\end{center}
+
+
 \bigskip
 
 \begin{proposition}[rotation de Yaroslavski]
@@ -1838,10 +1843,6 @@ quand il est observé d'un point de vue oblique.
 \begin{exercice}
 	Exprimez~$a,b,c$ en fonction de l'angle~$\theta$.
 \end{exercice}
-
-\begin{center}
-	\includegraphics[width=0.2\linewidth]{affinedec.png}
-\end{center}
 
 Cette décomposition donne une méthode pour appliquer rotations sur les images
 qui n'a pas de flou (contrairement à re-intérpoler l'image sur une grille
@@ -1860,6 +1861,69 @@ par exemple, en termes de la SVD:
 toutes les diagonales sont constantes} diagonalise dans la base de la
 transformée de Fourier discrète.
 \end{proposition}
+
+\clearpage
+\section{Méthodes itératives}
+
+Les méthodes itératives s'appuient sur la propriété du point fixe pour
+les applications contractantes:
+
+\begin{proposition}[point fixe de Banach]
+	Soit~$F:V\to V$ une application~$k$-Lipschitzienne avec~$k<1$ sur un espace
+	métrique complet~$V$.  Alors il existe un unique point~$x\in V$ tel
+	que~$F(x)=x$.  De plus, pour tout~$a\in V$, la suite des itérées~$F^n(a)$
+	converge vers~$x$.
+\end{proposition}
+
+Tout le jeu consiste, alors, à transformer chacun des problèmes~$Ax=b$
+et~$Ax=\lambda b$ en problèmes de point fixe.  Parfois on peut appliquer
+directement le théorème du point fixe de Banach, parfois des versions
+légèrement différentes, comme celle de Browder (à ne pas confondre avec
+Brouwer).
+
+
+\begin{proposition}[point fixe de Bowder et Kirk]
+	Soit~$C$ un sous-ensemble non-vide, borné, fermé et convexe d'un espace de
+	Banach uniformément convexe, et~$F:C\to C$ une
+	application~\emph{non-expansive}, c'est à dire,
+	telle que~$\Abs{F^nx-F^ny}\le \Abs{x-y}$.  Alors~$F$ a un point fixe (pas
+	forcément unique).  %De plus, toute suite d'iterés~$F^n(x)$ converge 
+\end{proposition}
+
+Le plus souvent, on donnera une construction particulière au cas de chaque
+matrice, sans faire appel à ces résultats.
+
+
+\subsection{Méthode de la puissance, puissance inverse}
+
+Lest méthodes itératives les plus faciles à analyser sont les méthodes de
+calcul des éléments propres extrémaux (avec le valeur propre le plus grand et
+le plus petit).
+
+L'idée de base est que la séquence d'applications itérées d'une
+matrice~$A^nx$ s'approche rapidement vers une direction avec le valeur
+propre la plus grande.
+
+\subsection{Méthodes itératives de résolution: formulation générale}
+
+\subsection{Méthodes de Jacobi et Gauss-Seidel}
+
+\subsection{Descente de gradient à pas fixe}
+
+\subsection{Descente de gradient à pas optimal}
+
+\subsection{Descente de gradient stochastique}
+
+\subsection{Méthode du gradient conjugué}
+
+\subsection{Méthodes de calcul de la SVD}
+
+- bidiagonalisation + méthode itérative, méthode QR
+
+%\subsection{Méthode QR}
+
+
+
 
 
 \end{document}
