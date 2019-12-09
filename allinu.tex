@@ -1822,9 +1822,9 @@ cas~$t=1$ et les angles ne sont pas uniques.
 Cette décomposition modèle la transformation subie par un élément de surface
 quand il est observé d'un point de vue oblique.
 
-\begin{center}
-	\includegraphics[width=0.2\linewidth]{affinedec.png}
-\end{center}
+%\begin{center}
+%	\includegraphics[width=0.2\linewidth]{affinedec.png}
+%\end{center}
 
 
 \bigskip
@@ -1987,20 +1987,296 @@ l'unique valeur propre de $A$ contenue dans $D_i$.
 \end{enumerate}
 \end{exercice}
 
-
 \subsection{Méthodes itératives de résolution: formulation générale}
 
-\subsection{Méthodes de Jacobi et Gauss-Seidel}
+%Ces méthodes ne permettent qu'un calcul approché de la solution $\xx$, mais
+%sont rapides comparées aux méthodes directes.
+Soit~$A\in\GL_n(\K)$ et~$b\in\K^n$, on veut trouver~$x\in\K^n$ tel
+que~$Ax=b$.
+Le principe de base est de décomposer $A$ en
+\[
+A = M - N
+\]
+avec $M$ inversible, de sorte que
+\[
+Ax = b \quad \Leftrightarrow \quad Mx = Nx + b \quad \Leftrightarrow \quad x = M^{-1}(Nx+b)
+\]
+La méthode itérative associée à la décomposition $A = M-N$ consiste alors à
+choisir $x^0 \in \K^{n}$ et à calculer les itérés $x^k$ solution de
+\[
+Mx^{k+1} = (Nx^k + b)
+\qquad\qquad
+%\color{gray}
+%x^{k+1} = M^{-1}(Nx^k + b)
+\]
+Ceci n'a d'intérêt que si $M$ facilite le travail (typiquement $M$ diagonale ou triangulaire). La pertinence de la décomposition se lit sur le rayon spectral de $M^{-1}N$.
 
-\subsection{Descente de gradient à pas fixe}
+\begin{proposition}
+\label{prop:methodes_iteratives}
+La suite $(x^k)$ converge vers la solution $x=A^{-1}b$ quelque soit $x^0$ si
+et seulement si $\rho(M^{-1}N) < 1$. On dit alors que la méthode est
+convergente.
+\end{proposition}
 
-\subsection{Descente de gradient à pas optimal}
+\begin{exercice}
+Prouver la Proposition \ref{prop:methodes_iteratives}. Montrer que la
+convergence est au moins linéaire et donner le taux de convergence.
+\end{exercice}
 
-\subsection{Descente de gradient stochastique}
 
-\subsection{Méthode du gradient conjugué}
+{\bf Algorithmique.}
+En pratique on ne connait pas la solution $x$ (on en cherche une approximation !) donc on ne sait pas quel terme $x^k$ est satisfaisant. Un critère souvent utilisé est de s'arrêter lorsque
+\[
+\Abs{Ax^k-b} \leq \epsilon
+\] 
+où $\epsilon$ est un seuil défini à l'avance. On note $K$ le nombre d'itérations effectuées avant l'arrêt. En pratique, la complexité des méthodes itératives est en $Kn^2$. Elles sont donc intéressantes si $K \ll n$.
+
+\begin{remark}
+C'est une méthode de point fixe pour la fonction $x \mapsto (M^{-1}N x +b)$. L'inégalité $\rho(M^{-1}N) < 1$ équivaut au fait que la fonction est contractante.
+\end{remark}
+
+
+\subsection{Méthode de Jacobi}
+
+Dans cette méthode $M$ est la diagonale de $A$, supposée inversible. Par exemple
+\[
+A = \left(\begin{array}{ccc}
+1 & 2 & 0 \\
+2 & 13 & 2 \\
+ 1 & 1 & 2
+\end{array}\right)
+, \quad M = \left(\begin{array}{ccc}
+1 & 0 & 0 \\
+0 & 13 & 0 \\
+ 0 & 0 & 2
+\end{array}\right)
+, \quad N = \left(\begin{array}{ccc}
+0 & -2 & 0 \\
+-2 & 0 & -2 \\
+-1 & -1 & 0
+\end{array}\right)
+\]
+
+\begin{exercice}
+On suppose que $A$ est à diagonale strictement dominante. Montrer que la
+méthode de Jacobi est convergente.
+\end{exercice}
+
+\subsection{Méthode de Gauss-Seidel}
+
+Dans cette méthode $M$ est la partie triangulaire inférieure de $A$, par exemple
+\[
+A = \left(\begin{array}{ccc}
+1 & 2 & 0 \\
+2 & 13 & 2 \\
+1 & 1 & 2
+\end{array}\right)
+, \quad M = \left(\begin{array}{ccc}
+1 & 0 & 0 \\
+2 & 13 & 0 \\
+1 & 1 & 2
+\end{array}\right)
+, \quad N = \left(\begin{array}{ccc}
+0 & -2 & 0 \\
+0 & 0 & -2 \\
+0 & 0 & 0
+\end{array}\right)
+\]
+
+\begin{proposition}
+\label{prop:gauss_seidel}
+Si $A \in\HH^{++}_n(\K)  $ alors la méthode de Gauss-Seidel est convergente
+\end{proposition}
+
+\begin{exercice}
+On va prouver la Proposition~\ref{prop:gauss_seidel}.
+\begin{enumerate}
+\item Montrer que $M^* + N$ est diagonale et définie positive.
+\item On note $\Abs{x}_A = \sqrt{\pairing{Ax}{x}}$ la norme associée à $A$
+	sur $\K^{n}$. Montrer que, pour tout $x \neq 0$
+\[
+\Abs{M^{-1}Nx}_{A}^2 < \Abs{x}_{A}^2
+\]
+\item Conclure
+\end{enumerate}
+\end{exercice}
+
+\begin{remark}
+On vient en fait de montrer que, de manière générale, la méthode est
+convergente si $A \in \HH^{++}_n(\K)$ et $M^* + N \in \HH^{++}_n(\K)$.
+\end{remark}
+\begin{remark}
+Un raffinement de la méthode de Gauss-Seidel consiste à pondérer la diagonale
+de $A$ dans $M$ par un facteur $\frac{1}{\omega}$. Par exemple pour $\omega =
+\frac{1}{3}$
+\[
+A = \left(\begin{array}{ccc}
+1 & 2 & 0 \\
+2 & 13 & 2 \\
+1 & 1 & 2
+\end{array}\right)
+, \quad M = \left(\begin{array}{ccc}
+3 & 0 & 0 \\
+2 & 39 & 0 \\
+1 & 1 & 6
+\end{array}\right)
+, \quad N = \left(\begin{array}{ccc}
+2 & -2 & 0 \\
+0 & 26 & -2 \\
+0 & 0 & 4
+\end{array}\right)
+\]
+C'est la \emph{méthode de relaxation} [Serr,~chap.~9]
+convergente si et seulement si $|\omega-1| < 1$. L'idée est de choisir
+judicieusement $\omega$ pour rendre $\rho(M^{-1}N)$ le plus petit possible,
+accélérant ainsi la convergence.
+\end{remark}
+
+\subsection{Descente de gradient}
+
+%\subsection{Descente de gradient à pas optimal}
+Dans cette méthode $M = \frac{1}{\alpha} I$, où $\alpha \in \R^*$ est un
+paramètre de réglage. Par exemple pour $\alpha = 0.1$
+\begin{displaymath}
+A = \left(\begin{array}{ccc}
+1 & 2 & 0 \\
+2 & 13 & 2 \\
+ 1 & 1 & 2
+\end{array}\right)
+, \quad M = \left(\begin{array}{ccc}
+10 & 0 & 0 \\
+0 & 10 & 0 \\
+ 0 & 0 & 10
+\end{array}\right)
+, \quad N = \left(\begin{array}{ccc}
+9 & -2 & 0 \\
+-2 & -3 & -2 \\
+-1 & -1 & 8
+\end{array}\right)
+\end{displaymath}
+
+\begin{exercice}
+On suppose $A$ diagonalisable de valeurs propres $0 < \lambda_1 \leq \dots \leq \lambda_n$
+\begin{enumerate}
+\item Montrer que la suite des itérés est
+\begin{displaymath}
+x^{k+1} = x^{k} - \alpha (Ax^k -b)
+\end{displaymath}
+et justifier le nom de la méthode.
+\item Montrer que la méthode du gradient converge si et seulement si $\displaystyle 0 < \alpha < \frac{2}{\rho(A)}$.
+\item Montrer que la valeur
+\begin{displaymath}
+\alpha = \frac{2}{\lambda_1 + \lambda_n}
+\end{displaymath}
+minimise $\rho(M^{-1}N)$ qui vaut alors
+\begin{displaymath}
+\rho(M^{-1}N) = \frac{\lambda_n - \lambda_1}{\lambda_n + \lambda_1}
+\end{displaymath}
+\end{enumerate}
+\end{exercice}
+
+\begin{exercice}
+On suppose $A \in \SSS^{++}_n(\R)$. Une variante de la méthode du gradient
+consiste à faire varier $\alpha$ à chaque pas, en choisissant $\alpha_k$
+qui minimise la fonction
+\begin{displaymath}
+\alpha \mapsto f(x_k - \alpha(Ax_k -b))
+\end{displaymath}
+où $f: x \mapsto \frac{1}{2}\pairing{Ax}{x} - \pairing{b}{x}$ est la fonction
+convexe sous-jacente. Montrer que ce minimum est atteint en un unique point
+\begin{displaymath}
+	\alpha_k = \frac{\Abs{A x^k - b}^2}{\pairing{A(Ax^k-b)}{\,Ax^k-b}}
+\end{displaymath}
+C'est la méthode \emph{du gradient à pas optimal}.
+\end{exercice}
+
+
+\subsection{Gradient conjugué}
+Les deux méthodes décrites ci-dessus de descente de gradient sont délaissées
+au profit de l'algorithme beaucoup plus efficace du \emph{gradient conjugué}
+[Hestenes-Steifel~1952], dans lequel les directions de descente sont
+itérativement orthonormées pour le produit scalaire induit par $A$ sur
+$\R^{n}$.
+C'est en réalité une méthode directe qui atteint la solution exacte à
+l'itération~$n$-ième.  Mais on l'utilise souvent comme méthode itérative dû à
+ses bonnes propriétés d'approximation.
+%Voir \cite[Chapitre 9]{allairekaber2002} pour un exposé détaillé. 
+
+Soit~$A$ une matrice définie positive. %~$A\in\SSS^{++}_n(\R)$.
+On veut résoudre le système linéaire~$Ax=b$.
+
+{\bf Idée de la méthode.}
+La fonction quadratique~$F:\R^n\to\R$
+\begin{align*}
+	F(z) &=\tfrac12(b-Az)^\top A^{-1}(b-Az)\\
+	&=\tfrac12z^\top Az-b^\top z+\tfrac12b^\top A^{-1}b
+\end{align*}
+trouve son minimum sur la solution exacte~$z=A^{-1}b$.
+Ceci suit du fait que~$A^{-1}$ est définie positive;
+pour un vecteur~$z$ le~\emph{résidu}~$r=b-Az$ vaut zéro seulement pour~$z=x$.
+En faisant une descente de gradient sur la fonction~$F$, on retrouve une
+séquence  de vecteurs~$x_k$, résolvant itérativement des problèmes de
+minimisation 1-dimensionnelle:
+\[
+	x_{k+1} : F(x_{k+1})=\min_u F(x_k+u r_kl)
+	\qquad
+	\mathrm{avec}\ r_k = DF(x_k)^\top=b-Ax_k
+\]
+Il se trouve que~$x_{k+1}$ peut se calculer explicitement et que la séquence
+des~$r_k$ sont orthogonaux (pendant que~$r_k\neq0$).
+
+{\bf Algorithme.}  Initialisation: soit~$x_0\in\R^n$ arbitraire
+et~$p_0:=r_0:=b-Ax_0$.  Pour~$k=0,1,\ldots$:
+\begin{enumerate}
+	\item Si~$p_k=0$, on s'arrête: la solution est alors~$x_k$.
+	\item calculer
+		\begin{align*}
+			\ds
+			\alpha_k &:= \frac{r_k^\top r_k}{p_k^\top Ap_k} \\
+			x_{k+1} &:= x_k+\alpha_kp_k \\
+			r_{k+1} &:= r_k-\alpha_kAp_k \\
+			\beta_k &:= \frac{r_{k+1}^\top r_{k+1}}{p_k^\top Ap_k} \\
+		p_{k+1} &:= r_{k+1}+b_kp_k
+		\end{align*}
+\end{enumerate}
+
+%\begin{remark}
+%
+%\end{remark}
+
+\begin{exercice}[analyse du gradient conjugué]
+	Soit~$A$ une matrice réelle définie positive et~$b\in\R^n$.   Alors pour
+	toute initialisation~$x_0\in\R^n$ il existe un entier~$l\le n$ tel
+	que~$p_l=0$, et les suites de vecteurs~$x_k,p_k,r_k$ satisfont les
+	propriétés suivantes:
+	\begin{enumerate}
+		\item $Ax_l=b$
+		\item $r_i^\top p_j=0$ pour~$0\le j\le i\le l$
+		\item $r_i^\top p_i=r_i^\top r_i$ pour $i\le l$
+		\item $p_i^\top A p_j=0$ pour $0\le i< j\le l$
+		\item $p_i^\top A p_i>0$ pour $j\le l$
+		\item $r_i^\top r_j=0$ pour~$0\le i< j\le l$
+		\item $r_j^\top r_j>0$ pour~$j\le l$
+		\item $r_i=b-Ax_i$ pour~$i\le l$
+	\end{enumerate}
+\end{exercice}
+
+%\begin{remark}
+%	L
+%\end{remark}
+
+%\subsection{Descente de gradient stochastique}
+
+%\subsection{Méthode du gradient conjugué}
+
+
 
 \subsection{Méthode QR}
+
+La méthode~<<$QR$>> pour calculer~\emph{toutes} les valeurs propres consiste à
+appliquer itérativement la décomposition~$QR$, et observer que la matrice
+résultante s'approche à une diagonale avec les valeurs propres.
+
 %\begin{theorem}
 %\label{thm:factorisation QR}
 %Soit $A \in GL_n(\kk)$. Il existe un unique couple de matrices $(Q,R)$ avec $Q \in \on$ et $R \in \tsp$ telles que
@@ -2021,88 +2297,111 @@ l'unique valeur propre de $A$ contenue dans $D_i$.
 %C'est une version matricielle du procédé d'orthonormalisation de Gram-Schmidt appliqué aux colonnes de $A$.
 %\end{rem}
 %
-%\paragraph*{Principe de la méthode.} On construit une suite de matrices $(A_k)$ par récurrence
-%\[
-%A_1 = A, \quad A_{k+1} = R_k Q_k
-%\]
-%où $(Q_k,R_k)$ est la factorisation $QR$ de $A_k$.
-%
-%\begin{theorem}
-%\label{thm:QR}
-%On suppose que $A$ est diagonalisable 
-%\[
-%A = Y^{-1} D Y
-%\]
-%avec $D = \textrm{diag}(\lambda_1,\dots,\lambda_n)$
-%et
-%\[
-%|\lambda_1| > \dots > |\lambda_n| > 0
-%\]
-%On suppose en outre que $Y$ admet une décomposition $LU$. Alors, la partie triangulaire inférieure de $A_k$ converge vers $D$.
-%\end{theorem}
-%
-%\exo (\emph{difficile}) On va prouver le Théorème~\ref{thm:QR}. Pour simplifier on suppose les $\lambda_i$ réels strictement positifs. 
-%\begin{enumerate}
-%\item On note
-%\[
-%\Q_k \triangleq Q_1 \dots Q_k, \quad \R_k \triangleq R_k \dots R_1
-%\]
-%Montrer que la factorisation $QR$ de la $k-$ième puissance de $A$ est 
-%\[
-%A^k = \Q_k \R_k
-%\]
-%\item On note $Y = LU$ la décomposition de $Y$. Pour simplifier on suppose que la diagonale de $U$ est strictement positive. On note encore
-%\[
-%Y^{-1} = QR
-%\]
-%la factorisation $QR$ de $Y^{-1}$. Montrer que 
-%\[
-%\Q_k \R_k = QR D^k L U
-%\]
-%\item Montrer que 
-%\[
-%D^k L D^{-k} = I +  \mathcal O \left(\sigma^k\right)
-%\]
-%où 
-%\[
-%\sigma = \max_j \frac{\lambda_{j+1}}{\lambda_j}
-%\]
-%En déduire
-%\[
-%\Q_k \R_k = QB_k R D^k U
-%\]
-%avec $B_k = I + o(1)$
-%\item On note $B_k = O_kT_k$ la factorisation $QR$ de $B_k$. Montrer que 
-%\[
-%\Q_k = Q O_k, \quad \R_k = T_k R D^k U
-%\]
-%\item Montrer enfin
-%\[
-%(Q_k) \rightarrow I, \quad (R_k) \rightarrow R D R^{-1}
-%\]
-%et conclure.
-%\end{enumerate}
-%
-%\begin{rem}
-%Attention, dans l'exercice précédent la partie supérieure stricte de $A_k$ converge. Ce n'est pas le cas en général. Ceci est du au fait qu'on a supposé les valeurs propres de $A$ et les éléments diagonaux de $U$ strictement positifs. 
-%\end{rem}
-%\begin{algo}
-%En pratique, le taux de convergence $\sigma$ peut être proche de 1, surtout pour des matrices de grande taille. Pour accélérer la convergence, on peut faire une approximation des valeurs propres par la méthode $QR$ puis utiliser la puissance inverse comme présenté à l'Exercice~\ref{exo:puissance inverse} pour les dernières itérations. Ceci permet en outre de calculer des vecteurs propres.
-%\end{algo}
-%
-%\begin{algo}
-%\begin{enumerate}
-%\item Le calcul de la factorisation $QR$ par le procédé de Gram-Schmidt est en $n^3$ mais cet algorithme a tendance à propager des erreurs d'arrondi. En pratique, on la calcule plutôt par l'algorithme de Householder \cite[Chapitre 7]{allairekaber2002}, qui consiste à multiplier $A$ par $n-1$ matrices de symétrie orthogonale par rapport à des hyperplans bien choisis. Cette méthode est plus stable numériquement et plus rapide, en $2n^3/3$.
-%
-%\item On pourrait penser à utiliser la factorisation $A = QR$ pour résoudre un système linéaire $Ax = b$. En effet, on est ramené au système triangulaire
-%\[
-%Rx = Q^* b
-%\]
-%Elle n'est jamais utilisée dans ce but car, même avec l'algorithme de Householder, la factorisation $QR$ est deux fois plus lente que la méthode d'élimination de Gauss.
-%\item Dans le cadre du calcul de valeur propres, où on itère des factorisation $QR$, il est préférable de mettre $A$ sous une forme réduite (dite \emph{de Hessenberg}) pour un coût en $5n^3/3$. Le calcul de la factorisation à chaque étape est alors en $4n^2$. On pourra consulter à ce sujet \cite[Chapitre 10]{serre2001}.
-%
-%\item On peut étendre la factorisation $QR$ à des matrices non-carrées. C'est une des méthodes de résolution d'un problème aux moindres carrés présentées dans \cite[Chapitre 7]{allairekaber2002}.
-%\end{enumerate}
+
+\paragraph*{Principe de la méthode.} On construit une suite de matrices $(A_k)$ par récurrence
+\[
+A_1 = A, \quad A_{k+1} = R_k Q_k
+\]
+où $(Q_k,R_k)$ est la factorisation $QR$ de $A_k$.
+
+\begin{theorem}[Convergence de la méthode QR pour calculer les valeurs propres]
+\label{thm:QR}
+On suppose que $A$ est diagonalisable
+\[
+A = Y^{-1} D Y
+\]
+avec $D = \textrm{diag}(\lambda_1,\dots,\lambda_n)$
+et
+\[
+|\lambda_1| > \dots > |\lambda_n| > 0
+\]
+On suppose en outre que $Y$ admet une décomposition $LU$. Alors, la partie triangulaire inférieure de $A_k$ converge vers $D$.
+\end{theorem}
+
+\begin{exercice}[difficile]
+On va prouver le Théorème~\ref{thm:QR}. Pour simplifier on suppose les $\lambda_i$ réels strictement positifs. 
+\begin{enumerate}
+\item On note
+\[
+\Q_k = Q_1 \dots Q_k, \qquad \R_k = R_k \dots R_1
+\]
+Montrer que la factorisation $QR$ de la $k-$ième puissance de $A$ est 
+\[
+A^k = \Q_k \R_k
+\]
+\item On note $Y = LU$ la décomposition de $Y$. Pour simplifier on suppose que la diagonale de $U$ est strictement positive. On note encore
+\[
+Y^{-1} = QR
+\]
+la factorisation $QR$ de $Y^{-1}$. Montrer que 
+\[
+\Q_k \R_k = QR D^k L U
+\]
+\item Montrer que 
+\[
+D^k L D^{-k} = I +  \mathcal O \left(\sigma^k\right)
+\]
+où 
+\[
+\sigma = \max_j \frac{\lambda_{j+1}}{\lambda_j}
+\]
+En déduire
+\[
+\Q_k \R_k = QB_k R D^k U
+\]
+avec $B_k = I + o(1)$
+\item On note $B_k = O_kT_k$ la factorisation $QR$ de $B_k$. Montrer que 
+\[
+\Q_k = Q O_k, \quad \R_k = T_k R D^k U
+\]
+\item Montrer enfin
+\[
+(Q_k) \rightarrow I, \quad (R_k) \rightarrow R D R^{-1}
+\]
+et conclure.
+\end{enumerate}
+\end{exercice}
+
+\begin{remark}
+Attention, dans l'exercice précédent la partie supérieure stricte de $A_k$ converge. Ce n'est pas le cas en général. Ceci est du au fait qu'on a supposé les valeurs propres de $A$ et les éléments diagonaux de $U$ strictement positifs. 
+\end{remark}
+
+{\bf Algorithmique.}
+En pratique, le taux de convergence $\sigma$ peut être proche de 1, surtout
+pour des matrices de grande taille. Pour accélérer la convergence, on peut
+faire une approximation des valeurs propres par la méthode $QR$ puis utiliser
+la puissance inverse comme présenté à l'Exercice~\ref{exo:puissance inverse}
+pour les dernières itérations. Ceci permet en outre de calculer des vecteurs
+propres.
+
+{\bf Algorithmique.}
+\begin{enumerate}
+\item Le calcul de la factorisation $QR$ par le procédé de Gram-Schmidt est
+	en $n^3$ mais cet algorithme a tendance à propager des erreurs d'arrondi.
+	En pratique, on la calcule plutôt par l'algorithme de Householder
+	[AK~chap.7], qui consiste à multiplier $A$ par $n-1$ matrices de symétrie
+	orthogonale par rapport à des hyperplans bien choisis. Cette méthode est
+	plus stable numériquement et plus rapide, en $2n^3/3$.
+\item On pourrait penser à utiliser la factorisation $A = QR$ pour résoudre
+	un système linéaire $Ax = b$. En effet, on est ramené au système
+	triangulaire
+\[
+Rx = Q^* b
+\]
+Elle est rarement utilisée dans ce but car, même avec l'algorithme de
+Householder, la factorisation $QR$ est deux fois plus lente que la méthode
+d'élimination de Gauss.
+\item
+	Dans le cadre du calcul de valeur propres, où on itère des
+	factorisation $QR$, il est préférable de mettre $A$ sous une forme réduite
+	(dite \emph{de Hessenberg}) pour un coût en $5n^3/3$. Le calcul de la
+	factorisation à chaque étape est alors en $4n^2$. On pourra consulter à ce
+	sujet [Serr~chap.10].
+\item On peut étendre la factorisation $QR$ à des matrices non-carrées. C'est
+	une des méthodes de résolution d'un problème aux moindres carrés présentées
+	dans [AK~chap.7].
+\end{enumerate}
+
 %\end{algo}
 %
 %\subsubsection{Autres méthodes}
@@ -2121,7 +2420,124 @@ l'unique valeur propre de $A$ contenue dans $D_i$.
 %
 %%\subsection{Méthode QR}
 
+\section{Exemples de modélisation}
 
+\subsection{Stabilité d'une équation différentielle}
+On considère une équation différentielle linéaire à coefficients constants
+\begin{align*}
+X'(t) & = AX(t), \quad t \in \R \\
+X(0) & = X_0
+\end{align*}
+avec $A \in M_n(\K)$. Le spectre de $A$ renseigne sur la nature des solutions.
+\begin{itemize}
+\item si les valeurs propres de $A$ sont à partie réelle $<0$, $X(t)$ converge vers 0 (quand $t\rightarrow +\infty$) quel que soit $X_0$ . L'équation est dite \emph{asymptotiquement stable}.
+\item si $A$ admet une valeur propre à partie réelle $> 0$, $|X(t)|$ diverge vers l'infini pour presque toutes les conditions initiales $X_0$. L'équation est dite \emph{instable}.
+\end{itemize}
+
+\begin{remark}
+Si l'une des valeurs propres est à partie réelle nulle, il faut étudier
+l'espace propre associé pour en savoir plus.
+\end{remark}
+
+\subsubsection{Analyse en composantes principales}
+On considère un nuage de $m$ points de $\R^{n}$ 
+\begin{displaymath}
+X^k = (x^k_i)_{1 \leq i \leq n}, \quad 1 \leq k \leq m
+\end{displaymath}
+Il n'est pas aisé de manipuler des données que l'on ne sait pas visualiser.
+Aussi, on cherche à représenter ce nuage de points dans un espace de petite
+dimension $d$ (typiquement $d=2$ ou 3) en perdant ``peu'' d'information.
+Quitte à centrer les $X^k$, on considère que
+$$\displaystyle\sum_{k=1}^m X^k = 0$$
+On note $\Gamma \in M_n(\R)$ la matrice de covariance des $X^k$ définie par
+\begin{displaymath}
+\Gamma_{i,j} = \frac{1}{m} \sum_{k=1}^{m} x^k_i x^k_j
+\end{displaymath}
+La matrice ${\Gamma}$ est symétrique, positive. Notons $\lambda_1 \geq \dots \geq
+\lambda_n \geq 0$ ses valeurs propres et $V_1,\dots V_n$ une base orthonormée
+de vecteurs propres associés. Les $V_i$ représentent les axes principaux de
+$\Gamma$ (on dit aussi les \emph{composantes principales}). Le scalaire
+$\lambda_i$ est
+la variance (ou dispersion) du nuage de points dans la direction $V_i$. 
+
+Si $\lambda_i$ est petit, les points sont peu dispersés dans la direction
+$V_i$ et on ne perd pas grand chose à considérer que le nuage est contenu
+dans le plan orthogonal à $V_i$. On sélectionne alors les $d$ plus grandes
+valeurs propres $\lambda_1 \geq \dots \geq \lambda_d$ et on projette le nuage
+de points dans l'espace engendré par $V_1,\dots, V_d$ :
+\begin{displaymath}
+Y^k = \sum_{i=1}^{d} \pairing{V_i}{X^k} V_i
+\end{displaymath}
+On a ainsi ``compressé'' les $X^k$ en un nuage de points $Y^k$ en dimension $d$. Le taux de compression est défini par
+\begin{displaymath}
+\tau = \frac{\sum_{i=1}^{d} \lambda_i}{\sum_{i=1}^{n} \lambda_i}
+\end{displaymath}
+%\subsubsection{Moteur de recherche}
+%Un bon moteur de recherche se doit de classer les pages de la toile selon un ordre d'importance qui a du sens pour l'utilisateur. Une célèbre entreprise de la Silicon Valley créée en 1998 doit son succès à la pertinence de son algorithme PageRank, qui fonctionne selon le principe suivant. 
+%
+%Numérotons les pages de la toile de 1 à $n$. On note $x_i$ le score de la page $i$, $\mathcal E_i$ l'ensemble des pages pointées par $i$, $n_i = |\mathcal E_i|$ le nombre de ces pages. Le score est défini implicitement par
+%
+%\begin{equation}
+%\label{eq:pagerank}
+%x_i = \sum_{i \in \mathcal E_j} \frac{x_j}{n_j}
+%\end{equation}
+%Autrement dit, le score de la page $i$ est la somme des scores pondérés des pages pointant vers $i$. 
+%
+%Cette définition présente l'avantage du bon sens mais ne permet pas un calcul direct des $x_i$ puisqu'elle est implicite. On introduit alors la \emph{matrice d'adjacence} du web $A \in M_n(\rr)$ définie par
+%\begin{align*}
+%a_{i,j} & = \frac{1}{n_j} \quad \textrm{si $j$ pointe vers $i$} \\
+%a_{i,j} & = 0 \quad \textrm{sinon}
+%\end{align*}
+%\begin{ex}
+%\end{ex}
+%\begin{center}
+%\begin{tikzpicture}
+%\node at (-70mm,0) {$
+%A = \left(\begin{array}{ccc}
+%0 & 0 & 1\\
+%\frac{1}{2} & 0 & 0\\
+%\frac{1}{2} & 1 & 0
+%\end{array}\right)$};
+%\node at (0,0) {\includegraphics[width = 0.4\columnwidth]{../figures/web}};
+%\end{tikzpicture}
+%\end{center}
+%
+%En notant $x = (x_i)_{1 \leq i \leq n} \in \r{n}$ \eqref{eq:pagerank} se réécrit au moyen de $A$ 
+%\begin{displaymath}
+%Ax = x
+%\end{displaymath}
+%Ainsi, trouver le score $x$ des pages de la toile revient à trouver un vecteur propre de $A$ associé à la valeur propre $1$. 
+%
+%\begin{rem}
+%La matrice 
+%\end{rem}
+
+\subsubsection{Vibrations d'un système mécanique [AK]}
+\begin{center}
+\begin{tikzpicture}
+\node at(0,0) {\includegraphics{masses_ressorts}};
+\node at(-51mm,8mm) {$k_1$};
+\node at(-13mm,8mm) {$k_2$};
+\node at(25.7mm,8mm) {$k_3$};
+\node at(6.5mm,-0.5mm) {$m$};
+\node at(-32mm,-0.5mm) {$m$};
+\node at(45mm,-0.5mm) {$m$};
+\node at(60mm,-20mm) {$x$};
+\end{tikzpicture}
+\end{center}
+Considérons un système unidimensionnel de trois masses $m$ reliées entre elles et à un support par des ressorts de constante de raideur $k_1,k_2,k_3$. On note $x_1, x_2,x_3$ le déplacement respectif des masses par rapport à leur position d'équilibre, $X = (x_1,x_2,x_3)$ satisfait l'équation différentielle
+\begin{displaymath}
+m \ddot X + K X = 0, \quad \textrm{avec} \ K = \left(\begin{array}{ccc}
+k_1 + k_2 & -k_2 & 0 \\
+-k_2 & k_2 + k_3 & -k_3 \\
+0 & -k_3 & k_3
+\end{array}\right)
+\end{displaymath}
+On cherche les pulsations propres du système c'est-à-dire les $\omega > 0$ telles qu'il existe une solution $X(t) = e^{i\omega t}X_0$. On a alors
+\begin{displaymath}
+K X_0 = m \omega^2 X_0
+\end{displaymath}
+Ainsi, la recherche des pulsations propres est équivalente à la recherche des valeurs propres de $K$. Cette méthode est utilisée pour calculer les pulsations propres d'un immeuble représenté par $n$ masses (plafonds) et ressorts (murs), en particulier pour prévoir son comportement en cas de séisme.
 
 
 
