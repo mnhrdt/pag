@@ -1766,9 +1766,9 @@ qui remplissent la matrice~$B$ ligne par ligne.
 \label{thm:factorisation QR}
 Soit $A \in\GL_n(\K)$. Il existe un unique couple de matrices $(Q,R)$ avec $Q
 \in \UU(n)$ et $R \in \TS^{++}_n(\K)$ telles que
-\begin{displaymath}
+\[
 A = QR
-\end{displaymath}
+\]
 Ceci définit un homéomorphisme de $\GL_n(\K)$ sur $\UU(n)\times\TS^{++}(\K)$.
 \end{theorem}
 
@@ -1876,7 +1876,7 @@ les applications contractantes:
 \end{proposition}
 
 Tout le jeu consiste, alors, à transformer chacun des problèmes~$Ax=b$
-et~$Ax=\lambda b$ en problèmes de point fixe.  Parfois on peut appliquer
+et~$Ax=\lambda x$ en problèmes de point fixe.  Parfois on peut appliquer
 directement le théorème du point fixe de Banach, parfois des versions
 légèrement différentes, comme celle de Browder (à ne pas confondre avec
 Brouwer).
@@ -1894,6 +1894,19 @@ Le plus souvent, on donnera une construction particulière au cas de chaque
 matrice, sans faire appel à ces résultats.
 
 
+Nous présentons plusieurs types de méthodes itératives, par ordre croissant de
+difficulté:
+\begin{enumerate}
+	\item Étant donnée une matrice carrée~$A\in M_n(\K)$, construire une
+		suite~$(\lambda^k,\x^k)$ qui s'approche au valeur propre de magnitude
+		plus grande et à son vecteur propre.
+	\item Étant donné un système linéaire inversible~$A\x=b$, trouver une
+		suite de vecteurs~$(x^k)$ qui s'approche à la solution du système.
+	\item Étant donné une matrice diagonalisable~$A$, approcher l'ensemble
+		entier de ses éléments propres.
+\end{enumerate}
+
+
 \subsection{Méthode de la puissance, puissance inverse}
 
 Lest méthodes itératives les plus faciles à analyser sont les méthodes de
@@ -1904,6 +1917,77 @@ L'idée de base est que la séquence d'applications itérées d'une
 matrice~$A^nx$ s'approche rapidement vers une direction avec le valeur
 propre la plus grande.
 
+\subsubsection{Méthode de la puissance [AK]}
+\paragraph*{Principe.} On construit une suite $(x^k)$ par récurrence
+\[
+x^0 \in \K^n, \quad x^{k+1} = \frac{Ax^k}{{\Abs{Ax^k}}}
+\]
+
+\begin{exercice}
+\label{exo:puissance}
+On suppose que $A$ est diagonalisable à valeurs propres réelles 
+\[
+|\lambda_1| \leq \dots \leq |\lambda_{n-1}| < {|\lambda_n|, \quad \textrm{avec} \quad \lambda_n > 0}
+\]
+On note $e_1,\dots,e_n$ une base de vecteurs propres \emph{normés} associés,
+et on décompose $$x^0 = \sum_{i=1}^{n} \beta_i e_i$$
+On suppose $\beta_n \neq 0$.
+%{Quitte à changer $e_n$ en $\frac{\beta_n}{|\beta_n|}e_n$, on peut
+%supposer $\beta_n > 0$.}
+\begin{enumerate}
+\item Montrer que
+\[
+	x^k = \mathrm{sgn}(\beta_n)e_n + \mathcal O(\tau ^k), \qquad \tau = \frac{|\lambda_{n-1}|}{|\lambda_n|}
+\]
+Ainsi, $x^k$ converge (au moins)  linéairement vers un vecteur propre de $A$
+pour $\lambda_n${,} au taux de convergence $\tau$.
+\item Montrer que
+\[
+\Abs{Ax^k}= \lambda_n + \mathcal{O} (\tau^k)
+\]
+\item On suppose $e_1,\dots e_n$ orthonormée. Montrer que
+\[
+\Abs{Ax^k} = \lambda_n + \mathcal{O} (\tau^{2k})
+\]
+\item L'hypothèse $\beta_n \neq 0$ est-elle vraiment restrictive ?
+\item Adapter la méthode si $\lambda_n < 0$.
+\end{enumerate}
+\end{exercice}
+
+\begin{remark}
+En pratique, on arrête les itérations lorsque
+\[
+{\Abs{x^{k+1}-x^k}} \leq \epsilon
+\]
+où $\epsilon$ est un seuil fixé à l'avance.
+\end{remark}
+
+\subsubsection{Méthode de la puissance inverse [Serr]}
+
+\paragraph*{Principe.}
+On suppose $A$ inversible {avec $0 < |\lambda_1| < |\lambda_2|$} et on
+applique la méthode de la puissance à $A^{-1}$. Ceci permet un calcul
+approché de $\lambda_1$ et $e_1$ à un taux de convergence
+$\frac{|\lambda_1|}{|\lambda_2|}$.
+
+\begin{exercice}\label{exo:puissance inverse}$ $
+\begin{enumerate}
+\item On suppose qu'on connait une approximation $\mu$ d'une des valeurs propres $\lambda_i$ de $A$, avec 
+\[
+|\lambda_j - \mu | > |\lambda_i - \mu| > 0, \quad \forall j \neq i
+\]
+Montrer que la méthode de la puissance inverse appliquée à la matrice $A-\mu I$ permet un calcul approché de $\lambda_i$ avec un taux de convergence
+\[
+\frac{|\lambda_i - \mu|}{\min_{j \neq i}|\lambda_j - \mu|}
+\]
+C'est en fait le principal intérêt de la méthode de la puissance inverse.
+\item \textbf{Application.} On suppose qu'un des disques de Gershgörin $D_i$
+de $A$ n'intersecte aucun autre. Proposer une méthode de calcul approché de
+l'unique valeur propre de $A$ contenue dans $D_i$.
+\end{enumerate}
+\end{exercice}
+
+
 \subsection{Méthodes itératives de résolution: formulation générale}
 
 \subsection{Méthodes de Jacobi et Gauss-Seidel}
@@ -1916,117 +2000,232 @@ propre la plus grande.
 
 \subsection{Méthode du gradient conjugué}
 
-\subsection{Méthodes de calcul de la SVD}
-
-- bidiagonalisation + méthode itérative, méthode QR
-
-%\subsection{Méthode QR}
+\subsection{Méthode QR}
+%\begin{theorem}
+%\label{thm:factorisation QR}
+%Soit $A \in GL_n(\kk)$. Il existe un unique couple de matrices $(Q,R)$ avec $Q \in \on$ et $R \in \tsp$ telles que
+%\[
+%A = QR
+%\]
+%Ceci définit un homéomorphisme de $GL_n(\kk)$ sur $\on \times \tsp$.
+%\end{theorem}
+%
+%\exo On va prouver le Théorème~\ref{thm:factorisation QR}.
+%\begin{enumerate}
+%\item Sous réserve d'existence, montrer l'unicité
+%\item Montrer l'existence. \emph{On pourra par exemple s'intéresser à la matrice $A^*A$}.
+%\item Montrer que la factorisation $QR$ définit bien un homéomorphisme.
+%\end{enumerate}
+%
+%\begin{rem}
+%C'est une version matricielle du procédé d'orthonormalisation de Gram-Schmidt appliqué aux colonnes de $A$.
+%\end{rem}
+%
+%\paragraph*{Principe de la méthode.} On construit une suite de matrices $(A_k)$ par récurrence
+%\[
+%A_1 = A, \quad A_{k+1} = R_k Q_k
+%\]
+%où $(Q_k,R_k)$ est la factorisation $QR$ de $A_k$.
+%
+%\begin{theorem}
+%\label{thm:QR}
+%On suppose que $A$ est diagonalisable 
+%\[
+%A = Y^{-1} D Y
+%\]
+%avec $D = \textrm{diag}(\lambda_1,\dots,\lambda_n)$
+%et
+%\[
+%|\lambda_1| > \dots > |\lambda_n| > 0
+%\]
+%On suppose en outre que $Y$ admet une décomposition $LU$. Alors, la partie triangulaire inférieure de $A_k$ converge vers $D$.
+%\end{theorem}
+%
+%\exo (\emph{difficile}) On va prouver le Théorème~\ref{thm:QR}. Pour simplifier on suppose les $\lambda_i$ réels strictement positifs. 
+%\begin{enumerate}
+%\item On note
+%\[
+%\Q_k \triangleq Q_1 \dots Q_k, \quad \R_k \triangleq R_k \dots R_1
+%\]
+%Montrer que la factorisation $QR$ de la $k-$ième puissance de $A$ est 
+%\[
+%A^k = \Q_k \R_k
+%\]
+%\item On note $Y = LU$ la décomposition de $Y$. Pour simplifier on suppose que la diagonale de $U$ est strictement positive. On note encore
+%\[
+%Y^{-1} = QR
+%\]
+%la factorisation $QR$ de $Y^{-1}$. Montrer que 
+%\[
+%\Q_k \R_k = QR D^k L U
+%\]
+%\item Montrer que 
+%\[
+%D^k L D^{-k} = I +  \mathcal O \left(\sigma^k\right)
+%\]
+%où 
+%\[
+%\sigma = \max_j \frac{\lambda_{j+1}}{\lambda_j}
+%\]
+%En déduire
+%\[
+%\Q_k \R_k = QB_k R D^k U
+%\]
+%avec $B_k = I + o(1)$
+%\item On note $B_k = O_kT_k$ la factorisation $QR$ de $B_k$. Montrer que 
+%\[
+%\Q_k = Q O_k, \quad \R_k = T_k R D^k U
+%\]
+%\item Montrer enfin
+%\[
+%(Q_k) \rightarrow I, \quad (R_k) \rightarrow R D R^{-1}
+%\]
+%et conclure.
+%\end{enumerate}
+%
+%\begin{rem}
+%Attention, dans l'exercice précédent la partie supérieure stricte de $A_k$ converge. Ce n'est pas le cas en général. Ceci est du au fait qu'on a supposé les valeurs propres de $A$ et les éléments diagonaux de $U$ strictement positifs. 
+%\end{rem}
+%\begin{algo}
+%En pratique, le taux de convergence $\sigma$ peut être proche de 1, surtout pour des matrices de grande taille. Pour accélérer la convergence, on peut faire une approximation des valeurs propres par la méthode $QR$ puis utiliser la puissance inverse comme présenté à l'Exercice~\ref{exo:puissance inverse} pour les dernières itérations. Ceci permet en outre de calculer des vecteurs propres.
+%\end{algo}
+%
+%\begin{algo}
+%\begin{enumerate}
+%\item Le calcul de la factorisation $QR$ par le procédé de Gram-Schmidt est en $n^3$ mais cet algorithme a tendance à propager des erreurs d'arrondi. En pratique, on la calcule plutôt par l'algorithme de Householder \cite[Chapitre 7]{allairekaber2002}, qui consiste à multiplier $A$ par $n-1$ matrices de symétrie orthogonale par rapport à des hyperplans bien choisis. Cette méthode est plus stable numériquement et plus rapide, en $2n^3/3$.
+%
+%\item On pourrait penser à utiliser la factorisation $A = QR$ pour résoudre un système linéaire $Ax = b$. En effet, on est ramené au système triangulaire
+%\[
+%Rx = Q^* b
+%\]
+%Elle n'est jamais utilisée dans ce but car, même avec l'algorithme de Householder, la factorisation $QR$ est deux fois plus lente que la méthode d'élimination de Gauss.
+%\item Dans le cadre du calcul de valeur propres, où on itère des factorisation $QR$, il est préférable de mettre $A$ sous une forme réduite (dite \emph{de Hessenberg}) pour un coût en $5n^3/3$. Le calcul de la factorisation à chaque étape est alors en $4n^2$. On pourra consulter à ce sujet \cite[Chapitre 10]{serre2001}.
+%
+%\item On peut étendre la factorisation $QR$ à des matrices non-carrées. C'est une des méthodes de résolution d'un problème aux moindres carrés présentées dans \cite[Chapitre 7]{allairekaber2002}.
+%\end{enumerate}
+%\end{algo}
+%
+%\subsubsection{Autres méthodes}
+%Citons enfin deux méthodes qui s'appliquent à des matrices symétriques réelles~\cite[Chapitre 6]{ciarlet1994}.
+%\begin{itemize}
+%\item Jacobi, qui permet de calculer les valeurs propres et vecteurs propres
+%\item Givens-Householder,  qui s'appuie sur les suites de Sturm.
+%\end{itemize}
+%
+%\bibliographystyle{alpha}
+%\bibliography{../bibmath}
+%
+%\subsection{Méthodes de calcul de la SVD}
+%
+%- bidiagonalisation + méthode itérative, méthode QR
+%
+%%\subsection{Méthode QR}
 
 
 
 
 
 \end{document}
-\clearpage
-\section{Factorisation de matrices}
-
-\subsection{Systèmes triangulaires et élimination gaussienne}
-
-\subsection{Factorisation LU}
-
-\subsection{Factorisation de Cholesky}
-
-\subsection{Factorisation QR}
-
-%\section{Décomposition de matrices}
-
-\subsection{Diagonalisation}
-
-\subsection{Décomposition polaire}
-
-\subsection{Décomposition SVD}
-
-\subsection{Décomposition SVD incomplète}
-
-
-\section{Méthodes itératives}
-
-\subsection{Méthodes itératives de résolution: formulation générale}
-
-\subsection{Méthodes de Jacobi et Gauss-Seidel}
-
-\subsection{Descente de gradient à pas fixe}
-
-\subsection{Descente de gradient à pas optimal}
-
-\subsection{Descente de gradient stochastique}
-
-\subsection{Méthode du gradient conjugué}
-
-\subsection{Méthode de la puissance, puissance inverse}
-
-\subsection{Méthodes de calcul de la SVD}
-
-- bidiagonalisation + méthode itérative
-
-%\subsection{Méthode QR}
-
-
-
-\section{Éléments propres et singuliers}
-
-\subsection{Exemples de problèmes de valeurs propres}
-
-- polynômes (et matrice compagnon)
-
-- acp
-
-- analyse quantitative d'une EDO
-
-- oscillations
-
-- spectre d'un corps
-
-\subsection{Valeurs singuliers}
-
-- caractérisation variationnelle des valeurs propres et valeurs singuliers
-
-\subsection{Analyse du spectre}
-
-
-%\begin{verbatim}
-%S4. Algèbre linéaire numérique : généralités
-%4.0. Les 4 problèmes de l'algèbre linéaire selon Strang (Ax=b avec
-%m=n, m<n, m>n, et Ax=lambda * x)
-%4.1. Exemples de problèmes linéaires: minimisation quadratique,
-%regression linéaire, EDO et EDP discrètes, splines
-%4.2. Analyse matricielle: rayon spéctral, normes, normes induites,
-%théorème de Householder
+%\clearpage
+%\section{Factorisation de matrices}
 %
-%S5. Algèbre linéaire numérique : méthodes de résolution
-%5.1. Systèmes triangulaires, Algorithme d'élimination gaussienne
-%5.2. Factorisation LU
-%5.3. Factorisation Cholesky
-%5.4. Méthodes iteratives : formulation générale
-%5.5. Jacobi, Gauss-Seidel
-%5.6. Gradient, gradient à pas optimal
-%5.7. Conditionnement d'une matrice : définition, propriét'es, exemple
-%pour le laplacien à 5 points
+%\subsection{Systèmes triangulaires et élimination gaussienne}
 %
-%S6. Algèbre linéaire numérique : éléments propres
-%6.1. Exemples de problèmes de valeurs propres : ACP, analyse
-%quantitative d'une EDO, oscillations, polynômes
-%6.2. Analyse du spectre: cercles de Gershgorin, Gauss-Lucas
-%6.3. Méthode de la puissance, puissance inverse
-%6.4. Décomposition QR : existence, unicité, algorithmes
+%\subsection{Factorisation LU}
 %
-%S7. Résolution d'équations non-linéaires
-%7.1. Méthodes en dimension 1: bisection, Newton, secante
-%7.2. Racines de polynomes d'une variable
-%7.3. Cas vectoriel: optimisation vs résolution d'une équation (
-%min{F(x)} vs F'(x)=0 ), rappel des multiplicateurs de Lagrange
-%7.4. Méthode de Newton et variantes
-%\end{verbatim}
-
-% vim:set tw=77 filetype=tex spell spelllang=fr ts=2 sw=2:
-
+%\subsection{Factorisation de Cholesky}
+%
+%\subsection{Factorisation QR}
+%
+%%\section{Décomposition de matrices}
+%
+%\subsection{Diagonalisation}
+%
+%\subsection{Décomposition polaire}
+%
+%\subsection{Décomposition SVD}
+%
+%\subsection{Décomposition SVD incomplète}
+%
+%
+%\section{Méthodes itératives}
+%
+%\subsection{Méthodes itératives de résolution: formulation générale}
+%
+%\subsection{Méthodes de Jacobi et Gauss-Seidel}
+%
+%\subsection{Descente de gradient à pas fixe}
+%
+%\subsection{Descente de gradient à pas optimal}
+%
+%\subsection{Descente de gradient stochastique}
+%
+%\subsection{Méthode du gradient conjugué}
+%
+%\subsection{Méthode de la puissance, puissance inverse}
+%
+%\subsection{Méthodes de calcul de la SVD}
+%
+%- bidiagonalisation + méthode itérative
+%
+%%\subsection{Méthode QR}
+%
+%
+%
+%\section{Éléments propres et singuliers}
+%
+%\subsection{Exemples de problèmes de valeurs propres}
+%
+%- polynômes (et matrice compagnon)
+%
+%- acp
+%
+%- analyse quantitative d'une EDO
+%
+%- oscillations
+%
+%- spectre d'un corps
+%
+%\subsection{Valeurs singuliers}
+%
+%- caractérisation variationnelle des valeurs propres et valeurs singuliers
+%
+%\subsection{Analyse du spectre}
+%
+%
+%%\begin{verbatim}
+%%S4. Algèbre linéaire numérique : généralités
+%%4.0. Les 4 problèmes de l'algèbre linéaire selon Strang (Ax=b avec
+%%m=n, m<n, m>n, et Ax=lambda * x)
+%%4.1. Exemples de problèmes linéaires: minimisation quadratique,
+%%regression linéaire, EDO et EDP discrètes, splines
+%%4.2. Analyse matricielle: rayon spéctral, normes, normes induites,
+%%théorème de Householder
+%%
+%%S5. Algèbre linéaire numérique : méthodes de résolution
+%%5.1. Systèmes triangulaires, Algorithme d'élimination gaussienne
+%%5.2. Factorisation LU
+%%5.3. Factorisation Cholesky
+%%5.4. Méthodes iteratives : formulation générale
+%%5.5. Jacobi, Gauss-Seidel
+%%5.6. Gradient, gradient à pas optimal
+%%5.7. Conditionnement d'une matrice : définition, propriét'es, exemple
+%%pour le laplacien à 5 points
+%%
+%%S6. Algèbre linéaire numérique : éléments propres
+%%6.1. Exemples de problèmes de valeurs propres : ACP, analyse
+%%quantitative d'une EDO, oscillations, polynômes
+%%6.2. Analyse du spectre: cercles de Gershgorin, Gauss-Lucas
+%%6.3. Méthode de la puissance, puissance inverse
+%%6.4. Décomposition QR : existence, unicité, algorithmes
+%%
+%%S7. Résolution d'équations non-linéaires
+%%7.1. Méthodes en dimension 1: bisection, Newton, secante
+%%7.2. Racines de polynomes d'une variable
+%%7.3. Cas vectoriel: optimisation vs résolution d'une équation (
+%%min{F(x)} vs F'(x)=0 ), rappel des multiplicateurs de Lagrange
+%%7.4. Méthode de Newton et variantes
+%%\end{verbatim}
+%
+%% vim:set tw=77 filetype=tex spell spelllang=fr ts=2 sw=2:
+%
