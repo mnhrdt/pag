@@ -2261,9 +2261,14 @@ et~$p_0:=r_0:=b-Ax_0$.  Pour~$k=0,1,\ldots$:
 	\end{enumerate}
 \end{exercice}
 
-%\begin{remark}
-%	L
-%\end{remark}
+\begin{remark}
+	On ne complète pas ici la preuve de convergence du Gradient Conjugué (qui
+	est conséquence de ces propriétés).  Notons seulement que la convergence de
+	cette méthode est quadratique (comme méthode d'approximation), et que les
+	coefficients de la matrice~$A$ ne sont jamais utilisés directement.  Ceci
+	rend le temps de calcul proportionnel à la~\emph{sparsité} de la
+	matrice~$A$.
+\end{remark}
 
 %\subsection{Descente de gradient stochastique}
 
@@ -2438,6 +2443,11 @@ avec $A \in M_n(\K)$. Le spectre de $A$ renseigne sur la nature des solutions.
 Si l'une des valeurs propres est à partie réelle nulle, il faut étudier
 l'espace propre associé pour en savoir plus.
 \end{remark}
+
+\begin{center}
+	\includegraphics[width=0.4\linewidth]{flows2d.png}\\
+	\scriptsize Diagramme de Poincaré (source:wikipedia)
+\end{center}
 
 \subsubsection{Analyse en composantes principales}
 On considère un nuage de $m$ points de $\R^{n}$ 
