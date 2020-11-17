@@ -13,6 +13,8 @@
 %
 \usepackage{hyperref,url}           % hyperlinks and urls
 \usepackage{xcolor}                 % color definitions
+\usepackage{fancyvrb}               % fancy verbatim and comment environements
+\usepackage{tikz}
 
 \setlength{\parindent}{0pt}         % no paragraph indentation
 \setlength{\parskip}{7pt}           % spacing between paragraphs
@@ -45,14 +47,14 @@
 
 % mark solutions in red
 % (TOGGLE THE COMMENT ON THE FOLLOWING TWO LINES TO ENABLE/DISABLE SOLUTIONS)
-\newcommand{\solution}[1]{}
-%\newcommand{\solution}[1]{{\color{red}#1}}
+%\newcommand{\solution}[1]{}
+\newcommand{\solution}[1]{{\color{red}#1}}
 
 
 % margins
-\addtolength{\hoffset}{-1em}
-\addtolength{\textwidth}{2em}
-\addtolength{\voffset}{-1em}
-\addtolength{\textheight}{2em}
+\addtolength{\hoffset}{-5em}
+\addtolength{\textwidth}{10em}
+\addtolength{\voffset}{-5em}
+\addtolength{\textheight}{10em}
 
 \begin{document}

@@ -1,3 +1,4 @@
+%\tableofcontents
 \title{Algèbre Linéaire Numérique}
 
 \vspace{-6em}{
@@ -23,7 +24,7 @@
 \newcommand{\y}{\mathbf{y}}
 \newcommand{\z}{\mathbf{z}}
 \newcommand{\uu}{\mathbf{u}}
-\newcommand{\vv}{\mathbf{v}}
+\renewcommand{\vv}{\mathbf{v}}
 \newcommand{\Sp}{\mathrm{Sp}}
 %\renewcommand{\Re}{\operatorname{Re}}
 %\renewcommand{\Im}{\operatorname{Im}}
@@ -50,6 +51,7 @@
 \newcommand{\abs}[1]{\left|#1\right|}
 \newcommand{\Abs}[1]{\left\|#1\right\|}
 \newcommand{\ABS}[1]{{\left\vert\kern-0.25ex\left\vert\kern-0.25ex\left\vert #1 \right\vert\kern-0.25ex\right\vert\kern-0.25ex\right\vert}}
+
 
 
 
@@ -233,10 +235,11 @@ même dimension~$n(n-1)/2$.  En particulier, pour~$n=2$ il est de
 dimension~$1$ (les rotations du plan) et pour~$n=3$ il est de dimension~$3$
 (les rotations de l'espace).
 
-L'ensemble~$\TS_n(\R)\cap\GL_n(\C)$ est le~\emph{sous-groupe de Borel
-standard}.  Ses élements sont les matrices triangulaires supérieures.  Ce
-groupe a~$2^n$ composantes connexes, une pour chaque combinaison de signes
-sur la diagonale.  La composante qui contient l'identité est~$\TS_n^{++}(\R)$.
+L'ensemble~$\TS_n(\R)\cap\GL_n(\R)$ est le~\emph{sous-groupe de Borel
+standard}.  Ses élements sont les matrices triangulaires supérieures
+inversibles.  Ce groupe a~$2^n$ composantes connexes, une pour chaque
+combinaison de signes sur la diagonale.  La composante qui contient
+l'identité est~$\TS_n^{++}(\R)$.
 
 L'ensemble~$\TS^1_n(\R)$ est aussi un groupe, de dimension~$n(n-1)/2$.
 Pour~$n=2$ il est le groupe des cisaillements horizontaux du plan
@@ -247,8 +250,12 @@ Pour~$n=3$ il est le~\emph{groupe de Heisenberg}.
 	L'intersection de sous-groupes est toujours un sous-groupe.  Identifiez
 	les sous-groupes de~$\GL_n(\R)$ suivants:
 	\begin{align*}
-		\TS_n(\R) \cap \OO_n(\R) &= \solution{\{\pm I\} \approx \Z/2\Z}\\
-		\TS_n(\C) \cap \UU_n(\C) &= \solution{\{e^{i\theta} I\} \approx \R/2\pi\R}\\
+		\TS_n(\R) \cap \OO_n(\R) &=
+		\solution{\left\{\left(\begin{smallmatrix}\pm 1&&0\\&\ddots&\\0&&\pm
+		1\end{smallmatrix}\right)\right\} \approx (\Z/2\Z)^n}\\
+		\TS_n(\C) \cap \UU_n(\C) &=
+		\solution{\left\{\left(\begin{smallmatrix}e^{i\theta_1}&&0\\&\ddots&\\0&&e^{i\theta_n}\end{smallmatrix}\right)\right\} \approx
+		(\R/2\pi\R)^n=\T^n}\\
 		\TS_n(\R) \cap \SO_n(\R) &= \solution{\{I\}} \\
 %		TS_n(\C) \cap SU_n(\C) &= \solution{\{I\}} \\
 		\TS_n(\R) \cap \TI_n(\R) &= \solution{\textrm{matrices diagonales
@@ -260,9 +267,9 @@ Pour~$n=3$ il est le~\emph{groupe de Heisenberg}.
 \end{exercice}
 
 \begin{exercice}
-	Pour chacun des groupes de matrices définis ci-dessus, considérez
-	le cas complexe~$\K=\C$, et identifiez les propriétés qui changent par
-	rapport au cas réel (notamment, la connexité).
+	Pour chacun des groupes de matrices réels définis ci-dessus, considérez le
+	cas complexe~$\K=\C$, et identifiez les propriétés qui changent par rapport
+	au cas réel (notamment, la connexité).
 	\solution{En général les groupes de matrices complexes sont ``plus
 		connexes'' que les réels.  Ceci est dû au fait que l'ensemble d'unités
 	de~$\R$ n'est pas connexe mais celui de~$\C$ l'est.}
@@ -355,6 +362,60 @@ du spectre.
 		A_5\!=\!\begin{pmatrix}0&a\\0&0\end{pmatrix}
 	\]
 \end{exercice}
+\solution{
+	Les relations~$A\vv_i=\lambda_i\vv_i$ s'écrivent de forme matricielle comme
+	:~$AV=V\Lambda$
+	où les colonnes de~$V$ sont les vecteurs propres, et~$\Lambda$ est une
+	matrice diagonale avec les valeurs propres.
+	On a ainsi
+
+	Pour~$A_1$:
+	\(
+		\begin{pmatrix} 1 & a \\ 0 & 2 \end{pmatrix}
+		\begin{pmatrix} 1 & a \\ 0 & 1 \end{pmatrix}
+		=
+		\begin{pmatrix} 1 & a \\ 0 & 1 \end{pmatrix}
+		\begin{pmatrix} 1 & 0 \\ 0 & 2 \end{pmatrix}
+	\)
+
+	Pour~$A_2$: \(
+		\begin{pmatrix} 1 & a \\ 0 & 1 \end{pmatrix}
+		\begin{pmatrix} 1 & 1 \\ 0 & 0 \end{pmatrix}
+		=
+		\begin{pmatrix} 1 & 1 \\ 0 & 0 \end{pmatrix}
+		\begin{pmatrix} 1 & 0 \\ 0 & 1 \end{pmatrix}
+	\)
+
+	Pour~$A_3$: \(
+		\begin{pmatrix} c & -s \\ s & c \end{pmatrix}
+		\begin{pmatrix} 1 & 1 \\ i & -i \end{pmatrix}
+		=
+		\begin{pmatrix} 1 & 1 \\ i & -i \end{pmatrix}
+		\begin{pmatrix} c-is & 0 \\ 0 & c+is \end{pmatrix}
+	\)
+
+	Pour~$A_4$: \(
+		\begin{pmatrix} a & b \\ b & c \end{pmatrix}
+		\begin{pmatrix} b & a-\lambda \\ \lambda-a & b \end{pmatrix}
+		=
+		\begin{pmatrix} b & a-\lambda \\ \lambda-a & b \end{pmatrix}
+		\begin{pmatrix} \lambda & 0 \\ 0 & \mu \end{pmatrix}
+	\),
+	$\ $ avec~$ \lambda,\mu =\displaystyle
+	\tfrac12\left({a+c\pm\sqrt{(a-c)^2+4b^2}}\right) $
+
+	Pour~$A_5$: \(
+		\begin{pmatrix} 0 & a \\ 0 & 0 \end{pmatrix}
+		\begin{pmatrix} 1 & 1 \\ 0 & 0 \end{pmatrix}
+		=
+		\begin{pmatrix} 1 & 1 \\ 0 & 0 \end{pmatrix}
+		\begin{pmatrix} 0 & 0 \\ 0 & 0 \end{pmatrix}
+	\)
+
+	(En général, les vecteurs propres ne sont pas uniques.  Ici on les a choisi
+	pour faciliter l'écriture, et en excluant des cas spéciaux des
+	paramètres comme~$a=0$ pour~$A_2$, ~$\theta=\pi$ pour~$A_3$, etc.)
+}
 
 \begin{proposition}[caractérisation algébrique des éléments propres]
 	\label{prp:eigenalgebra}
@@ -385,13 +446,20 @@ une matrice~$P\in U_n(\C)$ telle que~$P^{-1}AP$ est diagonale.
 	Diagonalisez les matrices de l'exercice~\ref{ex:eigs2x2} qui soient
 	diagonalisables.
 \end{exercice}
+\solution{
+	Une matrice est diagonalisable quand on peut trouver une base de vecteurs
+	propres (c.à.d., une décomposition de l'espace total en sous-espaces
+	propres de dimension 1).  Dans ce cas on a~$V\in\GL_n$ dans la
+	décomposition~$AV=V\Lambda$ et alors~$V^{-1}AV=\Lambda$.  C'est le cas pour
+	les matrices~$A_1$, $A_3$ et~$A_4$ (quand~$ac\neq b^2$).
+}
 
 \begin{proposition}[caractérisation géométrique]
-	Toutes les matrices de~$\M_n(\C)$ sont diagonalisables sauf un
+	Toutes les matrices de~$\M_n(\K)$ sont diagonalisables sauf un
 	sous-ensemble de mesure nulle.  L'action d'une matrice diagonalisable
-	sur~$\C^n$ consiste à appliquer une dilatation au long de chaque direction
-	d'une base orthonormée de~$\C^n$.  Les facteurs de dilatation sont les
-	valeurs propres et les directions de la base orthonormée sont les vecteurs
+	sur~$\K^n$ consiste à appliquer une dilatation au long de chaque direction
+	d'une base de~$\K^n$.  Les facteurs de dilatation sont les
+	valeurs propres et les directions sont les vecteurs
 	propres.  Les matrices non-diagonalisables sont, dans un sous-espace
 	de~$\K^n$, soit des applications nilpotentes (i.e., projection puis
 	rotation par un angle droit), soit des cisaillements/transvections
@@ -681,6 +749,248 @@ sur sa diagonale, et les matrices~$U,V$ sont unitaires de taille~$p$ et~$q$
 respectivement.
 
 
+\subsection{Décomposition polaire}
+
+Rappelons que~$\UU_n$ est le groupe des matrices unitaires ($A^*A=I$)
+et~$\HH_n^{++}$ est l'ensemble des matrices hermitiennes ($A^*=A$) définies
+positives~($\x^*A\x\ge 0$).  Pour~$n=1$ l'ensemble~$\UU_1$ sont les nombres
+complexes de la forme~$e^{in\theta}$ et l'ensemble~$\HH_1^{++}$ sont les réels
+positifs.  Tout élément~$z$ de~$\C\setminus\{0\}=\GL_1(\C)$ peut s'écrire de
+forme unique comme~$z=re^{i\theta}$ avec~$r>0$.  Cette~\emph{décomposition
+polaire} a un analogue direct avec les matrices.
+
+\begin{theorem}[décomposition polaire]
+	\label{thm:polaire}
+	Toute matrice inversible~$A\in\GL_n(\C)$ admet une~\emph{décomposition
+	polaire}
+	unique~$A=HQ$ avec~$H\in\HH_n^{++}(\C)$ et~$Q\in\UU_n(\C)$.
+	L'application~$A\mapsto(H,Q)$ est un homéomorphisme entre~$\GL_n(\C)$
+	et~$\HH_n^{++}(\C)\times\UU_n(\C)$.\\
+	Si~$A$ est réelle, alors~$H$ et~$Q$ le sont
+	aussi (et donc~$H\in\SSS^{++}_n(\R)$ et~$Q\in\OO_n(\R)$).
+\end{theorem}
+
+\begin{exercice}
+	Démontrez le théorème \ref{thm:polaire}.
+\end{exercice}
+\vspace{-1em}
+Indications:
+\begin{enumerate}
+	\item Pour l'unicité, rappelez que le spectre d'une matrice
+		unitaire sont des nombres complexes du cercle unité.
+	\item Pour l'existence, diagonalisez la matrice hermitienne~$AA^*$ et
+		utilisez le théorème spectral.
+	\item Pour la continuité, observez que~$(H,Q)\mapsto HQ$ est une
+		application continue (elle est un polynôme).  Il suffit de démontrer
+		que l'inverse est séquentiellement continue, ce qui suit du fait
+		que~$U_n$ est compact et de l'unicité de la décomposition.
+	\item Pour le cas réel, la démonstration est parallèle au cas complexe.
+\end{enumerate}
+
+La matrice~$H$ de la décomposition polaire s'appelle la~\emph{racine carrée}
+de la matrice hermitienne~$AA^*$.  D'après cette démonstration, on a vu que
+toute matrice hermitienne définie positive~$H$ admet une racine carrée~$h$
+telle que~$h^2=H$.  On écrit parfois~$h=\sqrt H$.
+
+La décomposition polaire représente toute transformation linéaire comme une
+rotation~$Q$ suivie d'une application hermitienne~$H$ qui, par le théorème
+spectral, est un~\emph{stretch} dans des directions orthogonales.  La
+décomposition polaire n'est donc pas un résultat évident, que se passe-t-il
+pour des matrices non-symétriques?
+
+\begin{exercice}[difficile]
+	Calculez la décomposition polaire de la
+	matrice~$A=\parens{\begin{smallmatrix}1&1\\0&1\end{smallmatrix}}$.
+\end{exercice}
+
+\subsection{Décomposition en valeurs singulières}
+
+\emph{\small Every matrix is diagonal, provided one uses the proper bases for
+the domain and range spaces.\\ \hfill---Gilbert Strang}
+
+Si~$A$ est une matrice inversible, elle a une décomposition
+polaire~$A=HQ$ avec~$H$ hermitienne et~$Q$ unitaire.  Les valeurs propres
+de~$H$ sont des réels positifs, dits les~\emph{valeurs singulières} de~$A$.
+Par la preuve du théorème~\ref{thm:polaire}, les valeurs singulières sont les
+racines carrées des valeurs propres de la matrice hermitienne~$A^*A$.
+
+En fait, on peut définir les valeurs singulières d'une matrice~$A$
+quelconque, pas forcément inversible, et même d'une matrice rectangulaire,
+car~$A^*A$ et~$AA^*$ ont toujours les mêmes valeurs propres avec la même
+multiplicité (sauf pour la multiplicité de $0$ si~$A$ est rectangulaire).
+
+\begin{theorem}[décomposition en valeurs singulières, SVD]
+	\label{thm:svd}
+	Soit~$A\in\M_{p,q}(\C)$.  Alors il existent deux matrices unitaires~$U\in
+	\UU_p(\C)$, $V\in\UU_q(\C)$ et une matrice quasi-diagonale~$\Sigma\in
+	\M_{p,q}(\C)$
+	\[
+		\Sigma = \begin{pmatrix}
+			\sigma_1 & & & & \\
+			 & \ddots & & & \\
+			 & & \sigma_r & & \\
+			 & & & 0 & \\
+			 & & & & \ddots
+		\end{pmatrix}
+	\]
+	telles que~\fbox{$A=U\/\Sigma V^*$}.  Les nombres réels
+	positifs~$\sigma_i$ sont les valeurs singulières non nuls de~$A$.  En
+	particulier,~$r$ est le rang de~$A$. \\
+	Si~$A$ est réelle alors on peut choisir~$U$ et~$V$ réelles orthogonales.
+\end{theorem}
+
+\begin{remark}
+	Même pour les matrices carrées, la décomposition~$A=U\/\Sigma V$ ne dit pas
+	que~$A$ soit diagonalisable sur une base de vecteurs orthogonaux: les
+	rotations~$U$ et~$V$ sont a priori complètement différentes l'une de l'autre!
+\end{remark}
+
+\begin{remark}
+	La décomposition SVD n'est pas du tout unique: même quand les
+	les~$\sigma_i$ sont ordonnées et différentes, et la matrice est carrée, on
+	peut multiplier les lignes et les colonnes de~$U$ et~$V$ par unités
+	arbitraires.
+\end{remark}
+
+On trouvera la preuve complète de l'existence d'une décomposition SVD dans
+tout livre moderne d'algèbre linéaire, par exemple [AK] ou [Serr].
+Attention: les preuves paraissent souvent plus compliqués qu'elles ne le
+sont.  Il est conseillé de commencer par le cas carré~$p=q$ inversible, puis
+non inversible, puis le cas général.
+%Ici on s'intéresse surtout aux applications de cette décomposition, qui est
+%essentielle en calcul scientifique.
+
+{\bf Schéma de la preuve du théorème~\ref{thm:svd}.}
+Soit~$A$ une matrice~$p\times q$ de rang~$r$.
+\begin{enumerate}
+	\item La matrice~$A^*A$ est hermitienne et semi-définie positive, donc elle
+		décompose comme
+		\[
+		A^*A=V\Lambda V^*
+		=\sum_i\lambda_i\vv_i\vv_i^*
+		=\sum_i(\sigma_i)^2\vv_i\vv_i^*
+		\]
+	Les colonnes orthogonales de~$\vv_i$ de~$V$ sont les vecteurs propres
+	\item On a~$A^*A\vv_i=(\sigma_i)^2\vv_i$
+	\item Si tous les~$\sigma_i$ sont positifs, posons
+		$\uu_i=\tfrac1{\sigma_i}A\vv_i$.
+	\item On vérifie que~$\uu_i$ est un vecteur propre unitaire de~$AA^*$.
+	\item Soit~$\Sigma=\mathrm{diag}(\sigma_i)$.  On a alors
+		\begin{align*}
+			U & =A V\Sigma^{-1} \\
+			U\/\Sigma & =A V \\
+			A & =U\/A V^* \\
+		\end{align*}
+		ce qui conclut la preuve dans le cas non-singulier.
+	\item Si les derniers~$\sigma_i=0$, on pet compléter la définition des
+		colonnes de~$U$ en complétant une base orthonormée de~$\K^p$, puis on
+		rajoute des lignes de~$0$ à~$\Sigma$.
+\end{enumerate}
+
+\bigskip
+
+La SVD est la factorisation matricielle la plus importante, et la plus
+utilisée en traitement du signal et en modélisation.  Notamment, pour
+l'analyse en composantes principales et pour la définition la pseudo-inverse
+(qui généralise le critère de moindres carrés).
+
+{\bf SVD et décomposition polaire.}
+%Le lien entre SVD et décomposition polaire
+Soit~$A\in\GL_n(\C)$ et~$A=HQ$ sa décomposition polaire.  Par le théorème
+spectral, la matrice~$H$ diagonalise dans une base orthogonale de vecteurs
+propres~$H=PDP^*$ avec~$P\in\UU_n$ et~$D$ diagonale positive.  On a
+donc~$A=PD(P^*Q)$, qui est une SVD.
+Réciproquement, si~$A=U\/\Sigma V^*$ est une~SVD de~$A$,
+alors~$A=(U\/\Sigma U^*)(UV^*)$ est la décomposition polaire de~$A$.  Ici on
+voit que la décomposition polaire est possible pour matrices quelconque, pas
+forcément inversibles ou même carrées.
+
+{\bf SVD et éléments propres.}
+Les valeurs singulières d'une matrice~$A$ sont les valeurs propres de~$A^*A$
+ou de~$AA^*$.  Il est donc naturel qu'il y ait plein de relations entre
+la SVD de~$A=U\/\Sigma V^*$ et ses éléments propres.  On les voit en re-écrivant
+les matrices~$A^*A$ et~$AA^*$ à partir de la SVD:
+\begin{align*}
+	A^*A & = V\Sigma^*U^* U\Sigma V^* = V(\Sigma^*\Sigma)V^* \\
+	AA^* & = U\Sigma V^* V\Sigma^* U^* = U(\Sigma\Sigma^*)U^*
+\end{align*}
+
+ainsi, les colonnes de~$V$ (vecteurs singuliers à droite) sont vecteurs
+propres de~$A^*A$, et les colonnes de~$U$ (vecteurs singuliers à gauche) sont
+vecteurs propres de~$AA^*$.
+Quand~$A$ est hermitienne semi-définie positive, alors sa
+diagonalisation~$A=UDU^*$ est une SVD.
+
+
+\subsection{Pseudo-inverse de Moore-Penrose}
+
+Si~$Ax=b$ est un système linéaire avec~$A$ carrée et inversible la solution
+du système est donnée par~$x=A^{-1}b$.  La notion de pseudo-inverse (de
+Moore-Penrose) permet de traiter le cas général, avec une matrice peut-être
+rectangulaire, peut-être de rang incomplet.
+
+\begin{definition}[pseudo-inverse]
+	\label{def:pseudoinv}
+	Soit~$A\in\M_{p,q}(\C)$ et~$A=U\/\Sigma V^*$ sa SVD
+	avec~$U\in\UU(p)$, ~$V\in\UU(q)$
+	et~$\Sigma=\parens{\begin{smallmatrix}D&0\\0&0\end{smallmatrix}}$.
+	La~\emph{pseudo-inverse} de~$A$ est la matrice~$A\in\M_{q,p}(\C)$ définie
+	par
+	\[
+		A^+=V\Sigma^+ U^*
+		\qquad
+		\textrm{avec}
+		\qquad
+		\Sigma^+=\begin{pmatrix}D^{-1}&0\\0&0\end{pmatrix}
+	\]
+\end{definition}
+
+\begin{exercice}
+	\label{ex:pseudoinv}
+	Soit~$A\in\M_{p,q}(\C)$ et~$A^+\in\M_{q,p}(\C)$ sa pseudo-inverse.  Alors
+	\begin{align*}
+		& AA^+A=A \\
+		& A^+AA^+=A^+ \\
+		& (AA^+)*=AA^+ \\
+		& (A^+A)*=A^+A
+	\end{align*}
+	De plus quand~$A$ est réelle alors~$A^+$ l'est aussi.
+\end{exercice}
+
+La pseudo-inverse permet de donner une solution ``canonique'' au problème
+général~$Ax=b$ par~$x=A^+b$.  Notons que cette solution est consistante avec
+les constructions typiques:
+
+\begin{exercice}
+	Si~$A\in\GL_n(\C)$ alors~$A^+=A^{-1}$.
+	Si~$A\in\M_{p,q}(\K)$ de rang~$q\le p$ alors la solution de monidres carrés
+	de~$\|Ax-b\|^2_2$ est donnée par~$x=A^+b$.
+\end{exercice}
+
+Le résultat suivant dit que la pseudo-inverse n'est pas une généralisation
+arbitraire de~$A^{-1}$.
+
+\begin{theorem}[Penrose 1955]
+	Soit~$A^+$ une matrice qui satisfait les quatre propriétés de
+	l'exercice~\ref{ex:pseudoinv}.  Alors~$A^+$ est la pseudo-inverse de~$A$
+	selon la définition~\ref{def:pseudoinv}.
+\end{theorem}
+
+\begin{exercice}
+	Calculez la pseudo-inverse des matrices suivantes
+	\begin{itemize}
+		\item Un scalaire~$a\in\K=\M_{1,1}(\K)$.
+		\item Un vecteur~$\x\in\K^n=\M_{n,1}(\K)$.
+		\item La matrice
+			nilpotente~$A_1=\parens{\begin{smallmatrix}0&1\\0&0\end{smallmatrix}}$
+		\item La matrice
+			singulière~$A_2=\parens{\begin{smallmatrix}1&1\\1&1\end{smallmatrix}}$
+		\item La matrice singulière~$\x\x^*\in\M_{n,n}(\K)$ avec~$x\in\K^n$.
+	\end{itemize}
+\end{exercice}
+
+
+\clearpage
 \subsection{Normes matricielles}
 
 % def. norme matricielle
@@ -1057,6 +1367,15 @@ très bien posé pour les conditions d'utilisation typiques.
 
 \clearpage
 
+\section{Méthodes directes}
+
+Nous présentons trois méthodes directes de résolution de systèmes linéaires:
+la factorisation LU (qui est la version matricielle de l'élimination
+Gaussienne), la factorisation de Cholesky (valable seulement pour matrices
+symétriques) et la factorisation QR (basée sur le procédé d'orthogonalisation
+de Gram-Schmidt).  D'abord, on commence par un petit rappel de la complexité
+des opérations matricielles basiques.
+
 \subsection{Complexité}
 
 % complexité = nombre de multiplications
@@ -1221,253 +1540,6 @@ Quelques commentaires au sujet de la complexité:
 %- conditionnement d'une matrice: définition, propriétés, exemple du laplacien
 %à 5 points
 
-\subsection{Décomposition polaire}
-
-Rappelons que~$\UU_n$ est le groupe des matrices unitaires ($A^*A=I$)
-et~$\HH_n^{++}$ est l'ensemble des matrices hermitiennes ($A^*=A$) définies
-positives~($\x^*A\x\ge 0$).  Pour~$n=1$ l'ensemble~$\UU_1$ sont les nombres
-complexes de la forme~$e^{in\theta}$ et l'ensemble~$\HH_1^{++}$ sont les réels
-positifs.  Tout élément~$z$ de~$\C\setminus\{0\}=\GL_1(\C)$ peut s'écrire de
-forme unique comme~$z=re^{i\theta}$ avec~$r>0$.  Cette~\emph{décomposition
-polaire} a un analogue direct avec les matrices.
-
-\begin{theorem}[décomposition polaire]
-	\label{thm:polaire}
-	Toute matrice inversible~$A\in\GL_n(\C)$ admet une\emph{décomposition
-	polaire}
-	unique~$A=HQ$ avec~$H\in\HH_n^{++}(\C)$ et~$Q\in\UU_n(\C)$.
-	L'application~$A\mapsto(H,Q)$ est un homéomorphisme entre~$\GL_n(\C)$
-	et~$\HH_n^{++}(\C)\times\UU_n(\C)$.\\
-	Si~$A$ est réelle, alors~$H$ et~$Q$ le sont
-	aussi (et donc~$H\in\SSS^{++}_n(\R)$ et~$Q\in\OO_n(\R)$).
-\end{theorem}
-
-\begin{exercice}
-	Démontrez le théorème \ref{thm:polaire}.
-\end{exercice}
-\vspace{-1em}
-Indications:
-\begin{enumerate}
-	\item Pour l'unicité, rappelez que le spectre d'une matrice
-		unitaire sont des nombres complexes du cercle unité.
-	\item Pour l'existence, diagonalisez la matrice hermitienne~$AA^*$ et
-		utilisez le théorème spectral.
-	\item Pour la continuité, observez que~$(H,Q)\mapsto HQ$ est une
-		application continue (elle est un polynôme).  Il suffit de démontrer
-		que l'inverse est séquentiellement continue, ce qui suit du fait
-		que~$U_n$ est compact et de l'unicité de la décomposition.
-	\item Pour le cas réel, la démonstration est parallèle au cas complexe.
-\end{enumerate}
-
-La matrice~$H$ de la décomposition polaire s'appelle la~\emph{racine carrée}
-de la matrice hermitienne~$AA^*$.  D'après cette démonstration, on a vu que
-toute matrice hermitienne définie positive~$H$ admet une racine carrée~$h$
-telle que~$h^2=H$.  On écrit parfois~$h=\sqrt H$.
-
-La décomposition polaire représente toute transformation linéaire comme une
-rotation~$Q$ suivie d'une application hermitienne~$H$ qui, par le théorème
-spectral, est un~\emph{stretch} dans des directions orthogonales.  La
-décomposition polaire n'est donc pas un résultat évident, que se passe-t-il
-pour des matrices non-symétriques?
-
-\begin{exercice}[difficile]
-	Calculez la décomposition polaire de la
-	matrice~$A=\parens{\begin{smallmatrix}1&1\\0&1\end{smallmatrix}}$.
-\end{exercice}
-
-\subsection{Décomposition en valeurs singulières}
-
-\emph{\small Every matrix is diagonal, provided one uses the proper bases for
-the domain and range spaces.\\ \hfill---Gilbert Strang}
-
-Si~$A$ est une matrice inversible, elle a une décomposition
-polaire~$A=HQ$ avec~$H$ hermitienne et~$Q$ unitaire.  Les valeurs propres
-de~$H$ sont des réels positifs, dits les~\emph{valeurs singulières} de~$A$.
-Par la preuve du théorème~\ref{thm:polaire}, les valeurs singulières sont les
-racines carrées des valeurs propres de la matrice hermitienne~$A^*A$.
-
-En fait, on peut définir les valeurs singulières d'une matrice~$A$
-quelconque, pas forcément inversible, et même d'une matrice rectangulaire,
-car~$A^*A$ et~$AA^*$ ont toujours les mêmes valeurs propres avec la même
-multiplicité (sauf pour la multiplicité de $0$ si~$A$ est rectangulaire).
-
-\begin{theorem}[décomposition en valeurs singulières, SVD]
-	\label{thm:svd}
-	Soit~$A\in\M_{p,q}(\C)$.  Alors il existent deux matrices unitaires~$U\in
-	\UU_p(\C)$, $V\in\UU_q(\C)$ et une matrice quasi-diagonale~$\Sigma\in
-	\M_{p,q}(\C)$
-	\[
-		\Sigma = \begin{pmatrix}
-			\sigma_1 & & & & \\
-			 & \ddots & & & \\
-			 & & \sigma_r & & \\
-			 & & & 0 & \\
-			 & & & & \ddots
-		\end{pmatrix}
-	\]
-	telles que~\fbox{$A=U\/\Sigma V^*$}.  Les nombres réels
-	positifs~$\sigma_i$ sont les valeurs singulières non nuls de~$A$.  En
-	particulier,~$r$ est le rang de~$A$. \\
-	Si~$A$ est réelle alors on peut choisir~$U$ et~$V$ réelles orthogonales.
-\end{theorem}
-
-\begin{remark}
-	Même pour les matrices carrées, la décomposition~$A=U\/\Sigma V$ ne dit pas
-	que~$A$ soit diagonalisable sur une base de vecteurs orthogonaux: les
-	rotations~$U$ et~$V$ sont a priori complètement différentes l'une de l'autre!
-\end{remark}
-
-\begin{remark}
-	La décomposition SVD n'est pas du tout unique: même quand les
-	les~$\sigma_i$ sont ordonnées et différentes, et la matrice est carrée, on
-	peut multiplier les lignes et les colonnes de~$U$ et~$V$ par unités
-	arbitraires.
-\end{remark}
-
-On trouvera la preuve complète de l'existence d'une décomposition SVD dans
-tout livre moderne d'algèbre linéaire, par exemple [AK] ou [Serr].
-Attention: les preuves paraissent souvent plus compliqués qu'elles ne le
-sont.  Il est conseillé de commencer par le cas carré~$p=q$ inversible, puis
-non inversible, puis le cas général.
-%Ici on s'intéresse surtout aux applications de cette décomposition, qui est
-%essentielle en calcul scientifique.
-
-{\bf Schéma de la preuve du théorème~\ref{thm:svd}.}
-Soit~$A$ une matrice~$p\times q$ de rang~$r$.
-\begin{enumerate}
-	\item La matrice~$A^*A$ est hermitienne et semi-définie positive, donc elle
-		décompose comme
-		\[
-		A^*A=V\Lambda V^*
-		=\sum_i\lambda_i\vv_i\vv_i^*
-		=\sum_i(\sigma_i)^2\vv_i\vv_i^*
-		\]
-	Les colonnes orthogonales de~$\vv_i$ de~$V$ sont les vecteurs propres
-	\item On a~$A^*A\vv_i=(\sigma_i)^2\vv_i$
-	\item Si tous les~$\sigma_i$ sont positifs, posons
-		$\uu_i=\tfrac1{\sigma_i}A\vv_i$.
-	\item On vérifie que~$\uu_i$ est un vecteur propre unitaire de~$AA^*$.
-	\item Soit~$\Sigma=\mathrm{diag}(\sigma_i)$.  On a alors
-		\begin{align*}
-			U & =A V\Sigma^{-1} \\
-			U\/\Sigma & =A V \\
-			A & =U\/A V^* \\
-		\end{align*}
-		ce qui conclut la preuve dans le cas non-singulier.
-	\item Si les derniers~$\sigma_i=0$, on pet compléter la définition des
-		colonnes de~$U$ en complétant une base orthonormée de~$\K^p$, puis on
-		rajoute des lignes de~$0$ à~$\Sigma$.
-\end{enumerate}
-
-\bigskip
-
-La SVD est la factorisation matricielle la plus importante, et la plus
-utilisée en traitement du signal et en modélisation.  Notamment, pour
-l'analyse en composantes principales et pour la définition la pseudo-inverse
-(qui généralise le critère de moindres carrés).
-
-{\bf SVD et décomposition polaire.}
-%Le lien entre SVD et décomposition polaire
-Soit~$A\in\GL_n(\C)$ et~$A=HQ$ sa décomposition polaire.  Par le théorème
-spectral, la matrice~$H$ diagonalise dans une base orthogonale de vecteurs
-propres~$H=PDP^*$ avec~$P\in\UU_n$ et~$D$ diagonale positive.  On a
-donc~$A=PD(P^*Q)$, qui est une SVD.
-Réciproquement, si~$A=U\/\Sigma V^*$ est une~SVD de~$A$,
-alors~$A=(U\/\Sigma U^*)(UV^*)$ est la décomposition polaire de~$A$.  Ici on
-voit que la décomposition polaire est possible pour matrices quelconque, pas
-forcément inversibles ou même carrées.
-
-{\bf SVD et éléments propres.}
-Les valeurs singulières d'une matrice~$A$ sont les valeurs propres de~$A^*A$
-ou de~$AA^*$.  Il est donc naturel qu'il y ait plein de relations entre
-la SVD de~$A=U\/\Sigma V^*$ et ses éléments propres.  On les voit en re-écrivant
-les matrices~$A^*A$ et~$AA^*$ à partir de la SVD:
-\begin{align*}
-	A^*A & = V\Sigma^*U^* U\Sigma V^* = V(\Sigma^*\Sigma)V^* \\
-	AA^* & = U\Sigma V^* V\Sigma^* U^* = U(\Sigma\Sigma^*)U^*
-\end{align*}
-
-ainsi, les colonnes de~$V$ (vecteurs singuliers à droite) sont vecteurs
-propres de~$A^*A$, et les colonnes de~$U$ (vecteurs singuliers à gauche) sont
-vecteurs propres de~$AA^*$.
-Quand~$A$ est hermitienne semi-définie positive, alors sa
-diagonalisation~$A=UDU^*$ est une SVD.
-
-
-\subsection{Pseudo-inverse de Moore-Penrose}
-
-Si~$Ax=b$ est un système linéaire avec~$A$ carrée et inversible la solution
-du système est donnée par~$x=A^{-1}b$.  La notion de pseudo-inverse (de
-Moore-Penrose) permet de traiter le cas général, avec une matrice peut-être
-rectangulaire, peut-être de rang incomplet.
-
-\begin{definition}[pseudo-inverse]
-	\label{def:pseudoinv}
-	Soit~$A\in\M_{p,q}(\C)$ et~$A=U\/\Sigma V^*$ sa SVD
-	avec~$U\in\UU(p)$, ~$V\in\UU(q)$
-	et~$\Sigma=\parens{\begin{smallmatrix}D&0\\0&0\end{smallmatrix}}$.
-	La~\emph{pseudo-inverse} de~$A$ est la matrice~$A\in\M_{q,p}(\C)$ définie
-	par
-	\[
-		A^+=V\Sigma^+ U^*
-		\qquad
-		\textrm{avec}
-		\qquad
-		\Sigma^+=\begin{pmatrix}D^{-1}&0\\0&0\end{pmatrix}
-	\]
-\end{definition}
-
-\begin{exercice}
-	\label{ex:pseudoinv}
-	Soit~$A\in\M_{p,q}(\C)$ et~$A^+\in\M_{q,p}(\C)$ sa pseudo-inverse.  Alors
-	\begin{align*}
-		& AA^+A=A \\
-		& A^+AA^+=A^+ \\
-		& (AA^+)*=AA^+ \\
-		& (A^+A)*=A^+A
-	\end{align*}
-	De plus quand~$A$ est réelle alors~$A^+$ l'est aussi.
-\end{exercice}
-
-La pseudo-inverse permet de donner une solution ``canonique'' au problème
-général~$Ax=b$ par~$x=A^+b$.  Notons que cette solution est consistante avec
-les constructions typiques:
-
-\begin{exercice}
-	Si~$A\in\GL_n(\C)$ alors~$A^+=A^{-1}$.
-	Si~$A\in\M_{p,q}(\K)$ de rang~$q\le p$ alors la solution de monidres carrés
-	de~$\|Ax-b\|^2_2$ est donnée par~$x=A^+b$.
-\end{exercice}
-
-Le résultat suivant dit que la pseudo-inverse n'est pas une généralisation
-arbitraire de~$A^{-1}$.
-
-\begin{theorem}[Penrose 1955]
-	Soit~$A^+$ une matrice qui satisfait les quatre propriétés de
-	l'exercice~\ref{ex:pseudoinv}.  Alors~$A^+$ est la pseudo-inverse de~$A$
-	selon la définition~\ref{def:pseudoinv}.
-\end{theorem}
-
-\begin{exercice}
-	Calculez la pseudo-inverse des matrices suivantes
-	\begin{itemize}
-		\item Un scalaire~$a\in\K=\M_{1,1}(\K)$.
-		\item Un vecteur~$\x\in\K^n=\M_{n,1}(\K)$.
-		\item La matrice
-			nilpotente~$A_1=\parens{\begin{smallmatrix}0&1\\0&0\end{smallmatrix}}$
-		\item La matrice
-			singulière~$A_2=\parens{\begin{smallmatrix}1&1\\1&1\end{smallmatrix}}$
-		\item La matrice singulière~$\x\x^*\in\M_{n,n}(\K)$ avec~$x\in\K^n$.
-	\end{itemize}
-\end{exercice}
-
-
-\clearpage
-\section{Méthodes directes}
-
-%Nous présentons trois méthodes directes de résolution de systèmes linéaires:
-%la factorisation LU (qui est la version matricielle de l'élimination
-%Gaussienne), la factorisation de Cholesky (valable pour matrices symétriques)
 
 \subsection{Méthode d'élimination de Gauss}
 
@@ -2323,7 +2395,7 @@ et
 On suppose en outre que $Y$ admet une décomposition $LU$. Alors, la partie triangulaire inférieure de $A_k$ converge vers $D$.
 \end{theorem}
 
-\begin{exercice}[difficile]
+\begin{exercice}[long]
 On va prouver le Théorème~\ref{thm:QR}. Pour simplifier on suppose les $\lambda_i$ réels strictement positifs. 
 \begin{enumerate}
 \item On note
