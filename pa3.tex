@@ -226,378 +226,623 @@ $\ $4.5. QR: $\GL_n(\C)=\UU_n(\C)\times\TS_n^{++}(\C)$
 5. Normes matricielles:\\
 $\ $5.1. Normes induites~$\displaystyle\ABS{A}_\alpha=\inf_{\|x\|_{\alpha}=1}\|Ax\|_{\alpha}$, $\ \ABS{A}_2=\sqrt{\rho(AA^*)}$\\
 $\ $5.2. Th. Householder:~$\rho(A)=\displaystyle\inf_{\ABS{\phantom{\cdot}}}\ABS{A}$\\
-$\ $5.3. Convergences:~$(I-A)^{-1}=I+A+A^2+\cdots$ si~$\ABS{A}<1$,\\
-$\qquad\qquad\displaystyle\mathrm{\rho}(A)=\lim_{k\to\infty}\ABS{A^k}^{1/k}$,
+$\ $5.3. Convergences:~$\color{blue}(I-A)^{-1}=I+A+A^2+\cdots$ si~$\ABS{A}<1$,\\
+$\qquad\qquad\displaystyle\color{blue}\mathrm{\rho}(A)
+=\lim_{k\to\infty}\ABS{A^k}^{1/k}$,
 etc
 
+\end{frame}
+
+% interlude: résolution d'équations non-linéaires
+\begin{frame}
+INTÉRLUDE: RÉSOLUTION D'ÉQUATIONS NON-LINÉAIRES\\
+===============================================
+
+{\bf Problème 1D:}\\
+Étant donnée~$f:\R\to\R$, trouver~$x\in\R$ tel que~$f(x)=0$
+
+
+Et plus en général:
+
+{\bf Problème nD:}\\
+Étant donnée~$f:\R^n\to\R^n$, trouver~$\x\in\R^n$ tel que~$f(\x)=0$
 
 \end{frame}
 
-
-% normes matricielles, définition, propriétés, exemples
+% méthode de la subdivision
 \begin{frame}
-NORMES MATRICIELLES\\
-===================
-
-\vfill
-\hspace*{-2.3em}\makebox[1\paperwidth][c]{
-\includegraphics[width=0.98\paperwidth]{f/normesmatricielles.png}
-}
-\vfill
-
-\end{frame}
-
-% normes matricielles, définition, propriétés, exemples
-\begin{frame}
-NORMES INDUITES\\
-===============
-
-\vfill
-\hspace*{-2.3em}\makebox[1\paperwidth][c]{
-\includegraphics[width=0.98\paperwidth]{f/normesinduites.png}
-}
-\vfill
-\small
-\color{red}{\bf Exercice 18:}
-démontrez que $\ABS{\cdot}_F$ est une norme matricielle.
-
-\end{frame}
-
-% normes induites classiques
-\begin{frame}
-NORMES INDUITES CLASSIQUES\\
-==========================
-
-{\color{red}{\bf Exercice 19:} démontrez les caractérisations suivantes:}
-	\[
-		\ABS A_1      = \max_j\sum_i\abs{a_{ij}}
-		\qquad
-		\ABS A_\infty = \max_i\sum_j\abs{a_{ij}} %= \ABS{A^*}_1
-		\qquad
-		\ABS A_2      = \sqrt{\rho\parens{A^*A}} %= \ABS{A^*}_2
-	\]
-
-
-\end{frame}
-
-% normes et rayon spectral
-\begin{frame}
-NORMES ET RAYON SPECTRAL\\
-========================
-
-{\color{red}\bf Exercice 20:} Démontrez que\\
-	\begin{enumerate}
-		\item $\forall A\in\M_n(\K):$~$\rho\parens{A^m}=\rho\parens{A}^m$ et~$\rho\parens{\lambda
-			A}=\abs\lambda\rho\parens{A}$
-		\item Si~$A$ est diagonale alors~$\ABS A_p=\rho(A)$
-			%pour~$1\le p\le\infty$.
-		\item Si~$A$ est normale alors~$\ABS A_2=\rho(A)$.
-		\item Si~$n>1$ alors~$\rho$ n'est pas une norme matricielle
-			%sur~$\M_n(\K)$.
-		\item Si~$\ABS\cdot$ est une norme induite sur~$\M_n(\C)$ alors
-			\begin{equation}\label{eq:rholessthanABS}
-				\rho(A)\le\ABS A
-			\end{equation}
-		\item L'équation~(\ref{eq:rholessthanABS}) est encore vraie pour
-			une norme matricielle quelconque sur~$\M_n(\C)$, ou même
-			sur~$\M_n(\R)$.
-	\end{enumerate}
-	\pause
-
-{\color{red}\bf Exercice 21:} (théorème de Householder)\\
-	Pour toute matrice~$A\in\M_n(\C)$ et tout~$\epsilon>0$ il existe une norme
-	induite~$\ABS\cdot_{A,\epsilon}$ telle que
-	\begin{equation}\label{eq:rhomorethanABS}
-		\ABS A_{A,\epsilon}\le\rho(A)+\epsilon
-	\end{equation}
-\end{frame}
-
-% théorème de Houseolder
-\begin{frame}
-THÉORÈME DE HOUSEHOLDER\\
-=======================
-
-\vfill
-\hspace*{-2.3em}\makebox[1\paperwidth][c]{
-\includegraphics[width=0.98\paperwidth]{f/thhouseholder.png}
-}
-\vfill
-\end{frame}
-
-% convergence de suites de matrices
-\begin{frame}
-CONVERGENCE DE SUITES DE MATRICES\\
-=================================
-
-\vfill
-\hspace*{-2.3em}\makebox[1\paperwidth][c]{
-\includegraphics[width=0.97\paperwidth]{f/convsuitmat.png}
-}
-\vfill
-\end{frame}
-
-% conditionement, erreurs d'observation et de modélisation
-\begin{frame}
-CONDITIONNEMENT DE MATRICES\\
-===========================
-
-\vfill
-\hspace*{-2.3em}\makebox[1\paperwidth][c]{
-\includegraphics[width=0.97\paperwidth]{f/coditionex.png}
-}
-\vfill
-
-\end{frame}
-
-\begin{frame}
-CONDITIONNEMENT DE MATRICES\\
-===========================
-
-{\bf Définition (conditionnement):}
-Soit~$A\in\GL_n(\K)$ et~$\ABS\cdot_\alpha$ une norme induite.  Le
-\emph{conditionnement} de~$A$ relatif à cette norme est
-\[
-	\mathrm{cond}_\alpha(A) = \ABS{A}_{\alpha}\ \ABS{A^{-1}}_\alpha
-\]
-
-\pause
-{\bf Prop. (conditionnement euclidien):} Pour~$A\in\GL_n(\K)$ on a
-\[
-\mathrm{cond}_2(A) = \sqrt{\frac{\lambda_{\max}(A^*A)}{\lambda_{\min}(A^*A)}}
-\]
-Si $A$ est normale
-\[
-\mathrm{cond}_2(A) = \frac{\abs{\lambda_{\max}(A)}}{\abs{\lambda_{\min}(A)}}
-\]
-Si $O \in U_n(\K)$ alors
-\[
-\mathrm{cond}_2(O) = 1, \quad \mathrm{cond}_2(AO) = \mathrm{cond}_2(OA) = \mathrm{cond}_2(A)
-\]
-\end{frame}
-
-\begin{frame}
-EFFET DES ERREURS\\
-=================
-
-On veut résoudre~$Ax=b$ mais on connait~$b$ (ou~$A$) à des erreurs près.  Quel
-est l'effet sur la solution~$x$?
-\pause
-
-{\color{red}{\bf Exercice 23:} (erreurs d'observation)}
-Si~$A(x+\delta x)=b+\delta b$ alors
-	\[
-		\frac{\Abs{\delta x}}{\Abs{x}}
-		\le
-		\mathrm{cond}(A)
-		\frac{\Abs{\delta b}}{\Abs{b}}
-	\]
-
-\pause
-{\color{red}{\bf Exercice 24:} (erreurs de modélisation)}
-Si~$(A+\delta A)(x+\delta x)=b$ alors
-	\[
-		\frac{\Abs{\delta x}}{\Abs{x+\delta x}}
-		\le
-		\mathrm{cond}(A)
-		\frac{\ABS{\delta A}}{\ABS{A}}
-	\]
-
-	Ces deux inégalités sont {\bf\color{red}optimales}.
-\end{frame}
-
-\begin{frame}
-ERREURS DE CONDITIONNEMENT\\
+MÉTHODE DE LA SUBDIVISION\\
 =========================
 
-\includegraphics[width=\linewidth]{f/erreursoptimales.png}
+Pour~$f:[a,b]\to\R$ continue avec~$f(a)f(b)<0$.
+
+\includegraphics[width=0.4\linewidth]{f/bisection.png}
+
+\pause
+{\bf Analyse:} L'erreur absolu se divise par deux à chaque itération
+(convergence linéaire): $\abs{x_n-x}\le\abs{b-a}/2^n$.
 \end{frame}
 
+% méthode de newton
 \begin{frame}
-PRÉCONDITIONNEMENT\\
-==================
+MÉTHODE DE NEWTON\\
+=================
 
+\includegraphics[width=0.7\linewidth]{f/newton.png}
 
-\includegraphics[width=\linewidth]{f/precond.png}
+{\bf Méthode:} À partir d'un~$x_0$ quelconque, on fait des
+itérations~$x_{n+1}:=x_n-f(x_n)/f'(x_n)$.
+
+{\bf Analyse:} En conditions favorables, on a convergence quadratique
+$\abs{x_{n+1}-x}<C\abs{x_n-x}^2$.
 \end{frame}
 
-
-
-% complexité (def)
+% méthode de newton
 \begin{frame}
-COMPLEXITÉ (DÉFINITION)\\
+ANALYSE DE LA MÉTHODE DE NEWTON {\color{red}\bf(Exercice N.)}\\
+===========================================
+
+\includegraphics[height=0.8\textheight]{f/exernewton.png}
+\end{frame}
+
+% newton pour polynômes
+\begin{frame}
+MÉTHODE DE NEWTON POUR POLYNÔMES {\color{red}\bf(Exercice N'.)}\\
+===========================================
+
+\includegraphics[height=0.8\textheight]{f/exernewton2.png}
+\end{frame}
+
+% newton counterexample sigmoid
+\begin{frame}
+NON-CONVERGENCE DE LA MÉTHODE DE NEWTON\\
+=======================================
+
+Les racines de~$f(x)$ sont des attracteurs pour la méthode de Newton.  En
+dehors de ses puits d'attraction, les itérés peuvent devenir périodiques, ou
+aller vers~$\infty$
+
+\pause
+{\bf Exemples?}
+
+\pause
+\includegraphics[height=0.5\textheight]{f/newtoncycle.png}
+\end{frame}
+
+% newton fractal
+\begin{frame}
+MÉTHODE DE NEWTON EN nD\\
 =======================
 
-\includegraphics[width=\linewidth]{f/complexdef.png}
+Soit~$F:\R^n\to\R^n$, par analogie avec le cas de dimension 1
+\[
+	x_{n+1}:=x_n-f(x_n)/f'(x_n)
+\]
+on définit les itérés e pour~$F$:
+\[
+	\x_{n+1}:=\x_n-\left(DF(\x_n)\right)^{-1} F(\x_n)
+\]
+c'est la méthode de Newton en dimension~$n$, avec des propriétés très
+similaires.
 \end{frame}
 
-% complexité (exercice)
+% newton fractal
 \begin{frame}
-COMPLEXITÉ (EXEMPLES)\\
+MÉTHODE DE NEWTON POUR POLYNÔMES $P:\C\to\C$\\
+=========================================
+
+Soit~$f:\C\to\C$ définie par
+\[f(z)=z^3-1\color{gray}=(z-1)(z-\rho)(z-\overline\rho)\]
+Le plan~$\C$ est divisé en 3 parties associées à chaque attracteur.
+Quelle est la forme de ces parties?
+
+\pause
+\includegraphics[height=0.5\textheight]{f/juliacube.png}
+\end{frame}
+
+% super-slide méthode de newton
+\begin{frame}
+LA MÉTHODE DE NEWTON: OPTIMISATION VS RÉSOLUTION\\
+================================================
+
+{\bf Résolution.}  Pour~$F:\R^n\to\R^n$, trouver~$\x$ tel que $F(\x)=0$~:
+\[
+	\x_{n+1}:=\x_n-\left(DF(\x_n)\right)^{-1} F(\x_n)
+\]
+
+{\bf Optimisation.}
+Pour~$f:\R^n\to\R$, trouver~$\x=\argmin f(\x)$~:
+\[
+	\x_{n+1}:=\x_n-\left(D^2f(\x_n)\right)^{-1} Df(\x_n)
+\]
+
+\pause
+{\bf Lien~:} minimiser~$f(\x)$ équivaut à résoudre~$Df(\x)=0$.
+\end{frame}
+
+
+% polynômes vs matrices
+\begin{frame}
+POLYNÔMES ET MATRICES\\
 =====================
 
+Soit~$\displaystyle P(X)=X^n+\sum_{k=0}^{n-1}c_k X^k$ un polynôme unitaire
+de~$\C_n[X]$.  La matrice~{\color{blue}compagnon} de~$P$~:
 
-\includegraphics[width=\linewidth]{f/complexex.png}
-\end{frame}
-
-
-% complexité (multiplications)
-\begin{frame}
-MULTIPLICATION DE WINOGRAD\\
-==========================
-
-{\footnotesize\color{blue}
 \[
-	\begin{pmatrix}
-		a & b \\ c & d
-	\end{pmatrix}
-	\begin{pmatrix}
-		A & C \\ B & D
-	\end{pmatrix}
-	=
-	\begin{pmatrix}
-		aA+bB & w+v+(a+b-c-d)D \\
-		w+u+d(B+C-A-D) & w+u+v
-	\end{pmatrix}
+	\mathcal{C}(P)=
+	\left(\begin{array}{cccc}
+			0 & \dots & 0 & -c_0 \\
+			1& \ddots &\vdots  & \vdots \\
+			& \ddots & 0 & \vdots \\
+			&  & 1 & -c_{{n-1}}
+	\end{array}\right) \in\M_n(\K)
 \]
-}
 
-$u=(c-a)(C-D)$\\
-$v=(c+d)(C-A)$\\
-$w=aA+(c+d-a)(A+D-C)$.\\
-Ce calcul entraîne~$7$ multiplications et~$15$ additions.
+a pour valeurs propres les racines de~$P$.
 
 \pause
-\includegraphics[width=\linewidth]{f/fastmult.png}
+{\bf Observation:} Ainsi, toute méthode générale de calcul d'éléments propres
+d'une matrice pour~$n>4$ est forcément itératif (il donne une suite
+d'approximations successives des éléments propres).
 \end{frame}
 
-
-% complexité: commentaires
-\begin{frame}
-COMPLEXITÉ: COMMENTAIRES {\bf EN 2020}\\
-================================
-
-1. En pratique, 1 produit $\approx$ 1 addition
-
-2. La performance dépend surtout d'un accès ordonnée en mémoire qui évite des
-``cache faults.''
-
-3. Il est essentiel que l'algorithme soit parallélisable en GPU
-
-4. On ne s'intéresse jamais à la solution exacte théorique, mais au taux
-d'approximation des méthodes itératives.
-
-5. Les grandes matrices sont souvent creuses, ce qui requiert un analyse de la
-complexité différent (e.g., le produit matrice-vecteur  se fait en temps
-linéaire).
-\end{frame}
-
-
-% méthodes directes: gauss
-\begin{frame}
-MÉTHODE DE GAUSS\\
-================
-
-{\bf Idée:}\\
-transformer~$Ax=b$ en un système triangulaire équivalent
-
-\pause
-\includegraphics[width=\linewidth]{f/gauss.png}
-\end{frame}
-
-% méthodes directes: LU
-\begin{frame}
-MÉTHODE LU\\
-==========
-
-LU = formalisation matricielle de la méthode de Gauss
-
-\pause
-\includegraphics[width=\linewidth]{f/lu.png}
-
-\color{red}\bf Exercice 30: démontrer le théorème ``LU''
-\end{frame}
-
-%% méthodes directes: LU exercice
+%% méthode de newton pour les polynômes [EX]
 %\begin{frame}
-%méthode de gauss\\
-%================================
-%
+%MÉTHODE DE NEWTON POUR POLYNÔMES: ANALYSE\\
+%=========================================
 %\end{frame}
 
-% méthodes directes: Cholesky
+
+
+
+
+
+% méthodes itératives, considérations générales (points fixes)
 \begin{frame}
-MÉTHODE DE CHOLESKY\\
-===================
+MÉTHODES ITÉRATIVES POUR PROBLÈMES LINÉAIRES\\
+============================================
 
-{\bf Théorème 7.}  Soit~$A\in\HH_n^{++}(\C)$, alors il existe une unique~$B\in\TI_n^{++}(\C)$ telle que
-\[ A = B B^* \]
+{\bf Idée:} transformer le problème ($Ax=b$ ou~$Ax=\lambda x$)
+en~$\color{blue}F(y)=y$ et appliquer un théorème de point fixe qui garantira la
+convergence des itérés~$y_{n+1}:=F(y_n)$% vers la solution.
 
-{\color{red}{\bf Exercice 32. } Prouver le théorème 7.}
+{\bf Th. (point fixe de Banach).}  Soit~$k<1$ et~$F:V\to V$~$k$-Lipschitzienne
+sur un e.m. complet~$V$.  Alors il existe un unique~$x\in V$ tel que~$F(x)=x$, et~$\forall a\in V$ on a~$\displaystyle\lim_{n\to\infty}F^n(a)=x$.
 
-%\begin{enumerate}
-%\item Sous réserve d'existence, montrez l'unicité.
-%\item Justifiez que $A$ admet une décomposition $LU$ et que les $u_{k,k}$ sont strictement positifs.
-%\item On note 
-%\[
-%D = \left(\begin{array}{ccc}
-%\sqrt{u_{1,1}} & & \\
-%& \ddots & \\
-%& & \sqrt{u_{n,n}}
-%\end{array}\right)
-%\]
-%Montrez que $B = LD$ convient.
-%\end{enumerate}
+{\bf Th. (point fixe de Browder-Kirk).}
+Soit~$C\subseteq E$ une partie convexe, bornée et fermée d'un espace de
+Banach~$E$, et~$F:C\to C$ non-expansive ($\Abs{F(x)-F(y)}\le\Abs{x-y}$).
+Alors~$F$ a un point fixe (pas forcément unique).
 
-{\color{red}{\bf Exercice 32'. }
-Établir la factorisation de Cholesky de la matrice
+\end{frame}
+
+% méthodes itératives, trois types ici ensuite
+\begin{frame}
+TROIS TYPES DE MÉTHODES ITÉRATIVES\\
+==================================
+
+Par ordre croissant de difficulté:
+
+1. Étant donnée~$A\in\M_n(\K)$, construire une suite~$(\lambda^k,\x^k)$ qui
+s'approche à une solution de~$A\x=\lambda\x$.\\
+\uncover<2>{{\color{blue}Méthodes de la puissance, puissance inverse.}}
+
+2. Étant donnée un système linéaire inversible~$A\x=b$, construire une
+suite~$\x^k$ qui s'approche à la solution
+\uncover<2>{{\color{blue}Jacobi, Gauss-Seidel, S.O.R., Gradient pas fixe,
+Gradient pas optimal, Gradients conjugués.}}
+
+3. Étant donnée une matrice diagonalisable~$A$, approcher l'ensemble entier de
+ses éléments propres.\\
+\uncover<2>{{\color{blue}Algorithme QR (basé sur la décomposition QR).}}
+\end{frame}
+
+
+% méthode de la puissance
+\begin{frame}
+MÉTHODE DE LA PUISSANCE\\
+=======================
+
+{\bf Principe.}
+On construit une suite $({\color{blue}x^k})$ par récurrence~:
 \[
-A = \left(\begin{array}{ccc}
-1 & 2 & 1 \\
-2 & 13 & 2 \\
- 1 & 2 & 2
-\end{array}\right)
+	{\color{blue}x^0} \in \K^n\ \textrm{quelconque}, \qquad {\color{blue}x^{k+1}}
+	:= \frac{A{\color{blue}x^k}}{{\Abs{A{\color{blue}x^k}}}}
 \]
-}
+
+{\bf Proposition.}
+Soit~$A$ diagonalisable à valeurs propres réelles
+$|\lambda_1|\le\cdots\le|\lambda_{n-1}|<|\lambda_n|$ et~$\color{red}\tau=|\lambda_{n-1}|/|\lambda_n|<1$.
+Alors~:\\
+1. ${\color{blue}x^k}$ converge ${\color{red}\tau}$-linéairement vers un vec. propre de~$A$\\
+2. $\Abs{A {\color{blue}x^k}}=\lambda_n+\mathcal{O}({\color{red}\tau}^k)$\\
+3. $\Abs{A {\color{blue}x^k}}=\lambda_n+\mathcal{O}({\color{red}\tau}^{2k})$
+pour~$A$ symétrique, hermitienne
+
+
+\vfill
+\color{red}
+{\bf Exercice 36.}\\ Démontrez cette proposition (cf. notes pp.23--24).
+
 \end{frame}
 
+% notion de taux de convergence [EX]
+%\begin{frame}
+%MÉTHODE DE LA PUISSANCE: TAUX DE CONVERGENCE\\
+%============================================
+%\end{frame}
+
+% méthode de la puissance inverse [EX]
 \begin{frame}
-MÉTHODE DE CHOLESKY: IMPLEMENTATION EN C\\
-========================================
+MÉTHODE DE LA PUISSANCE INVERSE\\
+===============================
 
+\includegraphics[width=\linewidth]{f/puissanceinverse.png}
 
-\includegraphics[width=\linewidth]{f/choleskyc.png}
+\vfill
+\color{red}{\bf Exercice 37.}
 \end{frame}
 
-% méthodes directes: QR
+% algorithme QR
 \begin{frame}
-MÉTHODE QR\\
-==========
+ALGORITHME QR\\
+=============
 
-{\bf Théorème 8.}
-Soit $A \in\GL_n(\K)$. Il existe un unique couple de matrices $(Q,R)$ avec $Q
-\in \UU(n)$ et $R \in \TS^{++}_n(\K)$ telles que
+L'algorithme~$QR$ utilise des décompositions QR successives pur
+{\color{blue}approcher l'ensemble de tous les éléments propres}.
+
+{\bf Algorithme}.  Étant donnée~$A\in\GL_n(\R)$, on construit la suite de
+matrices~$A_k$ par récurrence:
 \[
-A = QR
+	A_1=A
+	\qquad\qquad
+	A_{k+1}:=R_kQ_k
 \]
-Ceci définit un homéomorphisme de $\GL_n(\K)$ sur $\UU(n)\times\TS^{++}(\K)$.
-
-{\color{red}{\bf Exercice 34. } Prouver le théorème 8.}
-\end{frame}
-
-% méthodes directes: exemples
-\begin{frame}
-EXEMPLES DE FACTORISATIONS\\
-==========================
-
-
-\includegraphics[width=\linewidth]{f/prop12.png}
-
-\includegraphics[width=\linewidth]{f/prop13.png}
+où~$(Q_k,R_k)$ est la factorisation~$QR$ de~$A_k$.
 
 \pause
-{\color{red}{\bf Exercice 35.} Démontrez les propositions 12 et 13.  Pour 13,
-	exprimez~$a,b,c$ en fonction de l'angle~$\theta$.
+{\bf Th.9 (convergence de l'algorithme QR).}
+Soit~$A$ diagonalisable~$A=Y^{-1}DY$
+avec~$D=\mathrm{diag}(\lambda_1,\ldots,\lambda_n)$
+et~$|\lambda_1|>\cdots>|\lambda_n|>0$, telle que~$Y$ admet une
+décomposition~$LU$.  Alors la partie triangulaire inférieure de~$A_k$
+converge vers~$D$.
+\color{red}\bf(Exercice 44.)
+\end{frame}
+
+
+
+% méthodes itératives de résolution (forme générale)
+\begin{frame}\small
+MÉTHODE ITÉRATIVES DE RÉSOLUTION : CADRE GÉNÉRAL\\
+================================================
+
+{\bf Idée:}
+Pour résoudre~$Ax=b$ on décompose~$A=M-N$
+%Soit~$A\in\GL_n(\K)$ et~$b\in\K^n$, on veut trouver~$x\in\K^n$ tel
+%que~$Ax=b$.
+%Le principe de base est de décomposer $A$ en
+%\[
+%A = M - N
+%\]
+avec $M$ inversible, de sorte que
+\[
+Ax = b \quad \Leftrightarrow \quad Mx = Nx + b \quad \Leftrightarrow \quad x = M^{-1}(Nx+b)
+\]
+La méthode %itérative associée à la décomposition $A = M-N$
+consiste alors à
+choisir $x^0 \in \K^{n}$ et à calculer les itérés $x^k$ solution de
+\[
+Mx^{k+1} = (Nx^k + b)
+\qquad\qquad
+%\color{gray}
+%x^{k+1} = M^{-1}(Nx^k + b)
+\]
+
+{\bf Observation.}
+Ceci n'a d'intérêt que si $M$ facilite le travail (e.g. $M$ diagonale ou
+triangulaire).
+La pertinence de la décomposition se lit sur le rayon spectral de $M^{-1}N$.
+
+{\bf Proposition.}
+La suite $(x^k)$ converge vers $x=A^{-1}b$ quelque soit $x^0$ si
+et seulement si $\rho(M^{-1}N) < 1$.
+%On dit alors que la méthode est convergente.
+{\bf\color{red}(Exercice 38.)}
+
+%\begin{exercice}
+%Prouver la Proposition \ref{prop:methodes_iteratives}. Montrer que la
+%convergence est au moins linéaire et donner le taux de convergence.
+%\end{exercice}
+%
+%
+%{\bf Algorithmique.}
+%En pratique on ne connait pas la solution $x$ (on en cherche une approximation !) donc on ne sait pas quel terme $x^k$ est satisfaisant. Un critère souvent utilisé est de s'arrêter lorsque
+%\[
+%\Abs{Ax^k-b} \leq \epsilon
+%\] 
+%où $\epsilon$ est un seuil défini à l'avance. On note $K$ le nombre d'itérations effectuées avant l'arrêt. En pratique, la complexité des méthodes itératives est en $Kn^2$. Elles sont donc intéressantes si $K \ll n$.
+
+{\bf Remarque.}
+C'est la méthode de point fixe pour la fonction $x \mapsto (M^{-1}N x +b)$. L'inégalité $\rho(M^{-1}N) < 1$ équivaut au fait que la fonction est contractante.
+
+\end{frame}
+
+% méthode de Jacobi
+\begin{frame}
+MÉTHODE DE JACOBI\\
+=================
+
+On prend~$M$ la diagonale de~$A$.  Par exemple
+\[
+A = \left(\begin{array}{ccc}
+1 & 2 & 0 \\
+2 & 13 & 2 \\
+ 1 & 1 & 2
+\end{array}\right)
+, \quad M = \left(\begin{array}{ccc}
+1 & 0 & 0 \\
+0 & 13 & 0 \\
+ 0 & 0 & 2
+\end{array}\right)
+, \quad N = \left(\begin{array}{ccc}
+0 & -2 & 0 \\
+-2 & 0 & -2 \\
+-1 & -1 & 0
+\end{array}\right)
+\]
+
+{\color{red}\bf Exercice 39.}
+On suppose que $A$ est à diagonale strictement dominante. Montrer que la
+méthode de Jacobi pour~$A$ est convergente.
+
+\vfill
+\color{blue}
+\fbox{$Mx^{k+1}=Nx^k+b$}
+\end{frame}
+
+% méthode de Gauss-Seide [EX]
+\begin{frame}
+MÉTHODE DE GAUSS-SEIDEL\\
+=======================
+
+On prend $M$ la partie triangulaire inférieure de $A$, par exemple
+\[
+A = \left(\begin{array}{ccc}
+1 & 2 & 0 \\
+2 & 13 & 2 \\
+1 & 1 & 2
+\end{array}\right)
+, \quad M = \left(\begin{array}{ccc}
+1 & 0 & 0 \\
+2 & 13 & 0 \\
+1 & 1 & 2
+\end{array}\right)
+, \quad N = \left(\begin{array}{ccc}
+0 & -2 & 0 \\
+0 & 0 & -2 \\
+0 & 0 & 0
+\end{array}\right)
+\]
+
+{\bf Proposition.}
+Si $A \in\HH^{++}_n(\C)  $ alors la méthode de Gauss-Seidel est convergente.
+
+{\bf\color{red} Exercice 40.} Démontrez la proposition.  Indications~:\\
+1. Démontrez que~$M^*+N$ est diagonale et déf. positive\\
+2. Démontrez que~$\Abs{M^{-1}N}_A^2<\Abs{x}^2_A$ (avec~$\Abs{x}_A=\sqrt{x^TAx}\ $)\\
+3. Conclure
+
+{\bf Remarque.} De manière générale, la méthode est convergente
+quand~$A\in\HH^{++}_n(\C)$
+et~$M^*+N\in\HH^{++}_n(\C)$.
+\end{frame}
+
+% méthode de Gauss-Seidel avec sur-relaxation
+\begin{frame}
+MÉTHODE DE SUR-RELAXATION\\
+=========================
+
+Un raffinement de la méthode de Gauss-Seidel consiste à pondérer la diagonale
+de $A$ dans $M$ par un facteur $\frac{1}{\omega}$. Par exemple pour $\omega =
+\frac{1}{3}$
+\[
+A = \left(\begin{array}{ccc}
+1 & 2 & 0 \\
+2 & 13 & 2 \\
+1 & 1 & 2
+\end{array}\right)
+, \quad M = \left(\begin{array}{ccc}
+3 & 0 & 0 \\
+2 & 39 & 0 \\
+1 & 1 & 6
+\end{array}\right)
+, \quad N = \left(\begin{array}{ccc}
+2 & -2 & 0 \\
+0 & 26 & -2 \\
+0 & 0 & 4
+\end{array}\right)
+\]
+C'est la \emph{méthode de relaxation} [Serr,~chap.~9]
+convergente si et seulement si $|\omega-1| < 1$. L'idée est de choisir
+judicieusement $\omega$ pour rendre $\rho(M^{-1}N)$ le plus petit possible,
+accélérant ainsi la convergence.
+\end{frame}
+
+% exemples sur le laplacien 1D
+\begin{frame}
+EXEMPLES POUR LE LAPLACIEN DISCRET
+==================================
+
+L'opérateur de dérivé seconde $\color{blue}(u_i)'':=u_{i-1}-2u_i+u_{i+1}$
+correspond à une matrice~$L$ symétrique négative.
+
+L'équation ``de poisson discrète'' $-Lu=f$ peut se résoudre ainsi par Jacobi,
+Gauss-Seidel, SOR.  Ces méthodes correspondent à l'évolution de l'équation de
+la chaleur avec source~$u_t=\Delta u +f$, pour {\color{red}différents choix}
+d'implémentation de la dérivée temporelle:
+
+\[
+	\frac{u^{n+1}_i-u^n_i}{\tau}=(u^n_i)''-f_i
+\]
+
+%{\bf G.S.} $x^{u+1} := 
+{\color{red}{\bf Exercice P. } Précisez et vérifiez ces choix.}\\
+\color{gray}Indication: $\tau=1/4$ pour Jacobi et GS,~$\tau=1/2-\omega$ pour~$SOR$
+
+\end{frame}
+
+% résolution via optimisation
+\begin{frame}
+RÉSOLUTION PAR OPTIMISATION\\
+===========================
+
+{\bf Idée:}  Si~$A\in\SSS^{++}_n(\R)$, alors résoudre
+\[
+	Ax=b
+\]
+est équivalent à minimiser cette fonction~$F:\R^n\to\R$
+\[
+	F(x)=\frac12 x^TAx-b^Tx
+\]
+
+\pause{\color{darkgreen}{\bf Question:} Est-il envisageable d'utiliser la
+méthode de Newton ici?
 }
+\pause
+\[
+	DF(x) = Ax-b
+\]
+\[
+	D^2F(x) = A
+\]
+
+\end{frame}
+
+% descente de gradient pas fixe [EX]
+\begin{frame}
+DESCENTE DE GRADIENT\\
+====================
+
+Dans cette méthode $M = \frac{1}{\alpha} I$, où $\alpha \in \R^*$ est un
+paramètre de réglage. Par exemple pour $\alpha = 0.1$
+{\tiny
+\begin{displaymath}
+A = \left(\begin{array}{ccc}
+1 & 2 & 0 \\
+2 & 13 & 2 \\
+ 1 & 1 & 2
+\end{array}\right)
+, \quad M = \left(\begin{array}{ccc}
+10 & 0 & 0 \\
+0 & 10 & 0 \\
+ 0 & 0 & 10
+\end{array}\right)
+, \quad N = \left(\begin{array}{ccc}
+9 & -2 & 0 \\
+-2 & -3 & -2 \\
+-1 & -1 & 8
+\end{array}\right)
+\end{displaymath}
+}
+
+{\bf\color{red}Exercice 41.}
+Soit $A$ de valeurs propres $0 < \lambda_1 < \dots <\lambda_n$:\\
+1. Montrez que la suite des itérés est
+\begin{displaymath}
+x^{k+1} = x^{k} - \alpha (Ax^k -b)
+\end{displaymath}
+et justifier le nom de la méthode.\\
+2. Montrez convergence sii  $0 < \alpha < \frac{2}{\rho(A)}$.\\
+3. Montrez que \( \alpha = \frac{2}{\lambda_1 + \lambda_n} \)
+minimise $\rho(M^{-1}N)$ qui vaut alors
+\begin{displaymath}
+\rho(M^{-1}N) = \frac{\lambda_n - \lambda_1}{\lambda_n + \lambda_1}
+\end{displaymath}
+\end{frame}
+
+% descente de gradient pas optimal [EX]
+\begin{frame}
+DESCENTE DE GRADIENT À PAS OPTIMAL\\
+==================================
+
+\vfill\color{red}\bf Exercice 42.
+
+\vfill
+
+\includegraphics[width=\linewidth]{f/pasoptimal.png}
+\vfill
+\end{frame}
+
+
+\begin{frame}
+ITÉRATIONS DU GRADIENT\\
+======================
+
+\includegraphics[width=0.53\linewidth]{f/iterationsgpo.png}%
+\pause\includegraphics[width=0.53\linewidth]{f/iterationsgc.png}
+
+gradient euclidien vs. gradient ``conjugué''
+
+\end{frame}
+
+% gradient conjugué
+\begin{frame}
+GRADIENT CONJUGUÉ 1/3\\
+=====================
+
+\includegraphics[width=\linewidth]{f/gradconj1.png}
+\end{frame}
+
+\begin{frame}
+GRADIENT CONJUGUÉ 2/3\\
+=====================
+
+\includegraphics[width=\linewidth]{f/gradconj2.png}
+\end{frame}
+
+\begin{frame}
+GRADIENT CONJUGUÉ 3/3\\
+=====================
+
+\includegraphics[width=\linewidth]{f/gradconj3.png}
+\end{frame}
+
+% modélisation: spectre du laplacien (avec plusieurs conditions de bord
+% différentes) [EX]
+\begin{frame}
+MODÉLISATION: LE LAPLACIEN DISCRET 1D\\
+=====================================
+
+\vfill
+voir {\color{red}\bf exercice L} en pièce jointe (lapdisc.pdf)
+\vfill
+\end{frame}
+
+
+
+\begin{frame}
+RÉSUMÉ\\
+======
+
+0. Interlude: résolution d'équations non-linéaires\\
+$\ $0.1. Dichotomie\\
+$\ $0.2. Méthode de Newton\\
+$\ $0.3. Région de convergence, taux de convergence
+
+1. Méthodes itératives pour éléments propres\\
+$\ $1.1. Méthode de la puissance\\
+$\ $1.2. Méthodes de la puissance inverse et guidée\\
+$\ $1.3. Algorithme QR
+
+2. Méthodes itératives pour systèmes linéaires\\
+$\ $2.1. Cadre général\\
+$\ $2.2. Jacobi, Gauss-Seidel, S.O.R.\\
+$\ $2.3. Descente de gradient à pas fixe, à pas optimal\\
+$\ $2.4. Gradients conjugués
+
+
 \end{frame}
 
 
@@ -612,12 +857,13 @@ REPARTITION DES EXERCICES\\
 %{\bf Groupe 4:} Exercice 8 et 9 (disques de Gershgorin)\\
 %{\bf Groupe 5:} Exercice 12 et 13 (décomposition polaire)\\
 %{\bf Groupe 6:} Exercice 14, 15 et 17 (pseudo-inverse)\\
-{\bf Groupe 1:} Exercices 18, 19 (normes matricielles)\\
-{\bf Groupe 2:} Exercices 20(5), 21 (normes et spectre)\\
-{\bf Groupe 3:} Exercice 23, 24 (erreurs et conditionnement)\\
-{\bf Groupe 4:} Exercice 32, 32' (Cholesky)\\
-{\bf Groupe 5:} Exercice 34 (QR)\\
-{\bf Groupe 6:} Exercice 35 (affinités et rotations)\\
+{\bf Groupe 1:} Exercices N, N' (Newton)\\
+{\bf Groupe 2:} Exercice 36 (méthode de la puissance)\\
+{\bf Groupe 3:} Exercice 37 (puissance inverse)\\
+{\bf Groupe 4:} Exercice 40 (Gauss-Seidel)\\
+{\bf Groupe 5:} Exercices 41, 42 (descente de gradient)\\
+{\bf Groupe 6:} Exercice P (laplacien discret, système)\\
+{\bf Groupe 7:} Exercice L (laplacien discret, spectre)\\
 
 
 \vfill
@@ -625,6 +871,12 @@ Temps:\\
 {\bf 90min} travail en groupe (6 groupes de 2,3 personnes)\\
 {\bf 60min} mise en commun
 (6 présentations de 10min par les ``scribes'' de chaque groupe)
+
+\vfill
+\color{red}
+{\bf
+Scribes: veuillez m'envoyer vos productions\\
+(même incomplètes)}
 
 \end{frame}
 
