@@ -253,9 +253,11 @@ Pour~$n=3$ il est le~\emph{groupe de Heisenberg}.
 		\TS_n(\R) \cap \OO_n(\R) &=
 		\solution{\left\{\left(\begin{smallmatrix}\pm 1&&0\\&\ddots&\\0&&\pm
 		1\end{smallmatrix}\right)\right\} \approx (\Z/2\Z)^n}\\
-		\TS_n(\C) \cap \UU_n(\C) &=
-		\solution{\left\{\left(\begin{smallmatrix}e^{i\theta_1}&&0\\&\ddots&\\0&&e^{i\theta_n}\end{smallmatrix}\right)\right\} \approx
-		(\R/2\pi\R)^n=\T^n}\\
+		\SL_n(\R) \cap \OO_n(\R) &= \\
+%		\TS_n(\C) \cap \UU_n(\C) &=
+%		\solution{\left\{\left(\begin{smallmatrix}e^{i\theta_1}&&0\\&\ddots&\\0&&e^{i\theta_n}\end{smallmatrix}\right)\right\} \approx
+%		(\R/2\pi\R)^n=\T^n}\\
+		\TS_n(\R) \cap \SL_n(\R) &= \solution{\{I\}} \\
 		\TS_n(\R) \cap \SO_n(\R) &= \solution{\{I\}} \\
 %		TS_n(\C) \cap SU_n(\C) &= \solution{\{I\}} \\
 		\TS_n(\R) \cap \TI_n(\R) &= \solution{\textrm{matrices diagonales
@@ -307,7 +309,7 @@ associée à une matrice symétrique est symétrique.
 
 La démonstration du théorème spectral utilise seulement la
 propriété~$A^*A=AA^*$ des matrices hermitiennes.  Le théorème spectral reste
-vrai, avec la même démonstration, pour toutes les matrices qui ont cette
+vrai (avec~$D$ diagonale mais pas nécessairement réelle), avec la même démonstration, pour toutes les matrices qui ont cette
 propriété fondamentale:
 
 \begin{definition}[matrices normales]
@@ -341,7 +343,7 @@ du spectre.
 \begin{definition}[éléments propres]
 	Soit~$A\in\M_n(\C)$.  Un~\emph{vecteur propre} de~$A$ est un vecteur non
 	nul~$x\in\C^n$ tel que~$A\x=\lambda\x$ pour un certain~$\lambda\in\C$, qui
-	est la~\emph{valeur propre} de~$A$ associé à~$\x$.
+	est la~\emph{valeur propre} de~$A$ associée à~$\x$.
 	L'ensemble~$\mathrm{sp}_\C(A)$ des valeurs propres de~$A$ est
 	son~\emph{spectre}.  Le~\emph{rayon spectral} de~$A$
 	est~$\ds\rho(A)=\max_{\lambda\in\mathrm{sp}(A)}\abs\lambda$.
@@ -435,8 +437,10 @@ du spectre.
 
 Plus en général on a
 \begin{proposition}
-	Si~$P\in\C[X]$ alors les valeurs propres de~$P(A)$
-	sont~$\left\{P(\lambda_i)\right\}_{i=1,\ldots,n}$.
+	Soit~$P\in\C[X]$ et~$A\in\M_{n,n}(C)$, alors
+	$\ds \mathrm{sp}_\C(P(A))=P(\mathrm{sp}_\C(A))$.
+%	Si~$P\in\C[X]$ alors les valeurs propres de~$P(A)$
+%	sont~$\left\{P(\lambda_i)\right\}_{i=1,\ldots,n}$.
 \end{proposition}
 
 On dit qu'une matrice~$A\in\M_n(\C)$ est~\emph{diagonalisable} s'il existe
@@ -460,11 +464,14 @@ une matrice~$P\in U_n(\C)$ telle que~$P^{-1}AP$ est diagonale.
 	sur~$\K^n$ consiste à appliquer une dilatation au long de chaque direction
 	d'une base de~$\K^n$.  Les facteurs de dilatation sont les
 	valeurs propres et les directions sont les vecteurs
-	propres.  Les matrices non-diagonalisables sont, dans un sous-espace
-	de~$\K^n$, soit des applications nilpotentes (i.e., projection puis
-	rotation par un angle droit), soit des cisaillements/transvections
-	(i.e., translations au long de directions parallèles à un hyperplan, d'un
-	montant proportionnel à la distance à cet hyperplan).
+	propres.
+	{\color{gray}
+		Les matrices non-diagonalisables sont, dans un sous-espace
+		de~$\K^n$, soit des applications nilpotentes (i.e., projection puis
+		rotation par un angle droit), soit des cisaillements/transvections
+		(i.e., translations au long de directions parallèles à un hyperplan, d'un
+		montant proportionnel à la distance à cet hyperplan).
+	}
 \end{proposition}
 
 Il y a aussi des matrices réelles qui sont diagonalisables sur les complexes
@@ -498,7 +505,7 @@ d'une matrice hermitienne:
 \end{theorem}
 
 Cette formule n'est évidemment pas pratique pour calculer les vecteurs
-propres.  Peut être vous en trouvez une de meilleure!
+propres.  Peut être vous en trouverez une de meilleure!
 
 % matrices et polynômes
 {\bf Matrices et polynômes.}
@@ -659,7 +666,9 @@ ceux qui s'intersectent. Les autres en contiennent une et une seule. Ce
 phénomène, qui n'est pas anodin, est l'objet de l'exercice suivant.
 
 \begin{exercice}
-\label{ex:gersh} On note $\mathcal E$ une composante connexe de $\mathcal G(A)$ et $p$ le nombre de disques $D_i$ inclus dans $\mathcal E$. Ainsi, dans l'Exemple, $\mathcal G(A)$ a 3 composantes connexes
+\label{ex:gersh} On note $\mathcal E$ une composante connexe de $\mathcal
+G(A)$ et $p$ le nombre de disques $D_i$ inclus dans $\mathcal E$. Ainsi, dans
+l'Exemple, $\mathcal G(A)$ a 3 composantes connexes
 \[
 D_1 \ (p = 1),\quad D_2 \ (p = 1), \quad D_3 \cup D_4 \ (p= 2)
 \]
@@ -679,7 +688,7 @@ On cherche donc à montrer : $m(1) = p$.
 	morceaux orienté positivement séparant $\mathcal E$ (à l'intérieur) de
 	$\mathcal G(A) \setminus \mathcal E$ (à l'extérieur). Démontrez que
 \[
-m(r) = \int_{\gamma} \frac{\chi'_{r}(z)}{\chi_{r}(z)}dz
+	m(r) = \frac1{2\pi i}\int_{\gamma} \frac{\chi'_{r}(z)}{\chi_{r}(z)}dz
 \]
 où $\chi_{r}$ est le polynôme caractéristique de $A_r$.
 \item Déduisez que que $m$ est continue et concluez.
@@ -979,6 +988,7 @@ arbitraire de~$A^{-1}$.
 \begin{exercice}
 	Calculez la pseudo-inverse des matrices suivantes
 	\begin{itemize}
+		\item La matrice zéro~$0\in\M_{p,q}(\K)$
 		\item Un scalaire~$a\in\K=\M_{1,1}(\K)$.
 		\item Un vecteur~$\x\in\K^n=\M_{n,1}(\K)$.
 		\item La matrice
@@ -997,16 +1007,24 @@ arbitraire de~$A^{-1}$.
 
 \begin{definition}[norme]
 	Soit~$V$ un espace vectoriel sur~$\K$.
-	Une~\emph{norme} sur~$V$ est une application~$p:V\to\R$
+	Une~\emph{seminorme} sur~$V$ est une application~$p:V\to\R$
 	qui satisfait les propriétés suivantes
 	\begin{enumerate}
-		\item[(i)] $p(\x) = 0\ \implies\ \x=0$
-		\item[(ii)] $p(\x)\ge 0$
-		\item[(iii)] $p(\x+\y)\le p(\x)+p(\y)$
-		\item[(iv)] $p\parens{\lambda\x}=\abs{\lambda}p(\x)$
+		\item[(i)] $p(\x+\y)\le p(\x)+p(\y)$
+		\item[(ii)] $p\parens{\lambda\x}=\abs{\lambda}p(\x)$
 	\end{enumerate}
-	Si toutes les propriétés sont satisfaites sauf (i) on dit que~$p$
-	est une~\emph{seminorme}.
+	Si, de plus,~$p(\x)=0\implies\x=0$ on dit que~$p$ est une~\emph{norme}.
+%	Soit~$V$ un espace vectoriel sur~$\K$.
+%	Une~\emph{norme} sur~$V$ est une application~$p:V\to\R$
+%	qui satisfait les propriétés suivantes
+%	\begin{enumerate}
+%		\item[(i)] $p(\x) = 0\ \implies\ \x=0$
+%		\item[(ii)] $p(\x)\ge 0$
+%		\item[(iii)] $p(\x+\y)\le p(\x)+p(\y)$
+%		\item[(iv)] $p\parens{\lambda\x}=\abs{\lambda}p(\x)$
+%	\end{enumerate}
+%	Si toutes les propriétés sont satisfaites sauf (i) on dit que~$p$
+%	est une~\emph{seminorme}.
 \end{definition}
 
 \begin{definition}[norme matricielle]
@@ -2521,7 +2539,7 @@ l'espace propre associé pour en savoir plus.
 	\scriptsize Diagramme de Poincaré (source:wikipedia)
 \end{center}
 
-\subsubsection{Analyse en composantes principales}
+\subsection{Analyse en composantes principales}
 On considère un nuage de $m$ points de $\R^{n}$ 
 \begin{displaymath}
 X^k = (x^k_i)_{1 \leq i \leq n}, \quad 1 \leq k \leq m
@@ -2594,7 +2612,7 @@ On a ainsi ``compressé'' les $X^k$ en un nuage de points $Y^k$ en dimension $d$
 %La matrice 
 %\end{rem}
 
-\subsubsection{Vibrations d'un système mécanique [AK]}
+\subsection{Vibrations d'un système mécanique [AK]}
 \begin{center}
 \begin{tikzpicture}
 \node at(0,0) {\includegraphics{masses_ressorts}};
@@ -2621,7 +2639,7 @@ K X_0 = m \omega^2 X_0
 \end{displaymath}
 Ainsi, la recherche des pulsations propres est équivalente à la recherche des valeurs propres de $K$. Cette méthode est utilisée pour calculer les pulsations propres d'un immeuble représenté par $n$ masses (plafonds) et ressorts (murs), en particulier pour prévoir son comportement en cas de séisme.
 
-
+\subsection{Laplaciens discrets}
 
 \end{document}
 %\clearpage
