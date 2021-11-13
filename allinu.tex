@@ -2539,39 +2539,41 @@ l'espace propre associé pour en savoir plus.
 	\scriptsize Diagramme de Poincaré (source:wikipedia)
 \end{center}
 
-\subsection{Analyse en composantes principales}
-On considère un nuage de $m$ points de $\R^{n}$ 
-\begin{displaymath}
-X^k = (x^k_i)_{1 \leq i \leq n}, \quad 1 \leq k \leq m
-\end{displaymath}
-Il n'est pas aisé de manipuler des données que l'on ne sait pas visualiser.
-Aussi, on cherche à représenter ce nuage de points dans un espace de petite
-dimension $d$ (typiquement $d=2$ ou 3) en perdant ``peu'' d'information.
-Quitte à centrer les $X^k$, on considère que
-$$\displaystyle\sum_{k=1}^m X^k = 0$$
-On note $\Gamma \in M_n(\R)$ la matrice de covariance des $X^k$ définie par
-\begin{displaymath}
-\Gamma_{i,j} = \frac{1}{m} \sum_{k=1}^{m} x^k_i x^k_j
-\end{displaymath}
-La matrice ${\Gamma}$ est symétrique, positive. Notons $\lambda_1 \geq \dots \geq
-\lambda_n \geq 0$ ses valeurs propres et $V_1,\dots V_n$ une base orthonormée
-de vecteurs propres associés. Les $V_i$ représentent les axes principaux de
-$\Gamma$ (on dit aussi les \emph{composantes principales}). Le scalaire
-$\lambda_i$ est
-la variance (ou dispersion) du nuage de points dans la direction $V_i$. 
+%\subsection{Analyse en composantes principales}
+%On considère un nuage de $m$ points de $\R^{n}$ 
+%\begin{displaymath}
+%X^k = (x^k_i)_{1 \leq i \leq n}, \quad 1 \leq k \leq m
+%\end{displaymath}
+%Il n'est pas aisé de manipuler des données que l'on ne sait pas visualiser.
+%Aussi, on cherche à représenter ce nuage de points dans un espace de petite
+%dimension $d$ (typiquement $d=2$ ou 3) en perdant ``peu'' d'information.
+%Quitte à centrer les $X^k$, on considère que
+%$$\displaystyle\sum_{k=1}^m X^k = 0$$
+%On note $\Gamma \in M_n(\R)$ la matrice de covariance des $X^k$ définie par
+%\begin{displaymath}
+%\Gamma_{i,j} = \frac{1}{m} \sum_{k=1}^{m} x^k_i x^k_j
+%\end{displaymath}
+%La matrice ${\Gamma}$ est symétrique, positive. Notons $\lambda_1 \geq \dots \geq
+%\lambda_n \geq 0$ ses valeurs propres et $V_1,\dots V_n$ une base orthonormée
+%de vecteurs propres associés. Les $V_i$ représentent les axes principaux de
+%$\Gamma$ (on dit aussi les \emph{composantes principales}). Le scalaire
+%$\lambda_i$ est
+%la variance (ou dispersion) du nuage de points dans la direction $V_i$. 
+%
+%Si $\lambda_i$ est petit, les points sont peu dispersés dans la direction
+%$V_i$ et on ne perd pas grand chose à considérer que le nuage est contenu
+%dans le plan orthogonal à $V_i$. On sélectionne alors les $d$ plus grandes
+%valeurs propres $\lambda_1 \geq \dots \geq \lambda_d$ et on projette le nuage
+%de points dans l'espace engendré par $V_1,\dots, V_d$ :
+%\begin{displaymath}
+%Y^k = \sum_{i=1}^{d} \pairing{V_i}{X^k} V_i
+%\end{displaymath}
+%On a ainsi ``compressé'' les $X^k$ en un nuage de points $Y^k$ en dimension $d$. Le taux de compression est défini par
+%\begin{displaymath}
+%\tau = \frac{\sum_{i=1}^{d} \lambda_i}{\sum_{i=1}^{n} \lambda_i}
+%\end{displaymath}
 
-Si $\lambda_i$ est petit, les points sont peu dispersés dans la direction
-$V_i$ et on ne perd pas grand chose à considérer que le nuage est contenu
-dans le plan orthogonal à $V_i$. On sélectionne alors les $d$ plus grandes
-valeurs propres $\lambda_1 \geq \dots \geq \lambda_d$ et on projette le nuage
-de points dans l'espace engendré par $V_1,\dots, V_d$ :
-\begin{displaymath}
-Y^k = \sum_{i=1}^{d} \pairing{V_i}{X^k} V_i
-\end{displaymath}
-On a ainsi ``compressé'' les $X^k$ en un nuage de points $Y^k$ en dimension $d$. Le taux de compression est défini par
-\begin{displaymath}
-\tau = \frac{\sum_{i=1}^{d} \lambda_i}{\sum_{i=1}^{n} \lambda_i}
-\end{displaymath}
+
 %\subsubsection{Moteur de recherche}
 %Un bon moteur de recherche se doit de classer les pages de la toile selon un ordre d'importance qui a du sens pour l'utilisateur. Une célèbre entreprise de la Silicon Valley créée en 1998 doit son succès à la pertinence de son algorithme PageRank, qui fonctionne selon le principe suivant. 
 %
@@ -2612,34 +2614,100 @@ On a ainsi ``compressé'' les $X^k$ en un nuage de points $Y^k$ en dimension $d$
 %La matrice 
 %\end{rem}
 
-\subsection{Vibrations d'un système mécanique [AK]}
-\begin{center}
-\begin{tikzpicture}
-\node at(0,0) {\includegraphics{masses_ressorts}};
-\node at(-51mm,8mm) {$k_1$};
-\node at(-13mm,8mm) {$k_2$};
-\node at(25.7mm,8mm) {$k_3$};
-\node at(6.5mm,-0.5mm) {$m$};
-\node at(-32mm,-0.5mm) {$m$};
-\node at(45mm,-0.5mm) {$m$};
-\node at(60mm,-20mm) {$x$};
-\end{tikzpicture}
-\end{center}
-Considérons un système unidimensionnel de trois masses $m$ reliées entre elles et à un support par des ressorts de constante de raideur $k_1,k_2,k_3$. On note $x_1, x_2,x_3$ le déplacement respectif des masses par rapport à leur position d'équilibre, $X = (x_1,x_2,x_3)$ satisfait l'équation différentielle
-\begin{displaymath}
-m \ddot X + K X = 0, \quad \textrm{avec} \ K = \left(\begin{array}{ccc}
-k_1 + k_2 & -k_2 & 0 \\
--k_2 & k_2 + k_3 & -k_3 \\
-0 & -k_3 & k_3
-\end{array}\right)
-\end{displaymath}
-On cherche les pulsations propres du système c'est-à-dire les $\omega > 0$ telles qu'il existe une solution $X(t) = e^{i\omega t}X_0$. On a alors
-\begin{displaymath}
-K X_0 = m \omega^2 X_0
-\end{displaymath}
-Ainsi, la recherche des pulsations propres est équivalente à la recherche des valeurs propres de $K$. Cette méthode est utilisée pour calculer les pulsations propres d'un immeuble représenté par $n$ masses (plafonds) et ressorts (murs), en particulier pour prévoir son comportement en cas de séisme.
+%\subsection{Vibrations d'un système mécanique [AK]}
+%\begin{center}
+%\begin{tikzpicture}
+%\node at(0,0) {\includegraphics{masses_ressorts}};
+%\node at(-51mm,8mm) {$k_1$};
+%\node at(-13mm,8mm) {$k_2$};
+%\node at(25.7mm,8mm) {$k_3$};
+%\node at(6.5mm,-0.5mm) {$m$};
+%\node at(-32mm,-0.5mm) {$m$};
+%\node at(45mm,-0.5mm) {$m$};
+%\node at(60mm,-20mm) {$x$};
+%\end{tikzpicture}
+%\end{center}
+%Considérons un système unidimensionnel de trois masses $m$ reliées entre elles et à un support par des ressorts de constante de raideur $k_1,k_2,k_3$. On note $x_1, x_2,x_3$ le déplacement respectif des masses par rapport à leur position d'équilibre, $X = (x_1,x_2,x_3)$ satisfait l'équation différentielle
+%\begin{displaymath}
+%m \ddot X + K X = 0, \quad \textrm{avec} \ K = \left(\begin{array}{ccc}
+%k_1 + k_2 & -k_2 & 0 \\
+%-k_2 & k_2 + k_3 & -k_3 \\
+%0 & -k_3 & k_3
+%\end{array}\right)
+%\end{displaymath}
+%On cherche les pulsations propres du système c'est-à-dire les $\omega > 0$ telles qu'il existe une solution $X(t) = e^{i\omega t}X_0$. On a alors
+%\begin{displaymath}
+%K X_0 = m \omega^2 X_0
+%\end{displaymath}
+%Ainsi, la recherche des pulsations propres est équivalente à la recherche des valeurs propres de $K$. Cette méthode est utilisée pour calculer les pulsations propres d'un immeuble représenté par $n$ masses (plafonds) et ressorts (murs), en particulier pour prévoir son comportement en cas de séisme.
 
 \subsection{Laplaciens discrets}
+
+
+\begin{exercice}
+On considère les trois matrices suivantes:
+\[
+	D_3=\begin{pmatrix}
+		-2 & 1 & 0 \\
+		1 & -2 & 1 \\
+		0 & 1 & -2 \\
+	\end{pmatrix}
+	\qquad
+	N_3=\begin{pmatrix}
+		-1 & 1 & 0 \\
+		1 & -2 & 1 \\
+		0 & 1 & -1 \\
+	\end{pmatrix}
+	\qquad
+	P_3=\begin{pmatrix}
+		-2 & 1 & 1 \\
+		1 & -2 & 1 \\
+		1 & 1 & -2 \\
+	\end{pmatrix}
+\]
+
+\begin{itemize}
+	\item[(i)]
+Calculez explicitement (à la main) les valeurs et vecteurs propres des
+matrices~$X_3$, pour~$X=D,N,P$.
+
+
+%{\bf Exercice 2.}
+	\item[(ii)]
+Définissez des matrices tridiagonales~$D_n$, $N_n$ et $P_n$, de taille~$n\times
+n$ pour~$n\ge 3$, qui généralisent le cas particulier~$n=3$.
+
+%{\bf Exercice 3.}
+	\item[(iii)]
+		À la vue de l'exercice~{\sl(i)}, trouvez les valeurs et vecteurs propres des
+matrices~$D_n$, ~$N_n$ et~$P_n$ pour~$n\ge 3$.
+
+{\sl\color{gray} Indication: les vecteurs propres sont des évaluations des fonctions
+trigonométriques sur des positions régulièrement espacées.}
+
+%{\bf Définition.}
+%Si~$A$ est une matrice positive, on dénote par~$\lambda_k(A)$, $k=1,2,\ldots$
+%les valeurs propres strictement positifs de~$A$, ordonnées par ordre croissant.
+
+%{\bf Exercice 4.}
+	\item[(iv)]
+Vérifiez que les matrices~$-X_n$, sont positives et donnez une
+expression fermée pour les~\emph{partiels}
+\[
+	\mu_k(X_n) := \sqrt{\frac{\lambda_k(-X_n)}{\lambda_1(-X_n)}}
+\]
+pour~$X=D,N,P$ et~$k\ge 1$.  Démontrez que quand~$n>\!\!>k$ on a~$\mu_k\approx k$,
+et estimez la qualité de cette approximation (selon la valeur de~$\tfrac kn$).
+
+%{\bf Exercice 5.}
+	\item[(v)]
+Donnez une interprétation physique à ces matrices et à leurs vecteurs propres.
+
+%{\bf Exercice 6.}
+	\item[(vi)]
+Donnez une version continue de toutes ces constructions.
+\end{itemize}
+\end{exercice}
 
 \end{document}
 %\clearpage
