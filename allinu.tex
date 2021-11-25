@@ -252,13 +252,25 @@ Pour~$n=3$ il est le~\emph{groupe de Heisenberg}.
 	\begin{align*}
 		\TS_n(\R) \cap \OO_n(\R) &=
 		\solution{\left\{\left(\begin{smallmatrix}\pm 1&&0\\&\ddots&\\0&&\pm
-		1\end{smallmatrix}\right)\right\} \approx (\Z/2\Z)^n}\\
-		\SL_n(\R) \cap \OO_n(\R) &= \\
+		1\end{smallmatrix}\right)\right\} \approx (\Z/2\Z)^n}
+	\\
+		\SL_n(\R) \cap \OO_n(\R) &= 
+		\solution{\SO_n(\R)}
+		\\
 %		\TS_n(\C) \cap \UU_n(\C) &=
 %		\solution{\left\{\left(\begin{smallmatrix}e^{i\theta_1}&&0\\&\ddots&\\0&&e^{i\theta_n}\end{smallmatrix}\right)\right\} \approx
 %		(\R/2\pi\R)^n=\T^n}\\
-		\TS_n(\R) \cap \SL_n(\R) &= \solution{\{I\}} \\
-		\TS_n(\R) \cap \SO_n(\R) &= \solution{\{I\}} \\
+		\TS_n(\R) \cap \SL_n(\R) &=
+		\solution{\left\{\left(\begin{smallmatrix}d_1&&\\&\ddots&\\0&&
+			\Pi_{i=1}^{n-1}d_i^{-1}\end{smallmatrix}\right)\right\}
+		}
+		\\
+		\TS_n(\R) \cap \SO_n(\R) &=
+		\solution{\left\{\left(\begin{smallmatrix}\pm 1&&0\\&\ddots&\\0&&\pm
+		1\end{smallmatrix}\right)\right\} \ \textrm{avec un nombre pair de~$-1$}
+		\approx (\Z/2\Z)^{n-1}
+		}
+		\\
 %		TS_n(\C) \cap SU_n(\C) &= \solution{\{I\}} \\
 		\TS_n(\R) \cap \TI_n(\R) &= \solution{\textrm{matrices diagonales
 		inversibles} \approx \parens{\R^*}^n}\\
@@ -274,7 +286,11 @@ Pour~$n=3$ il est le~\emph{groupe de Heisenberg}.
 	au cas réel (notamment, la connexité).
 	\solution{En général les groupes de matrices complexes sont ``plus
 		connexes'' que les réels.  Ceci est dû au fait que l'ensemble d'unités
-	de~$\R$ n'est pas connexe mais celui de~$\C$ l'est.}
+	de~$\R$ n'est pas connexe mais celui de~$\C$ l'est.
+	Par exemple, la version complexe du premier cas
+	est~$\TS_n(\C)\cap\UU_n(\C)\approx\T^n$, qui est un groupe connexe et
+	continu au lieu d'être discret.
+}
 \end{exercice}
 
 L'ensemble~$\SSS_n(\R)$ des matrices symétriques n'est pas un groupe: le produit
@@ -437,11 +453,31 @@ du spectre.
 
 Plus en général on a
 \begin{proposition}
-	Soit~$P\in\C[X]$ et~$A\in\M_{n,n}(C)$, alors
+	Soit~$P\in\C[X]$ non-constant et~$A\in\M_{n,n}(C)$, alors
 	$\ds \mathrm{sp}_\C(P(A))=P(\mathrm{sp}_\C(A))$.
 %	Si~$P\in\C[X]$ alors les valeurs propres de~$P(A)$
 %	sont~$\left\{P(\lambda_i)\right\}_{i=1,\ldots,n}$.
 \end{proposition}
+\solution{\vspace{-1em}
+	\fbox{$\ds P(\mathrm{sp}_\C(A))\subseteq \mathrm{sp}_\C(P(A))$}
+	Cette inclusion est vraie sur un corps général:
+si~$\lambda\in\mathrm{sp}_\C(A)$ alors~$Ax=\lambda x$ et~$P(A)x=P(\lambda)x$
+(on le vérifie cette propriété d'abord pour les monomes, puis on l'étend à
+tous les polynômes par linearité).  On a
+donc~$P(\lambda)\in\mathrm{sp}_\C(P(A))$.\\
+	\fbox{$\ds \mathrm{sp}_\C(P(A))\subseteq P(\mathrm{sp}_\C(A))$}
+	Ce résultat dépend du théorème fondamental de l'algèbre.  Pour un contre
+example sur~$\R$, considérez une matrice de rotation de~$90^\circ$, qui n'a
+pas de valeurs propres réelles, mais la matrice au carrée a une valeur
+propre~$-1$.  Pour démontrer le résultat sur~$\C$,
+soit~$\lambda\in\mathrm{sp}_\C(P(A))$.  Par le théorème fondamental de
+l'algèbre, le polynôme~$P(X)-\lambda$ peut se factoriser de la
+forme~$P(X)-\lambda=a\Pi_n(X-b_n)$ avec~$a,b_n\in\C$.  On a
+ainsi~$P(A)-\lambda I=a\Pi_n(A-b_nI)$.  Maintenant, puisque la
+matrice~$P(A)-\lambda I$ n'est pas inversible, une des matrices~$A-b_nI$ ne
+le sera pas non plus.  On a donc un vecteur~$x$ tel que~$P(A)x-\lambda x=0$
+et
+}
 
 On dit qu'une matrice~$A\in\M_n(\C)$ est~\emph{diagonalisable} s'il existe
 une matrice~$P\in U_n(\C)$ telle que~$P^{-1}AP$ est diagonale.
@@ -811,6 +847,24 @@ pour des matrices non-symétriques?
 	Calculez la décomposition polaire de la
 	matrice~$A=\parens{\begin{smallmatrix}1&1\\0&1\end{smallmatrix}}$.
 \end{exercice}
+\solution{$\ds
+\begin{pmatrix}
+1 & 1 \\
+0 & 1
+\end{pmatrix}
+=
+\begin{pmatrix}
+{3}/{\sqrt{5}} & {1}/{\sqrt{5}} \\
+1/{\sqrt5} & 2/\sqrt{5}
+\end{pmatrix}
+\begin{pmatrix}
+2/\sqrt5 & 1/\sqrt5 \\
+-1/\sqrt5 & 2/\sqrt5
+\end{pmatrix}
+$\\
+(on peut trouver cette solution en diagonalisant d'abord la matrice
+symétrique~$AA^*$ et suivant la preuve d'existence de la décomposition polaire)
+}
 
 \subsection{Décomposition en valeurs singulières}
 
