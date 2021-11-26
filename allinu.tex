@@ -262,7 +262,7 @@ Pour~$n=3$ il est le~\emph{groupe de Heisenberg}.
 %		(\R/2\pi\R)^n=\T^n}\\
 		\TS_n(\R) \cap \SL_n(\R) &=
 		\solution{\left\{\left(\begin{smallmatrix}d_1&&\\&\ddots&\\0&&
-			\Pi_{i=1}^{n-1}d_i^{-1}\end{smallmatrix}\right)\right\}
+			1/\Pi_{i=1}^{n-1}d_i\end{smallmatrix}\right)\right\}
 		}
 		\\
 		\TS_n(\R) \cap \SO_n(\R) &=
@@ -462,21 +462,23 @@ Plus en général on a
 	\fbox{$\ds P(\mathrm{sp}_\C(A))\subseteq \mathrm{sp}_\C(P(A))$}
 	Cette inclusion est vraie sur un corps général:
 si~$\lambda\in\mathrm{sp}_\C(A)$ alors~$Ax=\lambda x$ et~$P(A)x=P(\lambda)x$
-(on le vérifie cette propriété d'abord pour les monomes, puis on l'étend à
-tous les polynômes par linearité).  On a
+(on le vérifie cette propriété d'abord pour les monômes, puis on l'étend à
+tous les polynômes par linéarité).  On a
 donc~$P(\lambda)\in\mathrm{sp}_\C(P(A))$.\\
 	\fbox{$\ds \mathrm{sp}_\C(P(A))\subseteq P(\mathrm{sp}_\C(A))$}
-	Ce résultat dépend du théorème fondamental de l'algèbre.  Pour un contre
-example sur~$\R$, considérez une matrice de rotation de~$90^\circ$, qui n'a
-pas de valeurs propres réelles, mais la matrice au carrée a une valeur
-propre~$-1$.  Pour démontrer le résultat sur~$\C$,
-soit~$\lambda\in\mathrm{sp}_\C(P(A))$.  Par le théorème fondamental de
-l'algèbre, le polynôme~$P(X)-\lambda$ peut se factoriser de la
-forme~$P(X)-\lambda=a\Pi_n(X-b_n)$ avec~$a,b_n\in\C$.  On a
-ainsi~$P(A)-\lambda I=a\Pi_n(A-b_nI)$.  Maintenant, puisque la
-matrice~$P(A)-\lambda I$ n'est pas inversible, une des matrices~$A-b_nI$ ne
-le sera pas non plus.  On a donc un vecteur~$x$ tel que~$P(A)x-\lambda x=0$
-et
+	Ce résultat est faux sur un corps non algébriquement fermé.  Par exemple,
+	sur~$\R$, considérez une matrice de rotation de~$90^\circ$, qui n'a pas de
+	valeurs propres réelles, mais la matrice au carrée a une valeur
+	propre~$-1$.  La preuve du résultat sur~$\C$ dépendra donc du théorème
+	fondamental de l'algèbre.  Soit~$\lambda\in\mathrm{sp}_\C(P(A))$, le
+	polynôme~$P(X)-\lambda$ peut se factoriser de la
+	forme~$P(X)-\lambda=a\Pi_n(X-b_n)$ avec~$a,b_n\in\C$ et~$a\neq 0$.  On a
+	ainsi~$P(A)-\lambda I=a\Pi_n(A-b_nI)$.  Maintenant, puisque la
+	matrice~$P(A)-\lambda I$ n'est pas inversible, une des matrices~$A-b_nI$ ne
+	le sera pas non plus (i.e., $b_n$ est une valeur propre de~$A$).  Il y a
+	donc un vecteur~$x$ tel que~$(A-b_nI)x=0$, de sorte que~$Ax=b_nx$ et
+	donc~$P(A)x=P(b_n)x$.  Mais~$P(b_n)=\lambda$, ce qui prouve que~$\lambda$
+	est dans l'image par~$P$ des valeurs propres de~$A$.
 }
 
 On dit qu'une matrice~$A\in\M_n(\C)$ est~\emph{diagonalisable} s'il existe
@@ -831,6 +833,52 @@ Indications:
 		que~$U_n$ est compact et de l'unicité de la décomposition.
 	\item Pour le cas réel, la démonstration est parallèle au cas complexe.
 \end{enumerate}
+\solution{(sketch).  On démontrera en passant
+l'existence et l'unicité de la racine carrée
+de toute matrice~$H\in\HH_n^{++}$ (c'est à dire d'une
+matrice~$h\in\HH_n^{++}$ telle que~$h^2=H$).
+
+{\bf Existence.} La matrice~$AA^*$ est hermitienne définie positive.  Par le
+théorème spectral, elle diagonalise avec un changement de base
+unitaire:~$AA^*=U^*DU$ avec~$D$ diagonale strictement positive.  On définit
+alors~$H=U^*\sqrt{D}U$, avec~$\sqrt{D}$ obtenue en faisant la racine carrée
+terme à terme de~$D$.  Par construction~$H\in\HH_n^{++}$ et on vérifie
+alors que~$H^2=HH^*=AA^*$.  Ensuite on définit~$Q=H^{-1}A$ et on a
+alors~$Q^*Q=A^*H^{-2}A=A^*(AA^*)^{-1}A=1$, ce qui veut dire que~$Q\in\UU_n$.
+{(\sl Note: la matrice~$H$ s'appelle une racine carrée de la
+matrice~$AA^*$.)}
+
+{\bf Unicité.} Soit~$A=H'Q'$ une autre décomposition polaire.  Alors la
+matrice~$N=H^{-1}H'=Q(Q')^{-1}$ est unitaire, ce qui implique que le spectre
+de~$N$ sont des unités complexes.  On montrera que le spectre est aussi réel
+et positif, ce qui permettra de conclure que~$N$ est l'identité et que la
+décomposition est unique.  Soit~$h$ une racine carrée (pas forcément unique à
+ce moment) de la matrice~$H'$. On a donc que~$N$ est similaire à la
+matrice~$N'=hH^{-1}S$.  Par sa définition, la matrice~$N'$ est hermitienne
+définie positive, et par le théorème spéctral ses valeurs propres sont
+réelles et positives, et il en est le même pour ceux de~$N$, ce qui permet de
+conclure l'unicité de la décomposition polaire.
+{(\sl Observation: la
+	conclusion de cet argument prouve aussi que la racine carrée est unique
+en~$\HH^{++}_n$, autrement on aurait plusieurs décompositions polaires!)}
+
+{\bf Continuité.}  L'application~$(H,Q)\mapsto HQ$ est un polynôme de
+degré~$2$ dans toutes ces composantes, donc elle est continue.  Pour
+démontrer que l'inverse est continue, il suffit de démontrer qu'elle est
+séquentiellement continue.  Soit donc~$A_n\to A$ une suite convergente de
+matrices inversibles et~$H_nQ_n\to HQ$ la suite de décompositions polaires.
+Soit~$R$ un point d'adhérence de la suite~$Q_n$ (qui existe parce que~$\UU_n$
+est compact).  On ré-numérote les suites~$X_n$ par une suis-suite qui donne
+la convergence vers~$R$.  On a donc que la suite~$H_n=A_nQ_n^*$ converge
+vers~$S=AR^*$.  La matrice~$S$ est hermitienne et semi-définie positive~(parce
+que~$\HH_n^+$ est fermé) et inversible (produit de deux matrices
+inversibles), donc définie positive.  Alors~$SR=A$ est une décomposition
+polaire de~$A$ et par unicité~$R=Q$ et~$S=H$.  La suite originale~$Q_n$
+(avant re-numérotation) a au plus un point d'accumulation qui doit être~$Q$,
+et donc elle converge vers~$Q$.  Enfin,~$H_n=A_nQ_n^*$ converge
+vers~$AQ^*=H$ et on conclut.
+}
+
 
 La matrice~$H$ de la décomposition polaire s'appelle la~\emph{racine carrée}
 de la matrice hermitienne~$AA^*$.  D'après cette démonstration, on a vu que
