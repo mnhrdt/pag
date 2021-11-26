@@ -675,9 +675,25 @@ $A$ l'union de tous ces disques:
 \begin{exercice}$ $
 \begin{enumerate}
 \item Démontrez la Proposition~\ref{prop:gersh}.
+	\solution{\\ Soit~$\lambda$ une valeur propre de~$A$ et~$x$ tel
+		que~$Ax=\lambda x$.  On va démontrer qu'il existe~$i=1,\ldots,n$ tel
+		que~$\abs{a_{ii}-\lambda}\le\sum_{j\neq i}\abs{a_{ji}}$.
+		Posons~$i=\arg\max_{i}\abs{x_i}$ (position de la composante la plus
+		grande du vecteur~$x$).  La ligne~$i$-ème de la condition~$Ax=\lambda x$
+		s'écrit alors~$a_{ii}x_i + \sum_{j\neq i} a_{ij}x_j =\lambda x_i$, et le
+		résultat suit alors par l'inégalité
+		triangulaire:~$\abs{\lambda-a_{ii}}=\abs{\sum_{j\neq i}
+	a_{ij}\frac{x_j}{x_i}}\le\sum_{j\neq i}\abs{a_{ij}}\abs{\frac{x_j}{x_i}}
+	\le\sum\abs{a_{ij}}$.
+	}
 \item Démontrez qu'une matrice à diagonale strictement dominante est inversible.
+	\solution{\\ La condition~$a_{ii}>\sum_{j\neq i}\abs{a_{ij}}$ indique que
+	chaque disque de Gershgorin, et ainsi le domaine tout entier, ne contient
+	pas~$0$.  Donc,~$0$ n'est pas une valeur propre et la matrice est
+	inversible.}
 \item Démontrez aussi que $\mathrm{sp}(A) \subseteq \mathcal G(A) \cap \mathcal
 		G(A^\top)$.
+		\solution{\\ Le spectre de~$A$ et de~$A^\top$ coïncident. }
 \end{enumerate}
 \end{exercice}
 
@@ -721,7 +737,11 @@ On note enfin $m(r)$ le nombre de valeurs propres de $A_r$ dans $\mathcal E$.
 On cherche donc à montrer : $m(1) = p$.
 \begin{enumerate}
 \item Démontrez que $m(0) = p$.
+	\solution{\\ $m(0)$ est le nombre de valeurs propres de la matrice
+		diagonale~$A_0=D$
+	dans~$\mathcal{E}$ qui est~$p$ par hypothèse.}
 \item Démontrez que $\mathcal G(A_r) \subset \mathcal G(A)$.
+	\solution{\\ Ce sont les mêmes disques mais avec des rayons plus petits.}
 \item {Supposez qu'il existe} $\gamma$ une arc simple $\mathcal C^1$ par
 	morceaux orienté positivement séparant $\mathcal E$ (à l'intérieur) de
 	$\mathcal G(A) \setminus \mathcal E$ (à l'extérieur). Démontrez que
@@ -729,7 +749,32 @@ On cherche donc à montrer : $m(1) = p$.
 	m(r) = \frac1{2\pi i}\int_{\gamma} \frac{\chi'_{r}(z)}{\chi_{r}(z)}dz
 \]
 où $\chi_{r}$ est le polynôme caractéristique de $A_r$.
+\solution{\\
+	On rappelle que le {\bf résidu} d'une fonction méromorphe exprimée en série
+	de Laurent~$f(z)=\sum_{n=-L}^\infty a_n(z-z_0)^n$
+	est~$\mathrm{Res}_{z_0}(f)=a_{-1}=\frac1{2\pi i}\oint_{\partial\Omega}
+	f(z)\ud z$
+	ou~$\Omega$ est un voisinage autour de~$z_0$.  En particulier, si~$f$ a un
+	zéro d'ordre~$n$ en~$z_0$ alors~$\mathrm{Res}_{z_0}\parens{f'/f}=n$.
+	Le~{\bf théorème des résidus} dit que si~$f:\C\to\C$ est holomorphe
+	sur~$\Omega\setminus\{z_1,z_2,\ldots\}$ alors~$\oint_{\partial\Omega} f(z)\ud z=2\pi
+	i\sum_k\mathrm{Res}_{z_k}(f)$.
+
+	Pour répondre à la question sur~$m(r)$, on prend une courbe de
+	Jordan~$\gamma$ qui sépare~$\mathcal{E}$ de son complémentaire
+	en~$\mathcal{G}(A)$, puis on applique le théoreme des résidus.  Ceci compte
+	(avec multiplicité) les racines de~$\chi_r$ entoures par cette courbe, et
+	donc dans~$\mathcal{E}$.
+}
 \item Déduisez que que $m$ est continue et concluez.
+	\solution{\\
+		L'expression qui définit~$m(r)$ est une intégrale d'une fonction continue
+		et bornée évaluée sur un domaine bornée, avec un paramètre~$r$, donc la
+		continuité suit par le théorème de convergence dominée.
+
+		Finalement, si~$m$ est continue à valeurs entiers, elle est constante, et
+		on a donc~$m(0)=p=m(1)$.
+	}
 %\item \textbf{Application.} On suppose que les disques $D_i$ sont deux-à-deux disjoints. Montrer que $A$ est diagonalisable.
 %{\item Proposer une configuration où un tel arc $\gamma$ n'existe pas. Comment peut-on conclure dans ce cas ?}
 \end{enumerate}
@@ -773,7 +818,7 @@ propres réels~$\ge 0$.
 \begin{definition}
 	Les \emph{valeurs singulières} d'une matrice~$A\in\M_{p,q}(\K)$ sont les
 	valeurs propres de la matrice~$A^*A$.  On les
-	écrit~$\sigma_i(A)=\lambda_i(A^*A)$ pour~$i=1,\ldots q$,
+	écrit~$\sigma_i(A)=\sqrt{\lambda_i(A^*A)}$ pour~$i=1,\ldots q$,
 	typiquement par ordre décroissant~$\sigma_1\ge\cdots\ge\sigma_q\ge0$.
 \end{definition}
 
@@ -2173,7 +2218,7 @@ Montrer que la méthode de la puissance inverse appliquée à la matrice $A-\mu 
 \frac{|\lambda_i - \mu|}{\min_{j \neq i}|\lambda_j - \mu|}
 \]
 C'est en fait le principal intérêt de la méthode de la puissance inverse.
-\item \textbf{Application.} On suppose qu'un des disques de Gershgörin $D_i$
+\item \textbf{Application.} On suppose qu'un des disques de Gershgorin $D_i$
 de $A$ n'intersecte aucun autre. Proposer une méthode de calcul approché de
 l'unique valeur propre de $A$ contenue dans $D_i$.
 \end{enumerate}
@@ -2749,23 +2794,23 @@ l'espace propre associé pour en savoir plus.
 \begin{exercice}
 On considère les trois matrices suivantes:
 \[
-	D_3=\begin{pmatrix}
+	D_3=\left(\begin{smallmatrix}
 		-2 & 1 & 0 \\
 		1 & -2 & 1 \\
 		0 & 1 & -2 \\
-	\end{pmatrix}
+\end{smallmatrix}\right)
 	\qquad
-	N_3=\begin{pmatrix}
+	N_3=\left(\begin{smallmatrix}
 		-1 & 1 & 0 \\
 		1 & -2 & 1 \\
 		0 & 1 & -1 \\
-	\end{pmatrix}
+\end{smallmatrix}\right)
 	\qquad
-	P_3=\begin{pmatrix}
+	P_3=\left(\begin{smallmatrix}
 		-2 & 1 & 1 \\
 		1 & -2 & 1 \\
 		1 & 1 & -2 \\
-	\end{pmatrix}
+\end{smallmatrix}\right)
 \]
 
 \begin{itemize}
@@ -2810,6 +2855,8 @@ Donnez une interprétation physique à ces matrices et à leurs vecteurs propres
 Donnez une version continue de toutes ces constructions.
 \end{itemize}
 \end{exercice}
+\solution{Solution complète: voir le document adjoint ``vibrations d'un système
+discret''.}
 
 \end{document}
 %\clearpage
