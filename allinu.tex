@@ -2053,6 +2053,51 @@ comme conséquences directes des factorisations antérieures.
 	où~$\lambda>0$, ~$\lambda^2t$ est le déterminant de~$A$, les~$R$ sont
 	matrices de rotation,~$\psi\in[0,\pi[$ et~$T_t$ est un~\emph{tilt}.
 \end{proposition}
+\solution{
+	Par le théorème spectral, la matrice~$AA^\top$ diagonalise dans une base
+	orthonormée:~$AA^\top=PDP^\top$ où~$P\in O_2$
+et~$D=\left(\begin{smallmatrix}\lambda_1&0\\0&\lambda_2\end{smallmatrix}\right)$
+avec~$\lambda_1\ge\lambda_2>0$.  On vérifie que la matrice~$Q=APD^{-1/2}$ est
+orthogonale:
+\[
+	QQ^\top=APD^{-1/2}D^{-1/2}P^\top A^\top=APD^{-1}P^\top A^\top
+	=A(A^\top A)^{-1}A^\top=I
+\]
+de sorte que~$A=QD^{1/2}P^\top$.  Pour conclure l'existence, il suffit de
+démontrer que les matrices~$Q$ et~$P$ sont des rotations.  Commes les
+déterminants de~$A$ et~$D$ sont positifs, les déterminants de~$Q$ et~$P$ ont
+le même signe.  S'ils sont tous les deux~$-1$, on multiplie chacune de ces
+matrices par la matrice
+diagonale~$\left(\begin{smallmatrix}1&0\\0&-1\end{smallmatrix}\right)$ pour
+obtenir des rotations.
+
+%(
+On peut aussi démontrer l'existence en itérant la décomposition~$QR$ et la
+SVD:\\$A=QR=Q(UDV^\top)=(QU)DV^\top$.
+%)
+
+Pour démontrer l'unicité, supposons que~$
+\lambda R_1\left(\begin{smallmatrix}t&0\\0&1\end{smallmatrix}\right)R_2=
+\lambda' R_1'\left(\begin{smallmatrix}t'&0\\0&1\end{smallmatrix}\right)R_2'
+$.  Puisque les valeurs propres sont uniques, il faut que~$\lambda=\lambda'$
+et~$t=t'$.  On a ainsi~$R_1DR_2=R_1'DR_2'$, et, en arrangeant les facteurs, on obtient
+deux relations équivalentes de la forme~$X_1D^2X_1^\top=D^2$
+pour~$X_i=(R_i')^{-1}R_i$ matrices orthogonales.  Autrement,
+dit~$X_1D^2=D^2X_1$, ou, plus explicitement
+\[
+	\begin{pmatrix}
+		\alpha c & -\beta s \\
+		\alpha s & \beta c \\
+	\end{pmatrix}
+	=
+	\begin{pmatrix}
+		\alpha c & -\alpha s \\
+		\beta s & \beta c \\
+	\end{pmatrix}
+\]
+En supposant que~$\alpha\neq\beta$, ceci implique que~$s=0$ (et~$c=1$), et
+ainsi~$X_i=I$ et~$R_i=R_i'$.
+}
 
 La décomposition existe aussi si~$A$ est une similarité, mais dans ce
 cas~$t=1$ et les angles ne sont pas uniques.
