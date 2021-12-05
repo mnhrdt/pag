@@ -1087,7 +1087,7 @@ rectangulaire, peut-être de rang incomplet.
 
 \begin{definition}[pseudo-inverse]
 	\label{def:pseudoinv}
-	Soit~$A\in\M_{p,q}(\C)$ et~$A=U\/\Sigma V^*$ sa SVD
+	Soit~$A\in\M_{p,q}(\C)$ et~$A=U\/\Sigma V^*$ une SVD,
 	avec~$U\in\UU(p)$, ~$V\in\UU(q)$
 	et~$\Sigma=\parens{\begin{smallmatrix}D&0\\0&0\end{smallmatrix}}$.
 	La~\emph{pseudo-inverse} de~$A$ est la matrice~$A\in\M_{q,p}(\C)$ définie
@@ -1101,6 +1101,12 @@ rectangulaire, peut-être de rang incomplet.
 	\]
 \end{definition}
 
+\begin{remark}
+	Il se trouve que la pseudo-inverse ne dépend pas du choix de la SVD.
+	C'est le théorème de Penrose, selon lequel on peu utiliser les
+	propriétés ci-dessous comme la définition de~$A^+$.
+\end{remark}
+
 \begin{exercice}
 	\label{ex:pseudoinv}
 	Soit~$A\in\M_{p,q}(\C)$ et~$A^+\in\M_{q,p}(\C)$ sa pseudo-inverse.  Alors
@@ -1112,19 +1118,43 @@ rectangulaire, peut-être de rang incomplet.
 	\end{align*}
 	De plus quand~$A$ est réelle alors~$A^+$ l'est aussi.
 \end{exercice}
+\solution{
+	Ces quatre propriétés sont conséquence directe de la
+	définition de la pseudo-inverse à partir de la SVD.  Par exemple la première
+	propriété:
+	\[
+		AA^+A=(U\Sigma V^*)(V\Sigma^+ U^*)(U\Sigma V^*)=U\Sigma V^*=A
+	\]
+	du fait que~$\Sigma\Sigma^+$ est une semi-diagonale de~$1$.
+}
 
 La pseudo-inverse permet de donner une solution ``canonique'' au problème
 général~$Ax=b$ par~$x=A^+b$.  Notons que cette solution est consistante avec
 les constructions typiques:
 
-\begin{exercice}
-	Si~$A\in\GL_n(\C)$ alors~$A^+=A^{-1}$.
-	Si~$A\in\M_{p,q}(\K)$ de rang~$q\le p$ alors la solution de monidres carrés
+\begin{exercice}$ $\\
+	Si~$A\in\GL_n(\C)$ alors~$A^+=A^{-1}$.\\
+	Si~$A\in\M_{p,q}(\R)$ de rang~$q\le p$ alors la solution de moindres carrés
 	de~$\|Ax-b\|^2_2$ est donnée par~$x=A^+b$.
 \end{exercice}
+\solution{
+	Si~$A\in\GL_n$ alors toutes les valeurs singulières sont strictement
+	positive, et~$\Sigma^+=\Sigma^{-1}$ dans la définition de pseudo-inverse,
+	et donc~$A^+=A^{-1}$.
+
+	Si $A\in\M_{p,q}(\R)$ est de rang~$q\le p$ complet, alors la
+	fonction~$x\mapsto\|Ax-b\|^2$ est une forme quadratique
+	\[
+		f(x)=x^\top A^\top Ax-2b^\top Ax-c
+	\]
+	dont la hessienne~$D^2f=2A^\top A\in\M_{q,q}(\R)$ est définie positive et le
+	minimum est atteint au vecteur~$x$, solution unique de~$Df(x)=0$, c'est à
+	dire le système linéaire~$A^\top Ax=A^\top b$.  On vérifie aisément
+	que~$A^+=(A^\top A)^{-1}A$.
+}
 
 Le résultat suivant dit que la pseudo-inverse n'est pas une généralisation
-arbitraire de~$A^{-1}$.
+arbitraire de~$A^{-1}$ (notamment, elle ne dépend pas du choix de la svd).
 
 \begin{theorem}[Penrose 1955]
 	Soit~$A^+$ une matrice qui satisfait les quatre propriétés de
@@ -1135,14 +1165,27 @@ arbitraire de~$A^{-1}$.
 \begin{exercice}
 	Calculez la pseudo-inverse des matrices suivantes
 	\begin{itemize}
-		\item La matrice zéro~$0\in\M_{p,q}(\K)$
+		\item La matrice zéro~$0\in\M_{p,q}(\K)$.
+			\solution{$0^+=0^\top\in\M_{q,p}$}
 		\item Un scalaire~$a\in\K=\M_{1,1}(\K)$.
+			\solution{$a^+=\begin{cases}0 &\mathrm{si}\ a=0\\a^{-1}&\mathrm{si}\
+				a\neq 0\end{cases}$}
 		\item Un vecteur~$\x\in\K^n=\M_{n,1}(\K)$.
+			\solution{$\x^+=\frac1{\Abs{\x}^2}\x^\top\in\M_{1,n}$ si~$\x\neq 0$}
 		\item La matrice
-			nilpotente~$A_1=\parens{\begin{smallmatrix}0&1\\0&0\end{smallmatrix}}$
+			nilpotente~$A_1=\parens{\begin{smallmatrix}0&1\\0&0\end{smallmatrix}}$.
+			\solution{$\parens{\begin{smallmatrix}0&1\\0&0\end{smallmatrix}}^+=
+			\parens{\begin{smallmatrix}0&0\\1&0\end{smallmatrix}}$}
 		\item La matrice
-			singulière~$A_2=\parens{\begin{smallmatrix}1&1\\1&1\end{smallmatrix}}$
-		\item La matrice singulière~$\x\x^*\in\M_{n,n}(\K)$ avec~$x\in\K^n$.
+			singulière~$A_2=\parens{\begin{smallmatrix}1&1\\1&1\end{smallmatrix}}$.
+			\solution{$\parens{\begin{smallmatrix}1&1\\1&1\end{smallmatrix}}^+=
+			\frac14\parens{\begin{smallmatrix}1&1\\1&1\end{smallmatrix}}$}
+		\item La matrice singulière~$\x\x^*\in\M_{n,n}(\K)$
+			avec~$\x\in\K^n\setminus\{0\}$.
+			\solution{\\
+				$(\x\x^*)^+=\frac1{\Abs{\x}^4}\x\x^*$,
+				cas particulier de~$(\x\y^*)^+=\frac{1}{\Abs{\x}^2\Abs{\y}^2}\y\x^*$
+		}
 	\end{itemize}
 \end{exercice}
 
@@ -1215,6 +1258,8 @@ matricielles.
 		\item[(ii)] $\ABS I = 1$
 	\end{enumerate}
 \end{exercice}
+%\solution{(1)
+%}
 
 \begin{exercice}
 	Démontrez que la~\emph{norme de Frobenius} définie par
