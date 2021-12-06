@@ -1258,8 +1258,9 @@ matricielles.
 		\item[(ii)] $\ABS I = 1$
 	\end{enumerate}
 \end{exercice}
-%\solution{(1)
-%}
+\solution{\sl(Le fait que la norme induite est une norme, et les deux
+	propriétés ci-dessus, suit directement des définitions.)
+}
 
 \begin{exercice}
 	Démontrez que la~\emph{norme de Frobenius} définie par
@@ -1272,6 +1273,28 @@ matricielles.
 	\]
 	est une norme matricielle mais n'est pas une norme induite.
 \end{exercice}
+\solution{
+	C'est la norme euclidienne dans l'espace vectoriel~$M_{n,n}(\K)=\K^{n^2}$.
+	Il reste à vérifier la propriété~$\ABS{AB}_F\le\ABS{A}_F\ABS{B}_F$.
+	Soient donc~$A=(a_{ij})$, $B=(b_{ij})$, $C=(c_{ij})$ avec $C=AB$.
+	On a
+	\(
+		\ds c_{ij}=\sum_k a_{ik}b_{kj}
+	\)
+	et alors
+	\[\small
+		\ABS{C}^2
+		= \sum_{ij} \Abs{c_{ij}}^2
+		= \sum_{ij} \Abs{\sum_k a_{ik}b_{kj}}^2
+		\le \sum_{ij}\left(\sum_k\Abs{a_{ik}}^2\sum_k\Abs{b_{kj}}^2\right)
+		= \left(\sum_{ik}\Abs{a_{ik}}^2\right)
+		\left(\sum_{jk}\Abs{b_{kj}}^2\right)
+		=\ABS{A}^2\cdot\ABS{B}^2
+	\]
+	où l'inégalité est l'inégalité de Cauchy-Schwartz appliquée sur les
+	vecteurs~$a_{i*}$ et~$b_{*j}$.  Finalement,~$\ABS{\cdot}_F$ n'est pas une
+	norme induite pour~$n>1$ car~$\ABS{I}_F=\sqrt{n}$.
+}
 
 % normes induites par la norme p=1,2,\infty
 
