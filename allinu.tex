@@ -1308,6 +1308,24 @@ matricielles.
 		\ABS A_2      = \sqrt{\rho\parens{A^*A}} = \ABS{A^*}_2
 	\]
 \end{exercice}
+\solution{
+	\fbox{$\ABS{\cdot}_2$}
+	Par définition de norme induite:
+	\[
+		\ABS{A}^2_2
+		=
+		\left(
+			\max_{\Abs{\x}_2\neq 0}\frac{\Abs{A\x}_2}{\Abs{\x}_2}
+		\right)^2
+		=
+		\left(
+			\max_{\Abs{\x}_2\neq 0}\frac{\x^*A^*A\x}{\x^*\x}
+		\right)^2
+	\]
+	et on reconnait dans ce dernier terme le quotient de Rayleigh de la matrice
+	hermitienne~$A^*A$ qui prend son maximum sur~$\rho(A^*A)$
+	\fbox{$\ABS{\cdot}_2$}
+}
 
 % lien entre normes induites et rayon spectral
 
@@ -1455,6 +1473,34 @@ versions de cette majoration, selon si on a des petites erreurs d'observation
 	Démontrez que cette inégalité est optimale: il existe~$b$ et~$\delta
 	b$ tels que l'égalité a lieu.
 \end{exercice}
+\solution{
+	Soit~$A\in\GL_n$ et soient~$x$, $b$, $\delta x$ et~$\delta b$ tels
+	que~$Ax=b$ et $A(x+\delta x)=b+\delta b$.  On a,
+	\[
+		\mathrm{cond}(A)
+		=
+		\max_{p\neq 0}
+		\frac{\Abs{Ap}}{\Abs{p}}
+		\max_{q\neq 0}
+		\frac{\Abs{A^{-1}q}}{\Abs{p}}
+		=
+		\max_{p\neq 0}
+		\frac{\Abs{Ap}}{\Abs{p}}
+		\max_{r\neq 0}
+		\frac{\Abs{r}}{\Abs{Ar}}
+		\ge
+		\frac{\Abs{Ax}}{\Abs{x}}
+		\frac{\Abs{\delta x}}{\Abs{A\delta x}}
+		=
+		\frac{b}{\Abs{x}}
+		\frac{\Abs{\delta x}}{\Abs{\delta b}}
+	\]
+	l'égalité a lieu lorsque les deux maximums sont atteints, ce qui arrive
+	toujours car la sphère unité est compacte.
+	Par exemple, si~$A\in\SSS^+_n(\R)$ on peut choisir~$x$ le vecteur propre de
+	valeur propre plus grande de~$A$, et~$\delta x$ celui de valeur propre plus
+	petite.
+}
 
 
 \begin{exercice}[effet des erreurs de modélisation]
@@ -1470,6 +1516,30 @@ versions de cette majoration, selon si on a des petites erreurs d'observation
 	Démontrez que cette inégalité est optimale: il existe~$b$ et~$\delta
 	A$ tels que l'égalité a lieu.
 \end{exercice}
+\solution{
+	Soit~$A\in\GL_n$ et~$x$, $b$, $\delta x$ et~$\delta A$ tels
+	que~$Ax=b$ et $(A+\delta A)(x+\delta x)=b$.  Ces conditions
+	impliquent~$(\delta A)(x+\delta x)=-A(\delta x)$ et par définition
+	de~$\mathrm{cond}(A)$ on a:
+	\[
+		\mathrm{cond}(A)
+		\cdot\frac{\Abs{\delta A}}{\Abs{A}}
+		=
+		\ABS{A^{-1}}\cdot\ABS{\delta A}
+		=
+		\max_{p\neq 0}
+		\frac{\Abs{p}}{\Abs{Ap}}
+		\max_{q\neq 0}
+		\frac{\Abs{\delta A q}}{\Abs{q}}
+		\ge
+		\frac{\Abs{\delta x}}{\Abs{A\delta x}}
+		\frac{\Abs{\delta A (x+\delta x)}}{\Abs{x+\delta x}}
+		=
+		\frac{\Abs{\delta x}}{\Abs{x+\delta x}}
+	\]
+	d'où le résultat.  Par le même argument que avant (compacité de la sphère
+	unité) cette inégalité est optimale.
+}
 
 \begin{remark}
 	D'après ces exercices, il est préférable que le conditionnement de $A$ soit
@@ -2179,7 +2249,7 @@ quand il est observé d'un point de vue oblique.
 
 \bigskip
 
-\begin{proposition}[rotation de Yaroslavski]
+\begin{proposition}[rotation de Yaroslavsky]
 	Toute rotation admet une décomposition comme produit de trois~\emph{shears}
 	\[
 		\begin{pmatrix}\cos\theta & -\sin\theta\\\sin\theta & \cos\theta\end{pmatrix}
@@ -2193,6 +2263,15 @@ quand il est observé d'un point de vue oblique.
 \begin{exercice}
 	Exprimez~$a,b,c$ en fonction de l'angle~$\theta$.
 \end{exercice}
+\solution{
+	\[
+		\begin{pmatrix}\cos\theta &-\sin\theta\\\sin\theta &\cos\theta\end{pmatrix}
+		=
+		\begin{pmatrix}1&-\tan\frac\theta2\\0&1\end{pmatrix}
+		\begin{pmatrix}1&0\\\sin\theta&1\end{pmatrix}
+		\begin{pmatrix}1&-\tan\frac\theta2\\0&1\end{pmatrix}
+	\]
+}
 
 Cette décomposition donne une méthode pour appliquer rotations sur les images
 qui n'a pas de flou (contrairement à re-intérpoler l'image sur une grille
