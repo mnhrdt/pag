@@ -1,0 +1,79 @@
+\documentclass[a4paper,11pt]{article}    % base article class
+\usepackage[utf8]{inputenc}         % allow utf8 input
+\usepackage[osf,sups]{Baskervaldx}  % baskerville font with lining figures
+\usepackage[baskervaldx,frenchmath,upint]{newtxmath} % math font
+\usepackage[cal=boondoxo]{mathalfa} % mathcal from STIX, unslanted a bit
+\usepackage{xcolor}
+
+\setlength{\parindent}{0em}         % disable paragraph indentation
+\setlength{\parskip}{1em}           % enable paragraph spacing
+
+\def\R{\mathbf{R}}                  % macro for the real line R
+\def\d{\mathrm{d}}                  % macro for the straight differential d
+
+\addtolength{\hoffset}{-1em}
+\addtolength{\textwidth}{2em}
+
+% mark solutions in red
+% (TOGGLE THE COMMENT ON THE FOLLOWING TWO LINES TO ENABLE/DISABLE SOLUTIONS)
+\newcommand{\solution}[1]{}
+%\newcommand{\solution}[1]{{\color{red}#1}}
+
+\begin{document}
+{\bf Exercice H} ({\sl Polynômes d'Hermite})
+L'objectif de cet exercice est de construire une base Hilbertienne de~$L^2(\R)$
+formée par fonctions propres de l'opérateur transformée de Fourier.
+On définit les deux familles de fonctions suivantes :
+\[
+	H_n(x):=(-1)^ne^{x^2}\frac{\d^n}{\d x^n}e^{-x^2}\qquad n=0,1,2,\ldots
+	\qquad\textsl{(polynômes d'Hermite)}
+\]
+\[
+	\varphi_n(x):=e^{-x^2/2}H_n(x)\qquad\qquad n=0,1,2,\ldots
+	\qquad\textsl{(fonctions d'Hermite)}
+\]
+\begin{enumerate}
+	\item
+		Vérifiez que chaque~$H_n$ est en effet un polynôme de
+		degré~$n$, et calculez les 4 premiers.
+		\solution{\\
+			Il faut vérifier que les dérivées successives de la fonction~$x\mapsto e^{-x^2}$
+			sont de la forme~$P_n(x) e^{-x^2}$ avec~$P_n$ un polynôme de degré~$n$.
+			Ceci est trivialement vrai pour la dérivée~$0$-ème.
+			Ensuite on a~$\left(P_n(x)
+			e^{-x^2}\right)'=P_n'(x)e^{-x^2}-2xP_n(x)e^{-x^2}$
+		}
+	\item Quel est le coefficient de plus haut degré de~$H_n$ ?
+	\item Trouvez une relation de récurrence qui
+		exprime~$H_{n+1}$ à partir de~$H_n$ et~$H_n'$.
+	\item Démontrez que les~$\varphi_n$ sont fonctions propres de la transformée
+		de Fourier~${}\widehat{\phantom{u}}:L^2(\R)\to L^2(\R)$, définie
+		par~$\widehat{u}(y)=\frac1{\sqrt{2\pi}}\int_\R u(x)e^{-ixy}\d x$
+		sur~$L^1(\R)\cap L^2(\R)$
+		puis étendue à~$L^2(\R)$ par densité.  ({\sl Indication: écrire la
+		récurrence en termes des~$\varphi_n$, et utiliser les propriétés de
+		transformée d'une dérivée et dérivée d'une transformée.})
+	\item Quels sont les valeurs propres associées à ces fonctions propres?
+		Est-ce que l'opérateur~$u\mapsto\widehat u$ peut avoir d'autres valeurs
+		propres? ({\sl Indication: identifiez l'opérateur $\
+		{}\widehat{\phantom{u}}^{\,4}$.})
+	\item Trouvez plusieurs points fixes de~$\widehat{\phantom{u}}$ qui
+	ne soient pas des multiples de fonctions d'Hermite~$\varphi_n$.
+	\item Trouvez une relation de récurrence qui
+		exprime~$H_{n+1}$ à partir de~$H_n$ et~$H_{n-1}$.
+	\item Démontrez que les polynômes~$H_n$ sont orthogonaux par rapport
+		à~$\left<f,g\right>=\int_\R f(x)\overline{g(x)}\omega(x)\d x$, et
+		identifier la fonction de poids~$\omega(x)$.
+	\item Démontrez que la famille~$\left\{H_n\right\}_n$ est, à normalisation
+		près, une base
+		Hilbertienne de~$L^2(\R,\omega)$.  ({\sl Indication: Démontrez d'abord
+		que~$\int_\R u(x)x^ne^{-x^2}\d x=0\forall n$ implique~$u=0$.})
+	\item Démontrez que la famille~$\left\{\varphi_n\right\}_n$ est, à
+		normalisation près, une base Hilbertienne de~$L^2(\R)$.
+\end{enumerate}
+
+
+\end{document}
+
+
+% vim:set tw=79 filetype=tex spell spelllang=fr sw=2 ts=2:
