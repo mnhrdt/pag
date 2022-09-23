@@ -1,5 +1,9 @@
 Sources pour construire les documents suivants:
 
+NOTE: pour activer/désactiver la compilation des solutions du poly il faut
+éditer une ligne dans le fichier .header.tex
+
+
 allinu.pdf    : poly d'algèbre linéaire numérique
 alaps.pdf     : exercice sur le laplacien discret
 alaps_sol.pdf : exercice sur le laplacien discret (solutions)
